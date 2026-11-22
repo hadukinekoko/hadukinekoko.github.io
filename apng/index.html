@@ -6,12 +6,20 @@
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#ecedf6;background:#10131f}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 0,#31274a 0,transparent 33%),radial-gradient(circle at 98% 30%,#173b48 0,transparent 33%),#10131f;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #f3ba82;outline-offset:3px}.wrap{max-width:1320px;margin:auto;padding:30px 24px 80px}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:25px}.eyebrow{font-size:.72rem;letter-spacing:.2em;color:#e7ac85;font-weight:800}h1{font-size:clamp(1.9rem,4vw,3.2rem);letter-spacing:.04em;margin:8px 0 9px}h1 span{color:#f0b786}.lead{color:#abb5c9;line-height:1.7;margin:0}.pill{border:1px solid #5e526f;color:#decde8;border-radius:99px;padding:9px 14px;font-size:.8rem;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:23px;align-items:start}.library,.panel{background:#1a1f30;border:1px solid #343b51;border-radius:19px;box-shadow:0 22px 45px #06091036}.library{padding:20px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:15px}.search{min-width:180px;flex:1;padding:11px 13px;background:#111626;color:#fff;border:1px solid #3e465e;border-radius:10px}.filter{border:1px solid #424b62;border-radius:10px;color:#bbc5d8;background:#20273a;padding:10px 12px;font-size:.82rem}.filter.active{background:#e7ac85;border-color:#e7ac85;color:#241925;font-weight:800}.count{color:#95a4b7;font-size:.8rem;margin:0 0 14px}.more{display:block;width:100%;margin-top:18px;padding:12px;border:1px solid #4d5a73;border-radius:10px;background:#2c354c;color:#fff;font-weight:800}.more[hidden]{display:none}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.card{position:relative;text-align:left;border:1px solid #384258;border-radius:14px;background:#232a3d;color:#f2f2f8;padding:0;overflow:hidden;transition:transform .16s,border-color .16s}.card:hover{transform:translateY(-2px);border-color:#bd9caa}.card.active{border-color:#f0b786;box-shadow:0 0 0 1px #f0b786}.card canvas{display:block;width:100%;aspect-ratio:16/9;background-color:#111a29;background-image:linear-gradient(45deg,#253147 25%,transparent 25%),linear-gradient(-45deg,#253147 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#253147 75%),linear-gradient(-45deg,transparent 75%,#253147 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}.card-text{padding:11px 12px 13px}.card-title{display:block;font-size:.92rem;font-weight:800}.card-sub{display:block;font-size:.72rem;color:#aebbd0;margin-top:3px}.check{position:absolute;right:9px;top:9px;width:29px;height:29px;border:1px solid #ffffff9c;border-radius:8px;background:#111728b8;color:#fff;display:grid;place-items:center;font-size:1rem}.check.on{background:#e7ac85;border-color:#e7ac85;color:#211626}.panel{position:sticky;top:16px;padding:20px}.panel h2{font-size:1.15rem;margin:0 0 7px}.panel p{font-size:.8rem;line-height:1.55;color:#acb8ce;margin:0 0 15px}.previewbox{border-radius:12px;overflow:hidden;background-color:#111a29;background-image:linear-gradient(45deg,#253147 25%,transparent 25%),linear-gradient(-45deg,#253147 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#253147 75%),linear-gradient(-45deg,transparent 75%,#253147 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}.previewbox canvas{display:block;width:100%;aspect-ratio:16/9}.panel label{display:block;font-size:.77rem;font-weight:800;color:#c7d2e5;margin:17px 0 7px}.controlrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.panel select,.panel input[type=color]{width:100%;height:40px;background:#111626;color:#f7f5fa;border:1px solid #49546c;border-radius:9px;padding:6px 9px}.panel input[type=color]{padding:3px;cursor:pointer}.panel input[type=range]{width:100%;accent-color:#e7ac85}.hint{font-size:.72rem;color:#9eaec2;margin-top:5px}.primary,.secondary{width:100%;border:0;border-radius:10px;padding:12px 13px;font-weight:800;margin-top:14px}.primary{background:#f0b786;color:#241926}.primary:hover{background:#ffd1a5}.secondary{background:#313b52;color:#f2f3fc;margin-top:8px}.secondary:hover{background:#42506c}button:disabled{opacity:.52;cursor:wait}.selection{color:#eec9ad;font-size:.79rem;min-height:22px;margin-top:15px}.status{font-size:.77rem;color:#b6c6d5;line-height:1.5;min-height:38px;margin-top:10px}.help{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:23px}.help article{background:#1a1f30;border:1px solid #343b51;border-radius:14px;padding:17px;color:#aebbd0;line-height:1.6;font-size:.79rem}.help strong{display:block;color:#eeeaf1;font-size:.85rem;margin-bottom:5px}.help a{color:#f0b786}.empty{grid-column:1/-1;padding:45px;text-align:center;color:#b2bdd0}.foot{font-size:.72rem;color:#8190a5;margin-top:24px}@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:minmax(0,1fr) 320px}}@media(max-width:760px){.wrap{padding:22px 14px 60px}.top{display:block}.pill{display:inline-block;margin-top:14px}.layout{display:flex;flex-direction:column-reverse}.panel{position:static;width:100%}.library{width:100%}.help{grid-template-columns:1fr}}@media(max-width:470px){.cards{grid-template-columns:1fr 1fr;gap:9px}.card-title{font-size:.8rem}.card-sub{font-size:.66rem}.card-text{padding:9px}.toolbar{gap:6px}.filter{padding:8px;font-size:.74rem}.search{flex-basis:100%}}
 .collections{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 14px}.collections span{font-size:.74rem;color:#b8c4d8;margin-right:3px}.feature{border:1px solid #4c4d64;border-radius:18px;padding:5px 11px;text-decoration:none;color:#d9d9ee;font-size:.76rem}.feature:hover,.feature[aria-current=true]{background:#3a354e;color:#ffdcbe;border-color:#bc93a7}.feature:focus-visible{outline:2px solid #f3ba82;outline-offset:2px}.previewbox[data-backdrop=light]{background:#f2ece3}.previewbox[data-backdrop=dark]{background:#1d2330}.previewtools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:9px 0 3px}.panel .previewtools label{margin:0;color:#bfc8da}.panel .previewtools select,.previewtools button{border:1px solid #47526a;border-radius:7px;background:#242b40;color:#e4e7f0;font-size:.73rem;height:30px;padding:3px 7px;width:auto}.previewtools button:hover{background:#39425c}.scrub{display:flex;align-items:center;gap:8px}.scrub input{flex:1;min-width:0}.scrub output{font: .65rem ui-monospace,monospace;white-space:nowrap;color:#bac8da}.panel .previewnote{font-size:.68rem;color:#a8b4c7;margin:3px 0 8px}.card-text{display:block}@media(min-width:761px) and (max-height:870px){.panel{max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain}}
+.previewbox{position:relative}.previewbox canvas{position:relative;z-index:1}.sample-scene{position:absolute;width:100%;height:100%;inset:0;display:none;pointer-events:none}.previewbox[data-backdrop=scene] .sample-scene{display:block}.sample-b,.previewbox[data-scene=b] .sample-a{display:none}.previewbox[data-scene=b] .sample-b{display:inline}.stage-cue{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;color:#edd3b9;font-size:.79rem;line-height:1.55;margin:7px 0 5px}.stage-cue[hidden],.stage-cue button[hidden]{display:none}.stage-cue button{font-size:.79rem;color:#f4d1ad;background:transparent;border:0;border-bottom:1px dotted #a68c85;white-space:nowrap;padding:1px 0}
 </style>
 </head>
 <body><main class="wrap">
-<header class="top"><div><div class="eyebrow">CCFOLIA · ANIMATED MATERIAL MAKER</div><h1>ココフォリア APNG工房</h1><p class="lead">シーンにひとさじの動きを。演出を選び、色を決めて、APNGをその場で生成できます。</p></div><div class="pill"><span id="totalCount">550</span>種類のオリジナル演出</div></header>
-<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#new" data-feature="new">新作50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
-<aside class="panel"><h2 id="selectedTitle">カーテンが開く</h2><p id="selectedDescription">幕が左右に開く、物語の始まりに。</p><div class="previewbox" id="previewBox" data-backdrop="grid"><canvas id="preview" width="640" height="360" aria-label="選んだ演出のプレビュー"></canvas></div><div class="previewtools"><label for="backdrop">背景</label><select id="backdrop"><option value="grid">市松</option><option value="light">明るい背景</option><option value="dark">暗い背景</option></select><button type="button" id="playPreview">一時停止</button><button type="button" id="restartPreview">最初から</button></div><div class="scrub"><input type="range" id="previewFrame" min="0" max="29" value="0" step="1" aria-label="プレビューのコマ"><output id="frameLabel" for="previewFrame">1 / 30</output></div><p class="previewnote">プレビューは繰り返し再生します。背景色は保存されません。</p><div class="controlrow"><div><label for="color">演出の色</label><input id="color" type="color" value="#d9a1bb"></div><div><label for="size">画像サイズ</label><select id="size"><option value="auto">1 MB以内 · 自動</option><option value="384">384 × 216 · 軽量</option><option value="576" selected>576 × 324 · 標準</option><option value="768">768 × 432 · 高画質</option></select></div></div><label for="duration">再生時間</label><select id="duration"><option value="1.5">1.5秒 · 速い</option><option value="2.5" selected>2.5秒 · 標準</option><option value="4">4秒 · ゆっくり</option></select><label for="density">粒の量・演出の強さ <span id="densityValue">ふつう</span></label><input id="density" type="range" min="1" max="3" value="2" step="1"><div class="hint">素材ごとに色と強さを変えられます。背景は透過PNGです。</div><button id="downloadOne" class="primary">この素材をAPNGで保存</button><div class="selection" id="selection">選択済み 0点</div><button id="downloadZip" class="secondary" disabled>選択した素材をZIPで保存</button><button id="clearSelection" class="secondary" style="margin-top:5px">選択を解除</button><div id="status" class="status" role="status" aria-live="polite">一覧のカードを押すとプレビューが変わります。右上の□で複数選択できます。</div></aside></div>
+<header class="top"><div><div class="eyebrow">CCFOLIA · ANIMATED MATERIAL MAKER</div><h1>ココフォリア APNG工房</h1><p class="lead">シーンにひとさじの動きを。演出を選び、色を決めて、APNGをその場で生成できます。</p></div><div class="pill"><span id="totalCount">562</span>種類のオリジナル演出</div></header>
+<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#doors-books" data-feature="doors-books">扉・本の場面転換</a><a class="feature" href="#new" data-feature="new">回想ほか50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
+<aside class="panel"><h2 id="selectedTitle">カーテンが開く</h2><p id="selectedDescription">幕が左右に開く、物語の始まりに。</p><div class="previewbox" id="previewBox" data-backdrop="grid"><svg class="sample-scene" viewBox="0 0 320 180" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="stage-dawn" x2=".16" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c3d8dd"/><stop offset=".66" stop-color="#f5dcb5"/><stop offset="1" stop-color="#dfad87"/></linearGradient>
+<linearGradient id="stage-night" x2=".2" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#23334d"/><stop offset=".7" stop-color="#68778e"/><stop offset="1" stop-color="#aa92a2"/></linearGradient>
+</defs>
+<g class="sample-a"><path fill="url(#stage-dawn)" d="M0 0h320v180H0z"/><circle cx="73" cy="58" r="18" fill="#fff1cc"/><path d="M0 123 60 79q16-12 31 2l28 21 45-42q10-9 22 2l73 56 61-28v90H0z" fill="#9faeab"/><path d="M0 137q41-29 78-16t70-4q54-31 94-11t78 9v65H0z" fill="#718d87"/><path d="M0 143q54-11 110-2t114-3q64-10 96 2v40H0z" fill="#b8c6b0"/><path d="M0 162q47-14 86-7t71 10q-47-3-81 4t-76 4zM320 149q-35-6-84 7t-63 7q50 5 80-1t67-4z" fill="#68837a"/></g>
+<g class="sample-b"><path fill="url(#stage-night)" d="M0 0h320v180H0z"/><circle cx="240" cy="42" r="14" fill="#f5e5ca"/><path d="M0 122 61 92l16 6 45-34 59 54 39-22 46 18 54-29v95H0z" fill="#657186"/><path d="M0 134q52-27 107-6t99-7q36-21 114-7v66H0z" fill="#465b65"/><path d="M0 148q33-9 79-4t112-3q63-7 129 1v38H0z" fill="#82939d"/><path d="M0 156q45-16 87-6t78 12q-36-2-81 6t-84 5zM320 154q-44-12-76-2t-60 12q45 1 81-4t55 0z" fill="#364b58"/><g fill="#f4e3c9"><circle cx="39" cy="41" r="1.3"/><circle cx="63" cy="25" r=".8"/><circle cx="109" cy="37" r=".9"/><circle cx="161" cy="20" r="1.3"/><circle cx="196" cy="52" r=".9"/><circle cx="293" cy="34" r="1.3"/></g></g></svg>
+<canvas id="preview" width="640" height="360" aria-label="選んだ演出のプレビュー"></canvas></div><div class="stage-cue" id="stageCue" hidden><span id="stageTiming"></span><button type="button" id="stagePair" hidden></button></div><div class="previewtools"><label for="backdrop">背景</label><select id="backdrop"><option value="scene" id="sceneBackdropOption" hidden disabled>場面A→B（見本）</option><option value="grid" selected>市松</option><option value="light">明るい背景</option><option value="dark">暗い背景</option></select><button type="button" id="playPreview">一時停止</button><button type="button" id="restartPreview">最初から</button></div><div class="scrub"><input type="range" id="previewFrame" min="0" max="29" value="0" step="1" aria-label="プレビューのコマ"><output id="frameLabel" for="previewFrame">1 / 30</output></div><p class="previewnote">プレビューは繰り返し再生します。背景色は保存されません。</p><div class="controlrow"><div><label for="color">演出の色</label><input id="color" type="color" value="#d9a1bb"></div><div><label for="size">画像サイズ</label><select id="size"><option value="auto">1 MB以内 · 自動</option><option value="384">384 × 216 · 軽量</option><option value="576" selected>576 × 324 · 標準</option><option value="768">768 × 432 · 高画質</option></select></div></div><label for="duration">再生時間</label><select id="duration"><option value="1.5">1.5秒 · 速い</option><option value="2.5" selected>2.5秒 · 標準</option><option value="4">4秒 · ゆっくり</option></select><label for="density">粒の量・演出の強さ <span id="densityValue">ふつう</span></label><input id="density" type="range" min="1" max="3" value="2" step="1"><div class="hint">素材ごとに色と強さを変えられます。背景は透過PNGです。</div><button id="downloadOne" class="primary">この素材をAPNGで保存</button><div class="selection" id="selection">選択済み 0点</div><button id="downloadZip" class="secondary" disabled>選択した素材をZIPで保存</button><button id="clearSelection" class="secondary" style="margin-top:5px">選択を解除</button><div id="status" class="status" role="status" aria-live="polite">一覧のカードを押すとプレビューが変わります。右上の□で複数選択できます。</div></aside></div>
 <section class="help"><article><strong>① 場面転換</strong>一度だけ再生する素材です。シーン変更時のカットインや前景の演出に。</article><article><strong>② 重ねる演出</strong>雨・雪・光などはループします。スクリーンパネルやマーカーパネルに重ねて使えます。</article><article><strong>③ 読み込み前に確認</strong>APNGはココフォリア対応形式です。各画像には容量制限があるため、重い場合は、画像サイズの「1 MB以内 · 自動」で時間を変えずに小さくできます。<a href="https://docs.ccfolia.com/" target="_blank" rel="noopener">公式ヘルプ</a></article></section><p class="foot">非公式の素材生成ツールです。画像は端末内で生成し、素材の内容は外部へ送信しません。ZIP一括保存はブラウザのメモリを使用します。</p>
 </main><script>
 const presets=[
@@ -208,6 +216,34 @@ const edition550=[
 ];
 for(const [series,category,tags,entries] of edition550){
   entries.forEach(([slug,name,desc,color,once],variant)=>presets.push({id:series+'_'+slug.replaceAll('-','_'),series,category,tags,variant,name,desc,color,once:!!once}));
+}
+
+// Authored as matching sets: a closed frame has the same artwork in every mode.
+const stageDoors=[
+  ['manor','洋館の両開き扉','#774749','真鍮の取っ手とアーチの彫刻がある、深い赤茶色の木扉','洋館 観音開き 木製 玄関 ドア'],
+  ['shoji','和室の障子','#d9caa6','桟が組まれた二枚の障子が、敷居に沿ってすべる','障子 引き戸 和風 和室 旅館'],
+  ['archive','書庫の片開き扉','#386564','琥珀色の欄間を備えた青緑の扉が、左の蝶番を軸に動く','書斎 図書館 書庫 洋風 片開き ドア']
+];
+const stageModes=[
+  ['change','閉じて開く','いったん全画面を覆い、ひと呼吸おいて次の場面を見せます。','閉じる 閉まる 開く 開ける 開閉 しめる ひらく 切替'],
+  ['close','閉じる','最後のコマは、扉が閉じた状態のままです。','閉まる 閉める しまる しめる クローズ'],
+  ['open','開く','閉じた状態から始まり、最後は何も残らず背景が見えます。','開ける 開き ひらく あく オープン']
+];
+for(const [art,label,color,details,tags] of stageDoors)for(const [mode,title,desc,aliases] of stageModes){
+  presets.push({id:'stage_'+art+'_'+mode,name:label+'・'+title,desc:details+'。'+desc,category:'transition',color,once:true,stageNew:true,stage:{art,mode},tags:'扉 とびら ドア シーン切り替え 場面転換 '+tags+' '+aliases})
+}
+for(const [id,name,desc,color,art,dir,leaves,tags] of [
+  ['tale_forward','物語の本・次のページへ','古い物語集の右ページがふくらみ、挿絵のある次の見開きへ進みます。','#c7a878','storybook',1,1,'右から左 順送り 次の章 古書 挿絵'],
+  ['tale_back','物語の本・前のページへ','左の紙が右へと返り、月の挿絵とともに前の章へ戻ります。','#c7a878','storybook',-1,1,'左から右 逆めくり 巻き戻し 前の章 回想'],
+  ['diary_riffle','日記のページを続けてめくる','罫線と押し葉のある日記。重なった二枚を続けてめくり、次の日へ移ります。','#c5ad9c','diary',1,2,'連続 パラパラ 手帳 押し花 押し葉 回想']
+])presets.push({id:'stage_'+id,name,desc,color,category:'transition',once:true,stageNew:true,stage:{art,mode:'page',dir,leaves},tags:'本 書籍 ほん 絵本 ページ 頁 めくる めくれる 捲る 捲れる ページめくり ページ送り シーン切り替え 場面転換 '+tags});
+// Keep earlier downloads/bookmarks compatible while replacing the old flat reveal.
+for(const [id,stage,desc] of [
+  ['fx_doors500_0',{art:'panel',mode:'change'},'腰板のある二枚の扉が閉じ、ひと呼吸おいて左右に開きます。'],
+  ['fx_doors500_2',{art:'fusuma',mode:'close'},'山並みの描かれた襖が両側から閉まり、最後は閉じたまま止まります。'],
+  ['fx_doors500_4',{art:'notebook',mode:'page',dir:1,leaves:1},'ノートの端が反り、紙の裏側を見せながら次のページへ移ります。']
+]){
+  const p=presets.find(x=>x.id===id);p.stage=stage;p.desc=desc;p.tags=(stage.mode==='page'?'本 ページ 捲る めくる':'扉 閉まる 閉じる')+' シーン切り替え'
 }
 
 const $=id=>document.getElementById(id), byId=Object.fromEntries(presets.map(p=>[p.id,p]));
@@ -1067,8 +1103,239 @@ function drawEdition550(ctx,p,t,w,h,c,density){
   ctx.restore()
 }
 
+// Stage geometry is in a 320 × 180 viewbox; the export stays RGBA at any size.
+const STW=320,STH=180;
+function stPath(g,pts,fill,stroke=null,width=1,closed=true){
+  if(!pts.length)return;g.beginPath();g.moveTo(...pts[0]);for(let i=1;i<pts.length;i++)g.lineTo(...pts[i]);if(closed)g.closePath();
+  if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.lineWidth=width;g.strokeStyle=stroke;g.stroke()}
+}
+function stStroke(g,pts,c,w){stPath(g,pts,null,c,w,false)}
+function stRect(g,x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
+function stGradient(g,x,y,X,Y,stops){if(Math.hypot(X-x,Y-y)<.002)return stops[0][1];const v=g.createLinearGradient(x,y,X,Y);for(const [s,c] of stops)v.addColorStop(s,c);return v}
+function stMapped(g,p,pts,fill,stroke=null,width=1){stPath(g,pts.map(([u,v])=>p(u,v)),fill,stroke,width)}
+function stBar(g,p,u,v,U,V,c){stMapped(g,p,[[u,v],[U,v],[U,V],[u,V]],c)}
+function stRim(g,p,u,v,U,V,c,width){stMapped(g,p,[[u,v],[U,v],[U,V],[u,V]],null,c,width)}
+function stOval(g,p,u,v,rx,ry,c,border=null,width=1){const a=Array.from({length:32},(_,i)=>[u+rx*Math.cos(i*TAU/32),v+ry*Math.sin(i*TAU/32)]);stMapped(g,p,a,c,border,width)}
+function stTrace(g,p,a,c,w){stStroke(g,a.map(([u,v])=>p(u,v)),c,w)}
+function stTap(c,t){return mix550(c,'#fff0c6',t)}
+function stDark(c,t){return mix550(c,'#211b25',t)}
+function stInset(g,p,u,v,U,V,c,hollow=false){
+  const du=.019,dv=.017;stBar(g,p,u,v,U,V,stDark(c,.50));
+  stMapped(g,p,[[u,v],[U,v],[U-du,v+dv],[u+du,v+dv],[u+du,V-dv],[u,V]],hollow?stDark(c,.58):stTap(c,.25));
+  stMapped(g,p,[[u,V],[U,V],[U,v],[U-du,v+dv],[U-du,V-dv],[u+du,V-dv]],hollow?stTap(c,.3):stDark(c,.48));
+  const a=p(u+du,v+dv),b=p(U-du,V-dv);
+  stBar(g,p,u+du,v+dv,U-du,V-dv,stGradient(g,...a,...b,[[0,stDark(c,.30)],[.55,c],[1,stTap(c,.10)]]));
+  stRim(g,p,u+du*1.7,v+dv*1.5,U-du*1.7,V-dv*1.5,rgba(stTap(c,.52),.50),.55)
+}
+function stArch(u,v,U,V,shoulder){let a=[[u,V],[u,shoulder]];for(let j=0;j<=28;j++){let t=Math.PI+j*Math.PI/28;a.push([(u+U)/2+Math.cos(t)*(U-u)/2,shoulder+Math.sin(t)*(shoulder-v)])}a.push([U,V]);return a}
+function stGrain(g,p,c,density){for(let i=0;i<7+4*density;i++){const u=.05+.9*rnd(i,173),v=.02+.78*rnd(i,174),len=.08+.22*rnd(i,175),a=[];for(let j=0;j<=7;j++){let s=j/7;a.push([u+.004*Math.sin(s*6+i),v+len*s])}stTrace(g,p,a,rgba(stDark(c,.6),.23),.42)}}
+function stPull(g,p,style){
+  if(style==='manor'){
+    const plate=[[.837,.512],[.863,.484],[.889,.512],[.889,.610],[.863,.636],[.837,.610]];
+    stMapped(g,p,plate,'#806244','#dec18a',.7);stOval(g,p,.863,.546,.029,.022,'#684c3e');stOval(g,p,.860,.537,.024,.019,'#be955a','#f1d59a',.65);
+    stOval(g,p,.863,.593,.007,.006,'#524034');stBar(g,p,.859,.590,.867,.611,'#524034');
+  }else if(style==='archive'){
+    stBar(g,p,.850,.576,.884,.713,'#aa884e');stRim(g,p,.850,.576,.884,.713,'#e3cb94',.65);
+    stOval(g,p,.866,.603,.012,.018,'#927950');stMapped(g,p,[[.87,.597],[.861,.613],[.788,.623],[.781,.609]],'#d8bf82','#7c694b',.65);stOval(g,p,.867,.665,.005,.008,'#4c463a');
+  }else{stOval(g,p,.865,.54,.016,.045,'#4b3b35','#c1a373',.75);stOval(g,p,.866,.536,.007,.032,'#302c2c')}
+}
+function stHinged(g,c,art,cover,density){
+  const single=art==='archive',L=single?320:160,theta=(1-cover)*Math.PI/2,co=Math.cos(theta),z=Math.sin(theta)*(single?.66:.47),tilt=Math.sin(theta);
+  for(const right of (single?[false]:[false,true])){
+    const side=right?-1:1,hinge=right?320:0;
+    const p=(u,v)=>{const s=1/(1+z*u);return[hinge+side*L*co*u*s,88+(180*v-88)*s]};
+    const edge=p(1,0),foot=p(1,1),shadeLen=tilt*(single?11:6)*Math.min(1,cover*14);
+    // A short shadow follows the detached edge; nothing remains in the open pose.
+    if(shadeLen>.1){const grad=stGradient(g,edge[0],0,edge[0]+side*shadeLen,0,[[0,'rgba(24,18,26,.32)'],[1,'rgba(24,18,26,0)']]);stPath(g,[edge,[edge[0]+side*shadeLen,edge[1]+2],[foot[0]+side*shadeLen,foot[1]+1],foot],grad)}
+    g.save();stMapped(g,p,[[0,0],[1,0],[1,1],[0,1]],c);g.clip();
+    const a=p(0,0),b=p(1,1);stBar(g,p,0,0,1,1,stGradient(g,...a,...b,[[0,stDark(c,.33)],[.29,stTap(c,.11)],[.68,c],[1,stDark(c,.22)]]));
+    stGrain(g,p,c,density);stBar(g,p,.012,0,.035,1,stDark(c,.40));stBar(g,p,.035,0,.042,1,stTap(c,.28));
+    if(art==='manor'){
+      const arches=[[.092,.065,.873,.515,.239,stDark(c,.56)],[.106,.081,.858,.503,.244,stTap(c,.32)],[.122,.099,.841,.489,.249,stDark(c,.32)]];
+      for(const [u,v,U,V,sh,fill] of arches)stMapped(g,p,stArch(u,v,U,V,sh),fill);
+      stMapped(g,p,stArch(.143,.123,.821,.474,.255),null,rgba(stTap(c,.62),.67),.8);
+      const x=.481,y=.303;
+      stMapped(g,p,[[x,y-.071],[x+.038,y-.010],[x,y+.058],[x-.038,y-.010]],stTap(c,.22),'#c1a175',.7);
+      for(const k of [-1,1])stMapped(g,p,[[x,y+.028],[x+k*.056,y-.019],[x+k*.098,y-.020],[x+k*.075,y+.004]],stTap(c,.24));
+      stInset(g,p,.104,.609,.864,.923,c);stBar(g,p,.083,.952,.907,.961,stTap(c,.22));stPull(g,p,art);
+    }else if(single){
+      const bounds=stArch(.132,.085,.840,.515,.340);stMapped(g,p,bounds,stDark(c,.66),'#95845d',1);
+      const glass=stArch(.146,.108,.827,.496,.341),lo=p(.15,.12),hi=p(.83,.49);
+      stMapped(g,p,glass,stGradient(g,...lo,...hi,[[0,'#a7865f'],[.43,'#e1c693'],[.70,'#b89b70'],[1,'#8e795d']]));
+      g.save();g.clip();for(const u of [.18,.307,.485,.665,.793])stBar(g,p,u-.007,.10,u+.007,.5,stDark(c,.43));
+      stBar(g,p,.13,.333,.84,.351,stDark(c,.4));
+      for(let j=1;j<6;j++){const a=Math.PI+j*Math.PI/6;stTrace(g,p,[[.486,.344],[.486+.344*Math.cos(a),.344+.241*Math.sin(a)]],stDark(c,.36),1.3)}
+      stMapped(g,p,stArch(.414,.278,.558,.347,.340),stTap(c,.13));g.restore();
+      stInset(g,p,.133,.639,.457,.928,c);stInset(g,p,.501,.639,.827,.928,c);stBar(g,p,.402,.536,.57,.599,'#806e49');stBar(g,p,.407,.541,.565,.594,'#d5bd87');
+      stTrace(g,p,[[.438,.551],[.437,.579],[.484,.586],[.484,.559],[.438,.551],[.484,.560],[.534,.550],[.534,.578],[.484,.586]],'#675c44',.85);stPull(g,p,art);
+    }else{stInset(g,p,.12,.11,.83,.49,c,true);stInset(g,p,.12,.57,.83,.91,c,true);stPull(g,p,'simple')}
+    stBar(g,p,.985,0,1,1,stDark(c,.58));if(tilt>.01)stBar(g,p,0,0,1,1,'rgba(25,20,26,'+(.19*tilt)+')');
+    g.restore();
+  }
+}
+function stSliding(g,c,art,cover,density){
+  const wood=stDark(stTap(c,.18),.62),frame=stDark(wood,.26),edge=stTap(wood,.28),paper=stTap(c,.55);
+  for(const right of [false,true]){
+    const s=right?-1:1,h=right?320:0,x=h-s*(1-cover)*160,p=(u,v)=>[x+s*160*u,180*v];
+    g.save();stMapped(g,p,[[0,0],[1,0],[1,1],[0,1]],paper);g.clip();
+    stBar(g,p,0,0,1,1,stGradient(g,...p(0,0),...p(1,1),[[0,stTap(c,.79)],[.48,paper],[1,stDark(c,.03)]]));
+    if(art==='shoji'){
+      // Very sparse paper fibres; the height and widths of the lattice never shrink as it slides.
+      for(let j=0;j<10*density;j++){const u=rnd(j,187),v=rnd(j,188);stTrace(g,p,[[u,v],[u+.020,v+.002]],rgba(stDark(c,.35),.19),.45)}
+      for(const u of [.18,.39,.60,.81]){stBar(g,p,u-.008,0,u+.008,.81,wood);stBar(g,p,u+.008,0,u+.014,.81,edge)}
+      for(const v of [.168,.337,.505,.673,.752]){stBar(g,p,.01,v,.985,v+.012,wood);stBar(g,p,.01,v+.012,.985,v+.018,edge)}
+      stBar(g,p,0,.806,1,1,wood);stInset(g,p,.054,.844,.945,.953,wood,true);
+    }else{
+      for(const [k,fill] of [[0,stDark(c,.11)],[1,stDark(c,.27)],[2,stDark(c,.41)]]){
+        let pts=[[0,1]];for(let i=0;i<=25;i++){let u=i/25,b=right?2-u:u;pts.push([u,.67+.092*k+.057*Math.sin(b*5+k)+.054*Math.sin(b*10.8+k*.7)])}pts.push([1,1]);stMapped(g,p,pts,fill)}
+      if(!right)stOval(g,p,.37,.28,.076,.067,stTap(c,.63));
+    }
+    stBar(g,p,0,0,.039,1,frame);stBar(g,p,.958,0,1,1,frame);stBar(g,p,.955,0,.965,1,edge);stBar(g,p,0,0,1,.028,frame);stBar(g,p,0,.971,1,1,frame);
+    if(art==='shoji'){stBar(g,p,.874,.48,.925,.626,wood);stBar(g,p,.888,.50,.913,.61,frame)}else stPull(g,p,'simple');g.restore()
+  }
+}
+function stDoorCover(mode,t){return mode==='close'?ramp550(t,.035,.78):mode==='open'?1-ramp550(t,.13,.90):t<.5?ramp550(t,.035,.37):1-ramp550(t,.63,.925)}
+function stDoor(g,stage,t,c,d){
+  const q=stDoorCover(stage.mode,t);if(q<=0)return;
+  if(q===1)stRect(g,0,0,320,180,stDark(c,.26));
+  if(stage.art==='shoji'||stage.art==='fusuma')stSliding(g,c,stage.art,q,d);else stHinged(g,c,stage.art,q,d)
+}
+
+// A leaf bends along a cylindrical section: integrate its changing tangent from
+// the spine to the tip. At the fold both the printed front and the verso are visible.
+const stBookCache=new Map(),stFaceCache=new Map();
+function stPaper(c,num){return mix550(c,'#fff4d5',.49+.07*(Math.abs(num)%3))}
+function stInk(c){return mix550(c,'#3a3032',.81)}
+function stLinear(g,M,x,y,X,Y,c,w){const a=[];for(let j=0;j<=8;j++){let u=j/8;a.push(M(lerp(x,X,u),lerp(y,Y,u)))}stStroke(g,a,c,w)}
+function stArt(g,P,side,num,kind,c,density){
+  const M=(x,y)=>P(side>0?x:1-x,y),ink=stInk(c),soft=stDark(c,.40),accent=kind==='diary'?'#97724e':stDark(c,.23),paper=stPaper(c,num);
+  const lin=(x,y,X,Y,col,w)=>stLinear(g,M,x,y,X,Y,col,w),shape=(pts,fill,stroke=null,w=1)=>stMapped(g,M,pts,fill,stroke,w);
+  const oval=(x,y,rx,ry,col,stroke=null,w=1)=>stOval(g,M,x,y,rx,ry,col,stroke,w);
+  const seed=Math.abs(num)*13+(kind==='diary'?71:47), col=(a)=>rgba(ink,a);
+  function diamond(x,y,r,fill){shape([[x,y-r],[x+r*.85,y],[x,y+r],[x-r*.85,y]],fill)}
+  function rows(y,n,max=.84){for(let i=0;i<n;i++){let yy=y+i*.039,start=.175+(i===0?.045:0),end=i===n-1?.48+.16*rnd(i,seed):max;while(start<end-.025){let stop=Math.min(end,start+.043+.103*rnd(i,Math.round(start*1000),seed));lin(start,yy,stop,yy,col(.66),.80);start=stop+.016+.014*rnd(i,Math.round(stop*300),seed)}}}
+  if(kind==='storybook'){
+    lin(.15,.111,.85,.111,soft,.65);lin(.18,.124,.82,.124,soft,.38);
+    if(num%2===0){
+      // A small engraved landscape rather than a rectangle of fake text.
+      const x=.505,y=.338;oval(x,y,.246,.171,stTap(paper,.25),accent,.95);oval(x,y,.230,.156,null,soft,.43);
+      g.save();g.clip();
+      const sky=stGradient(g,...M(.28,.16),...M(.69,.5),[[0,stTap(c,.73)],[1,stDark(paper,.14)]]);
+      shape([[.25,.17],[.76,.17],[.76,.51],[.25,.51]],sky);
+      const day=num%4===0,moonX=day?.585:.425;oval(moonX,.267,.038,.034,stTap(paper,.9),accent,.44);
+      if(!day)oval(moonX+.014,.258,.030,.028,stTap(c,.65));
+      shape([[.24,.423],[.32,.366],[.39,.394],[.49,.319],[.60,.393],[.67,.360],[.77,.409],[.77,.52],[.24,.52]],stDark(paper,.28));
+      shape([[.24,.455],[.34,.422],[.44,.45],[.55,.391],[.65,.417],[.76,.39],[.77,.52],[.24,.52]],stDark(paper,.46));
+      if(day){for(const [x,y,ww] of [[.39,.410,.039],[.42,.393,.032],[.452,.407,.032]]){shape([[x-ww*.45,y],[x+ww*.37,y],[x+ww*.37,.449],[x-ww*.45,.449]],stDark(c,.53));shape([[x-ww*.58,y],[x,y-.034],[x+ww*.5,y]],stDark(c,.63))}}else{for(const [x,y] of [[.56,.247],[.603,.213],[.66,.277]])diamond(x,y,.011,stTap(c,.95))}
+      for(let j=0;j<3;j++)lin(.35+j*.06,.466,.37+j*.06,.461,stTap(c,.78),.65);
+      g.restore();rows(.576,6);diamond(.5,.845,.013,accent)
+    }else{
+      for(let s of [-1,1]){lin(.5+s*.04,.226,.5+s*.22,.226,accent,.8);diamond(.5+s*.245,.226,.012,accent)}
+      shape([[.5,.164],[.530,.211],[.573,.226],[.530,.241],[.50,.290],[.470,.241],[.427,.226],[.470,.211]],null,accent,1);
+      diamond(.5,.226,.024,accent);rows(.361,5);rows(.602,6);
+    }
+    lin(.17,.886,.39,.886,soft,.5);lin(.61,.886,.83,.886,soft,.5);
+    // Upright folio numerals are drawn as strokes, even when moving backwards.
+    const marks=2+Math.abs(num)%4;for(let j=0;j<marks;j++){let x=.50+(j-(marks-1)/2)*.019;lin(x,.877,x,.897,accent,.82)}
+  }else{
+    const plain=kind==='notebook',rule=plain?rgba(ink,.24):rgba('#74949c',.57),margin=plain?.150:.185;
+    for(let j=0;j<9;j++){let v=.23+j*.067;lin(.13,v,.87,v,rule,.57)}
+    if(!plain){lin(margin,.115,margin,.865,rgba('#ad7067',.56),.78);lin(margin+.015,.115,margin+.015,.865,rgba('#b97971',.36),.4)}
+    lin(.17,.145,.33,.145,soft,1.05);for(let j=0;j<3;j++)oval(.68+j*.068,.141,.016,.014,null,soft,.6);
+    const lines=plain?4:3;for(let j=0;j<lines;j++){let y=.274+j*.068,pts=[];const length=.35+rnd(j,seed)*.23;
+      for(let i=0;i<=36;i++){const a=i/36;pts.push(M(.228+a*length,y+.006*Math.sin(i*1.2+seed)-.012*(.3+.7*rnd(j,i,seed))*Math.sin(i*2.18+.2)))}stStroke(g,pts,col(.69),.88)}
+    if(!plain){const rev=num%2===0?1:-1,x=.49+rev*.06,y=.813;
+      lin(x,y,x+rev*.16,y-.24,accent,1.15);
+      for(let j=0;j<6;j++){let s=j/7,px=x+rev*s*.14,py=y-s*.22,sg=(j%2?1:-1)*rev;
+        shape([[px,py],[px+sg*.027,py-.042],[px+sg*.087,py-.058],[px+sg*.079,py-.030],[px+sg*.045,py-.006]],j%2?'#9e8a58':'#b39c62',rgba(ink,.51),.54);
+        lin(px,py,px+sg*.077,py-.046,rgba(ink,.54),.43)}
+      if(num%2===0)shape([[.73,0],[.78,0],[.78,.15],[.755,.126],[.73,.156]],'#ac7870')
+    }else{stRim(g,M,.227,.645,.353,.74,soft,.75);lin(.24,.702,.275,.721,accent,.92);lin(.275,.721,.337,.665,accent,.92)}
+  }
+  // Sparse fibres are painted on each sheet once; no noise changes between frames.
+  for(let i=0;i<5+density*4;i++){let x=.07+.86*rnd(i,seed,31),y=.05+.9*rnd(i,seed,32);lin(x,y,x+.011,y+.001,rgba(ink,.16),.40)}
+}
+function stBind(g){stRect(g,148,0,24,180,stGradient(g,148,0,172,0,[[0,'rgba(55,37,31,0)'],[.41,'rgba(55,37,31,.16)'],[.50,'rgba(42,31,30,.46)'],[.57,'rgba(57,41,33,.16)'],[1,'rgba(57,41,33,0)']]))}
+function stFace(kind,c,d,num,side,size){
+  const W=Math.round(size/2),H=Math.round(size*9/16),key=[kind,c,d,num,side,W].join('|');
+  let tex=stFaceCache.get(key);if(tex)return tex;
+  tex=sheet550(W,H);const ctx=tex.getContext('2d');ctx.scale(W/160,H/180);
+  const P=(s,v)=>[160*s,180*v],paper=stPaper(c,num);
+  stRect(ctx,0,0,160,180,stGradient(ctx,0,0,160,0,[[0,stDark(paper,.12)],[.15,paper],[.62,stTap(paper,.10)],[1,paper]]));
+  stArt(ctx,P,side,num,kind,c,d);if(stFaceCache.size>=32)stFaceCache.delete(stFaceCache.keys().next().value);stFaceCache.set(key,tex);return tex
+}
+function stSpread(g,kind,c,d,left,right,width){
+  const size=Math.max(240,Math.min(768,width)),key=[kind,c,d,left,right,size].join('|');
+  let cache=stBookCache.get(key);
+  if(!cache){const h=Math.round(size*9/16);cache=sheet550(size,h);let f=cache.getContext('2d');f.scale(size/320,h/180);
+    stRect(f,0,0,320,180,stPaper(c,left));
+    for(const [side,num] of [[-1,left],[1,right]]){f.save();f.translate(160,0);f.scale(side,1);f.drawImage(stFace(kind,c,d,num,side,size),0,0,160,180);f.restore()}
+    stBind(f);if(stBookCache.size>=16)stBookCache.delete(stBookCache.keys().next().value);stBookCache.set(key,cache)
+  }g.drawImage(cache,0,0,320,180)
+}
+// Map only the visible source interval of a curved page. A screen-space clip
+// alone would also project hidden letters back over the ridge of the fold.
+function stPrintWarp(g,P,tex,a,b){
+  const cols=Math.max(2,Math.ceil(28*(b-a))),rows=3;
+  for(let j=0;j<cols;j++)for(let r=0;r<rows;r++){
+    const u0=Math.max(a,a+(b-a)*(j-.075)/cols),u1=Math.min(b,a+(b-a)*(j+1.075)/cols);
+    const v0=Math.max(0,(r-.042)/rows),v1=Math.min(1,(r+1.042)/rows);
+    const A=P(u0,v0),B=P(u1,v0),C=P(u0,v1),D=P(u1,v1);
+    const xx=(B[0]-A[0]+D[0]-C[0])/2,xy=(B[1]-A[1]+D[1]-C[1])/2,
+      yx=(C[0]-A[0]+D[0]-B[0])/2,yy=(C[1]-A[1]+D[1]-B[1])/2,
+      ox=(A[0]+B[0]+C[0]+D[0])/4-(xx+yx)/2,oy=(A[1]+B[1]+C[1]+D[1])/4-(xy+yy)/2;
+    if(Math.abs(xx*yy-xy*yx)<.002)continue;
+    g.save();g.transform(xx,xy,yx,yy,ox,oy);g.drawImage(tex,tex.width*u0,tex.height*v0,tex.width*(u1-u0),tex.height*(v1-v0),0,0,1,1);g.restore()
+  }
+}
+function stLeafOutline(P,from,to){let a=[];for(let i=0;i<=20;i++)a.push(P(lerp(from,to,i/20),0));for(let i=20;i>=0;i--)a.push(P(lerp(from,to,i/20),1));return a}
+function stTurn(g,k,dir,kind,c,d,front,back,width){
+  const pi=Math.PI,r=pi*k,bend=1.05*Math.sin(r),theta=r-bend,B=2*bend;
+  const P=(s,v)=>{const q=theta+B*s,x=B>.0001?(Math.sin(q)-Math.sin(theta))/B:s*Math.cos(r),z=B>.0001?(Math.cos(theta)-Math.cos(q))/B:s*Math.sin(r);
+    return[160+dir*(160*x*(1+.083*z)+(v-.5)*22*z),90+(v-.5)*180*(1+.105*z)-20*z+4*z*Math.sin(v*pi)]};
+  const outline=stLeafOutline(P,0,1);
+  if(k>.003&&k<.997){const z=Math.sin(r);stPath(g,outline.map(([x,y])=>[x+dir*5.8*z,y+2.4*z]),'rgba(61,39,32,'+(.21*z)+')')}
+  const turnAt=B>.0001?clamp((pi/2-theta)/B):(k<.5?1:0);
+  for(const [a,b,face,num,sign] of [[0,turnAt,1,front,dir],[turnAt,1,-1,back,-dir]]){
+    if(b-a<.0001)continue;const path=stLeafOutline(P,a,b),paper=stPaper(c,num),z=Math.sin(r),start=P(a,.50),end=P(b,.50);
+    g.save();stPath(g,path,paper);g.clip();stPrintWarp(g,P,stFace(kind,c,d,num,sign,Math.max(240,Math.min(768,width))),a,b);
+    const glaze=stGradient(g,...start,...end,[[0,'rgba(70,44,36,'+(.15*z)+')'],[.32,'rgba(255,250,224,'+((face>0?.22:.34)*z)+')'],[.68,'rgba(255,250,224,'+(.07*z)+')'],[1,'rgba(47,31,31,'+(.16*z)+')']]);stRect(g,-30,-40,380,260,glaze);g.restore();
+  }
+  if(k>.012&&k<.988){const edge=[];for(let j=0;j<=10;j++)edge.push(P(1,j/10));stStroke(g,edge,rgba(stDark(c,.66),.54*Math.sin(r)),.95)}
+}
+function stSweepGeometry(k,dir){const tilt=Math.sin(Math.PI*k),lead=lerp(365,-45,k),reflect=x=>dir>0?x:320-x;
+  return{edge:v=>lead+tilt*(37*(v-.51)+12*Math.sin(Math.PI*v)),tilt,reflect}}
+function stRollingEdge(g,geo,enter,base){
+  const {edge,reflect,tilt}=geo,sign=enter?1:-1;
+  if(tilt<.012)return;
+  const curve=(v,u)=>reflect(edge(v)+sign*u*(4+tilt*(17+31*v*v)));
+  const strip=(a,b,color)=>{let path=[];for(let j=0;j<=16;j++){let v=j/16;path.push([curve(v,a),180*v])}for(let j=16;j>=0;j--){let v=j/16;path.push([curve(v,b),180*v])}stPath(g,path,color)};
+  const col=stPaper(base,11);
+  for(let i=0;i<21;i++){let a=i/21,b=(i+1)/21,m=(a+b)/2;let c=m<.24?mix550(stDark(col,.38),stTap(col,.58),m/.24):mix550(stTap(col,.58),stDark(col,.12),(m-.24)/.76);strip(a,b+.012,c)}
+  for(let i=0;i<7;i++){const a=1+i*.055;strip(a,a+.056,'rgba(46,31,26,'+((1-i/7)*.13*tilt)+')')}
+  for(let j=0;j<3;j++){const v0=.29+j*.079,pts=[];for(let i=0;i<=12;i++){const u=.23+i/12*.48,v=v0+.040*u*u;pts.push([curve(v,u),v*180])}stStroke(g,pts,rgba(stDark(col,.6),.40*tilt),.65)}
+}
+function stBook(g,st,t,c,d,width){
+  if(t<=.025||t>=.932)return;
+  const dir=st.dir,enter=t<.34,exit=t>.66,move=enter?ramp550(t,.025,.34):exit?ramp550(t,.66,.932):0;
+  let geo=null;
+  g.save();
+  if(enter||exit){geo=stSweepGeometry(move,dir);const edge=[],far=geo.reflect(enter?370:-50);
+    for(let j=0;j<=20;j++){let v=j/20;edge.push([geo.reflect(geo.edge(v)),v*180])}stPath(g,[...edge,[far,180],[far,0]],null);g.clip()}
+  const count=st.leaves,run=clamp((t-.18)/.62)*count,index=Math.min(count-1,Math.floor(run)),k=ease(run-index);
+  const pn=(dir>0?10:25)+dir*index*2,oldRest=pn,front=pn+dir,back=pn+2*dir,newRest=pn+3*dir,kind=st.art;
+  const spread=(a,b)=>stSpread(g,kind,c,d,dir>0?a:b,dir>0?b:a,width);
+  if(k<.00001)spread(oldRest,front);else if(k>.99999)spread(back,newRest);else{spread(oldRest,newRest);stTurn(g,k,dir,kind,c,d,front,back,width)}
+  if(geo)stRollingEdge(g,geo,enter,c);g.restore()
+}
+function drawStage(g,p,t,w,h,c,d){
+  g.save();g.scale(w/320,h/180);g.lineCap='round';g.lineJoin='round';
+  if(p.stage.mode==='page')stBook(g,p.stage,t,c,d,w);else stDoor(g,p.stage,t,c,d);
+  g.restore()
+}
+
 function drawEffect(ctx,p,t,w,h,color,density=2){
-  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.stage){drawStage(ctx,p,t,w,h,color,density);return}if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
   switch(p.id){
   case 'curtain':{drapedCurtain550(ctx,t,w,h,color);break}
   case 'wipe':{let x=lerp(-w,w,t),grad=ctx.createLinearGradient(x-w*.35,0,x+w*.35,0);grad.addColorStop(0,rgba(color,0));grad.addColorStop(.35,rgba(color,.95));grad.addColorStop(.65,rgba(color,.95));grad.addColorStop(1,rgba(color,0));ctx.fillStyle=grad;ctx.fillRect(x-w*.35,0,w*.7,h);break}
@@ -1101,15 +1368,30 @@ const observer=new IntersectionObserver(entries=>{for(const entry of entries)ent
 const categoryLabels={transition:'場面転換 シーン切り替え',weather:'自然 天候',fantasy:'幻想 魔法',dramatic:'ドラマ 感情 演出',horror:'ホラー 恐怖 怪異',combat:'戦闘 バトル',cyber:'SF サイバー'};
 function card(p){const el=document.createElement('button');el.type='button';el.className='card';el.dataset.id=p.id;el.innerHTML=`<canvas width="240" height="135" aria-hidden="true"></canvas><span class="check" aria-label="複数選択">□</span><span class="card-text"><span class="card-title"></span><span class="card-sub"></span></span>`;el.querySelector('.card-title').textContent=p.name;el.querySelector('.card-sub').textContent=p.category==='transition'||p.once?'一度だけ再生':'ループ再生';el.addEventListener('click',e=>{if(e.target.closest('.check')){toggle(p.id);return}choose(p.id)});return el}
 function appendCards(){let slice=matching.slice(visibleLimit,visibleLimit+60),newCards=slice.map(card);cards.append(...newCards);newCards.forEach(el=>observer.observe(el));visibleLimit+=slice.length;$('loadMore').hidden=visibleLimit>=matching.length;$('count').textContent=`${matching.length}種類中 ${visibleLimit}種類を表示 · 右上の□で複数選択`;updateCards()}
-const features550={new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
+const features550={'doors-books':p=>p.stageNew,new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
 function fold550(str){return str.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)).replace(/瞬き|瞬く|またたき/g,'まばたき')}
 const search550=new Map(presets.map(p=>[p.id,fold550([p.name,p.desc,p.category,categoryLabels[p.category],p.tags||'',features550.blink(p)?'まばたき まぶた 瞼':''].join(' '))]));
-function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
+function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(group==='transition'||terms.some(v=>/扉|どあ|障子|片開き|両開き|本|めく|捲|ぺーじ|閉ま|閉じ|開く/.test(v)))hits.sort((a,b)=>Number(!!b.stageNew)-Number(!!a.stageNew));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
 function renderCards(){matching=find550(filter,$('search').value,feature);observer.disconnect();visibleCards.clear();visibleLimit=0;cards.replaceChildren();if(!matching.length){let d=document.createElement('div');d.className='empty';d.textContent='該当する素材がありません。検索語を変えてください。';cards.append(d);$('loadMore').hidden=true;$('count').textContent='0種類を表示';return}appendCards()}
 $('loadMore').addEventListener('click',appendCards);
 function updateCards(){for(const el of cards.querySelectorAll('.card')){let id=el.dataset.id;el.classList.toggle('active',id===state.active);el.querySelector('.check').textContent=state.chosen.has(id)?'✓':'□';el.querySelector('.check').classList.toggle('on',state.chosen.has(id))}}
 function toggle(id){state.chosen.has(id)?state.chosen.delete(id):state.chosen.add(id);$('selection').textContent=`選択済み ${state.chosen.size}点`;$('downloadZip').disabled=!state.chosen.size||state.busy;updateCards()}
-function choose(id){state.active=id;let p=byId[id];$('selectedTitle').textContent=p.name;$('selectedDescription').textContent=p.desc;$('color').value=p.color;resetPreview550();updateCards()}
+let stageBackdropPref='default';
+function stageCut(p){return p.stage.mode==='close'?.83:p.stage.mode==='open'?.06:.5}
+function stageUI(p){
+  const stage=p.stage,option=$('sceneBackdropOption');option.hidden=option.disabled=!stage;
+  const bg=stageBackdropPref==='default'?(stage?'scene':'grid'):stageBackdropPref==='scene'&&!stage?'grid':stageBackdropPref;
+  $('backdrop').value=bg;$('previewBox').dataset.backdrop=bg;$('stageCue').hidden=!stage;
+  if(!stage)return;
+  const sec=Number((Math.ceil(frameCount550()*stageCut(p))/12).toFixed(2));
+  const tip=stage.mode==='close'?'最後は扉が閉じたままです。':stage.mode==='open'?'最初は扉が閉じています。':'画面全体が隠れます。';
+  $('stageTiming').textContent=`背景の切替目安：${sec}秒。${tip}`;
+  const button=$('stagePair'),other=stage.mode==='close'?'open':stage.mode==='open'?'close':'';
+  button.hidden=!(other&&p.stageNew);button.dataset.id=button.hidden?'':'stage_'+stage.art+'_'+other;
+  if(!button.hidden)button.textContent='同じ扉の「'+(other==='open'?'開く':'閉じる')+'」を見る'
+}
+$('stagePair').addEventListener('click',()=>{const id=$('stagePair').dataset.id;if(!id)return;const color=$('color').value;if(!matching.some(item=>item.id===id)){if(location.hash!=='#doors-books')history.pushState(null,'','#doors-books');applyFeature550('doors-books')}choose(id,color)});
+function choose(id,keepColor){state.active=id;let p=byId[id];$('selectedTitle').textContent=p.name;$('selectedDescription').textContent=p.desc;$('color').value=keepColor||p.color;stageUI(p);resetPreview550();updateCards()}
 function progress(message){$('status').textContent=message}
 function markFilters550(){document.querySelectorAll('.filter').forEach(b=>{const on=b.dataset.filter===filter;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});document.querySelectorAll('.feature').forEach(a=>{if(a.dataset.feature===feature)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})}
 function renderSelection550(){renderCards();if(matching.length&&!matching.some(p=>p.id===state.active))choose(matching[0].id)}
@@ -1125,11 +1407,11 @@ $('density').addEventListener('input',()=>{$('densityValue').textContent=['','�
 const preview=$('preview'),pctx=preview.getContext('2d');
 const playback550={playing:true,epoch:null,frame:0,cardTick:-1};
 function frameCount550(){return Math.round(12*Number($('duration').value))}
-function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value));const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
+function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];if(p.stage)$('previewBox').dataset.scene=i/n>=stageCut(p)?'b':'a';drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value));const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
 function playing550(on){playback550.playing=on;playback550.epoch=null;$('playPreview').textContent=on?'一時停止':'再生'}
 function resetPreview550(){playing550(true);playback550.frame=0;paintPreview550()}
-$('duration').addEventListener('change',resetPreview550);$('color').addEventListener('input',paintPreview550);$('density').addEventListener('input',paintPreview550);
-$('backdrop').addEventListener('change',()=>{$('previewBox').dataset.backdrop=$('backdrop').value});
+$('duration').addEventListener('change',()=>{stageUI(byId[state.active]);resetPreview550()});$('color').addEventListener('input',paintPreview550);$('density').addEventListener('input',paintPreview550);
+$('backdrop').addEventListener('change',()=>{stageBackdropPref=$('backdrop').value;$('previewBox').dataset.backdrop=stageBackdropPref});
 $('playPreview').addEventListener('click',()=>playing550(!playback550.playing));$('restartPreview').addEventListener('click',resetPreview550);
 $('previewFrame').addEventListener('input',()=>{playing550(false);playback550.frame=Number($('previewFrame').value);paintPreview550()});
 function animate(ts){if(playback550.playing){if(playback550.epoch===null)playback550.epoch=ts-playback550.frame*1000/12;const i=Math.floor((ts-playback550.epoch)*12/1000+.00001)%frameCount550();if(i!==playback550.frame){playback550.frame=i;paintPreview550()}}

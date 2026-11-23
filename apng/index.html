@@ -11,7 +11,7 @@
 </head>
 <body><main class="wrap">
 <header class="top"><div><div class="eyebrow">CCFOLIA · ANIMATED MATERIAL MAKER</div><h1>ココフォリア APNG工房</h1><p class="lead">シーンにひとさじの動きを。演出を選び、色を決めて、APNGをその場で生成できます。</p></div><div class="pill"><span id="totalCount">562</span>種類のオリジナル演出</div></header>
-<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#doors-books" data-feature="doors-books">扉・本の場面転換</a><a class="feature" href="#new" data-feature="new">回想ほか50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
+<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#doors-books" data-feature="doors-books">扉・本の場面転換</a><a class="feature" href="#page-turn" data-feature="page-turn">紙をめくる</a><a class="feature" href="#new" data-feature="new">回想ほか50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
 <aside class="panel"><h2 id="selectedTitle">カーテンが開く</h2><p id="selectedDescription">幕が左右に開く、物語の始まりに。</p><div class="previewbox" id="previewBox" data-backdrop="grid"><canvas id="preview" width="640" height="360" aria-label="選んだ演出のプレビュー"></canvas></div><div class="stage-cue" id="stageCue" hidden><span id="stageTiming"></span><button type="button" id="stagePair" hidden></button></div><div class="previewtools"><label for="backdrop">背景</label><select id="backdrop"><option value="grid" selected>市松</option><option value="light">明るい背景</option><option value="dark">暗い背景</option></select><button type="button" id="playPreview">一時停止</button><button type="button" id="restartPreview">最初から</button></div><div class="scrub"><input type="range" id="previewFrame" min="0" max="29" value="0" step="1" aria-label="プレビューのコマ"><output id="frameLabel" for="previewFrame">1 / 30</output></div><p class="previewnote" id="previewNote">プレビューは繰り返し再生します。背景色は保存されません。</p><div class="controlrow"><div><label for="color" id="colorLabel">演出の色</label><input id="color" type="color" value="#d9a1bb"></div><div><label for="size">画像サイズ</label><select id="size"><option value="auto">1 MB以内 · 自動</option><option value="384">384 × 216 · 軽量</option><option value="576" selected>576 × 324 · 標準</option><option value="768">768 × 432 · 高画質</option></select></div></div><label for="duration">再生時間</label><select id="duration"><option value="1.5">1.5秒 · 速い</option><option value="2.5" selected>2.5秒 · 標準</option><option value="4">4秒 · ゆっくり</option></select><div id="densityBlock"><label for="density"><span id="densityLabel">粒の量・演出の強さ</span> <span id="densityValue">ふつう</span></label><input id="density" type="range" min="1" max="3" value="2" step="1"></div><div class="hint" id="materialHint">素材ごとに色と強さを変えられます。背景は透過PNGです。</div><button id="downloadOne" class="primary">この素材をAPNGで保存</button><div class="selection" id="selection">選択済み 0点</div><button id="downloadZip" class="secondary" disabled>選択した素材をZIPで保存</button><button id="clearSelection" class="secondary" style="margin-top:5px">選択を解除</button><div id="status" class="status" role="status" aria-live="polite">一覧のカードを押すとプレビューが変わります。右上の□で複数選択できます。</div></aside></div>
 <section class="help"><article><strong>① 場面転換</strong>一度だけ再生する素材です。シーン変更時のカットインや前景の演出に。</article><article><strong>② 重ねる演出</strong>雨・雪・光などはループします。スクリーンパネルやマーカーパネルに重ねて使えます。</article><article><strong>③ 読み込み前に確認</strong>APNGはココフォリア対応形式です。各画像には容量制限があるため、重い場合は、画像サイズの「1 MB以内 · 自動」で時間を変えずに小さくできます。<a href="https://docs.ccfolia.com/" target="_blank" rel="noopener">公式ヘルプ</a></article></section><p class="foot">非公式の素材生成ツールです。画像は端末内で生成し、素材の内容は外部へ送信しません。ZIP一括保存はブラウザのメモリを使用します。</p>
 </main><script>
@@ -229,11 +229,11 @@ const matteEntries=[
 ];
 function matteInfo(kind,style,dir,pair){
   const page=kind==='page',open=kind==='open',side=dir>0?'右':'左';
-  const motion=page?(style==='top'?side+'上の角':style==='bottom'?side+'下の角':side+'端')+'から白い面が反りながら広がり、画面いっぱいの白で止まります。':
+  const motion=page?(style==='top'?side+'上の角':style==='bottom'?side+'下の角':side+'端')+'を持ち上げると、斜めの折り目に沿って紙の裏が三角に返り、最後に白い一枚が広がります。':
     open?'黒一色から、中央のすき間が両端に広がり、最後は全面が透明になります。':'透明な画面の左右から黒い面が中央に集まり、すき間が閉じたら黒一色で止まります。';
   const extra=style==='linear'?' 一定の速さで動きます。':style==='twoSteps'?' 途中で短く止まり、そのまま同じ方向に進みます。':'';
   return {matte:{kind,style,dir,pair},color:page?'#ffffff':'#000000',once:true,desc:motion+extra,
-    tags:'シーン切り替え シーン切替 シーントランジション 場面転換 背景透過 透明 無地 単色 ワイプ '+(page?'本 ほん 白 白い 白背景 白一色 ページ 頁 捲る 捲れる めくる ページめくり 紙 カール '+side:open?'黒 黒背景 黒一色 ドア とびら 扉が開く 開ける あく ひらく 中央から左右 明転':'黒 黒背景 黒一色 ドア とびら 扉が閉まる 閉じる 閉める しまる しめる 左右 両端から中央 暗転')}
+    tags:'シーン切り替え シーン切替 シーントランジション 場面転換 背景透過 透明 無地 単色 ワイプ '+(page?'本 ほん 白 白い 白背景 白一色 ページ 頁 捲る 捲れる めくる ページめくり 紙 カール 折り返し 三角 折り目 紙の裏 '+side:open?'黒 黒背景 黒一色 ドア とびら 扉が開く 開ける あく ひらく 中央から左右 明転':'黒 黒背景 黒一色 ドア とびら 扉が閉まる 閉じる 閉める しまる しめる 左右 両端から中央 暗転')}
 }
 for(const [id,exportKey,name,kind,style,dir,pair] of matteEntries)
   presets.push({id,name,exportKey,category:'transition',stageNew:true,...matteInfo(kind,style,dir,pair)});
@@ -241,6 +241,19 @@ for(const [id,kind,style,dir] of [['fx_doors500_0','open','softEnd',1],['fx_door
   Object.assign(presets.find(p=>p.id===id),matteInfo(kind,style,dir,null))
 }
 
+const directedCuts=[
+  ['fx_aperture500_0','irisClose','外側から円い視界が狭まり、選んだ色で全面を覆って止まります。'],
+  ['fx_aperture500_1','irisOpen','選んだ色の中央から円い視界が開き、四隅まで透明になります。'],
+  ['fx_doors500_1','drapes','閉じた幕が中央から左右に開き、最後は透明になります。'],
+  ['fx_doors500_3','lattice','左右の障子が格子ごと滑り込み、一度閉じてから開きます。'],
+  ['fx_doors500_6','theatre','ひだのある一枚の緞帳が持ち上がり、下から景色が見えます。'],
+  ['fx_veil500_0','tint','透明から黒にゆっくり染まり、黒一色で止まります。色は変更できます。','#000000'],
+  ['fx_veil500_1','tint','透明から白にゆっくり染まり、白一色で止まります。色は変更できます。','#ffffff'],
+  ['fx_eyelids_4','lid','まぶたがゆっくり閉じ、そのまま眠りにつきます。'],
+  ['fx_eyelids_5','lid','閉じたまぶたが開ききると、背景だけが見えます。']
+];
+for(const [id,cutMode,desc,color] of directedCuts){const p=presets.find(item=>item.id===id);Object.assign(p,{cutMode,desc});if(color)p.color=color}
+function onePlay550(p){return p.category==='transition'||!!p.once}
 const $=id=>document.getElementById(id), byId=Object.fromEntries(presets.map(p=>[p.id,p]));
 const state={active:'curtain',filter:'all',chosen:new Set(),visible:new Set(),busy:false};
 const TAU=Math.PI*2;const rnd=(a,b=0,c=0)=>{let x=Math.sin(a*127.1+b*311.7+c*74.7)*43758.5453;return x-Math.floor(x)};
@@ -260,7 +273,16 @@ function drawExtra(ctx,p,t,w,h,color,density){
     if(v===2){let r=k*Math.hypot(w,h);ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,0,Math.PI/2);ctx.closePath();ctx.fill()}
     if(v===3){let r=k*Math.hypot(w,h);ctx.fillStyle=color;ctx.fillRect(0,0,w,h);ctx.globalCompositeOperation='destination-out';poly(ctx,[[cx,cy-r],[cx+r,cy],[cx,cy+r],[cx-r,cy]],'#000');ctx.globalCompositeOperation='source-over'}
   }else if(p.family==='tiles'){
-    if(v===0||v===3){let cols=v===0?12:10,rows=7,sw=w/cols,sh=h/rows;for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){let a=rnd(x,y,6),life=clamp((t-a*.58)/.25)*clamp((1-t+a*.3)/.28);ctx.fillStyle=rgba(color,life*.9);if(v===0)ctx.fillRect(x*sw,y*sh,sw+1,sh+1);else poly(ctx,[[x*sw,y*sh],[(x+1)*sw,y*sh],[x*sw,(y+1)*sh]],ctx.fillStyle)}}
+    if(v===0||v===3){
+      const cols=v===0?12:10,rows=7,life=seed=>.90*clamp((t-seed*.58)/.25)*clamp((1-t+seed*.3)/.28);
+      for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+        const x0=Math.round(x*w/cols),x1=Math.round((x+1)*w/cols),y0=Math.round(y*h/rows),y1=Math.round((y+1)*h/rows);
+        const a=life(rnd(x,y,6)),b=v===0?a:life(rnd(x,y,17)),base=Math.min(a,b);
+        if(base>0){ctx.fillStyle=rgba(color,base);ctx.fillRect(x0,y0,x1-x0,y1-y0)}
+        if(a!==b){const tri=a>b?[[x0,y0],[x1,y0],[x0,y1]]:[[x1,y1],[x0,y1],[x1,y0]];
+          poly(ctx,tri,rgba(color,(Math.max(a,b)-base)/(1-base)))}
+      }
+    }
     if(v===1){for(let i=0;i<16;i++){let k=ease((t-i*.025)/.55);ctx.fillStyle=color;const top=Math.round(i*h/16),bottom=Math.round((i+1)*h/16);ctx.fillRect(i%2?w*(1-k):0,top,w*k,bottom-top)}}
     if(v===2){let k=Math.sin(Math.PI*t),band=h*k/2;ctx.fillStyle=color;ctx.fillRect(0,cy-band,w,band*2)}
   }else if(p.family==='cut'){
@@ -477,11 +499,8 @@ function draw500Core(ctx,p,t,w,h,color,density){
     ctx.globalCompositeOperation='source-over';return;
   }
   if(f==='doors500'){
-    let k=Math.sin(Math.PI*t),sw=w*k/2;ctx.fillStyle=color;
-    if(v===0||v===1||v===5){ctx.fillRect(0,0,sw,h);ctx.fillRect(w-sw,0,sw,h);if(v===5)for(let i=1;i<4;i++){line(ctx,sw*.1,i*h/4,sw*.9,i*h/4,soft,3);line(ctx,w-sw*.9,i*h/4,w-sw*.1,i*h/4,soft,3)}}
-    if(v===2||v===3){ctx.fillRect(0,0,sw,h);ctx.fillRect(w-sw,0,sw,h);if(v===3)for(let x=0;x<w;x+=w*.1)line(ctx,x,0,x,h,rgba('#ffffff',.3),2)}
-    if(v===4){ctx.fillRect(0,0,w*k,h);line(ctx,w*k,0,w*k,h,rgba('#ffffff',.7),m*.03)}
-    if(v===6){for(let i=0;i<12;i++){let x=i*w/11;line(ctx,x,0,x+Math.sin(ph+i*.5)*w*.02,h,color,m*.08)}}
+    const k=Math.sin(Math.PI*t),sw=w*k/2;ctx.fillStyle=color;
+    if(v===5){ctx.fillRect(0,0,sw,h);ctx.fillRect(w-sw,0,sw,h);for(let i=1;i<4;i++){line(ctx,sw*.1,i*h/4,sw*.9,i*h/4,soft,3);line(ctx,w-sw*.9,i*h/4,w-sw*.1,i*h/4,soft,3)}}
     if(v===7){ctx.fillRect(0,0,w,h*k*.35);ctx.fillRect(0,h*(1-k*.35),w,h*k*.35)}return;
   }
   if(f==='disperse500'){
@@ -732,12 +751,6 @@ function draw500Core(ctx,p,t,w,h,color,density){
 // 同じテーマでも、構図・輪郭・光の筋がそれぞれ別の演出になるよう仕上げを重ねる。
 function detail500(ctx,p,t,w,h,color,density){
   let f=p.newFamily,v=p.variant,cx=w/2,cy=h/2,m=Math.min(w,h),ph=t*TAU,a=.25+.18*Math.sin(ph)**2,soft=rgba(color,.46);
-  if(f==='doors500'){
-    if(v===0||v===1||v===2){for(let d of [-1,1]){let x=cx+d*w*.15;glyph500(ctx,x,cy,m*.035,v===0?'bubble':v===1?'diamond':'key',color,.6)}}
-    if(v===1)for(let i=0;i<5;i++)line(ctx,i*w/4,0,i*w/4,h,soft,1);
-    if(v===2)for(let i=0;i<5;i++)line(ctx,0,i*h/4,w,i*h/4,rgba(color,.2),2);
-    return;
-  }
   if(f==='disperse500'){if(v===7)for(let i=0;i<8;i++)ring(ctx,rnd(i,13)*w,rnd(i,14)*h,m*(.015+.01*Math.sin(ph+i)**2),soft,1);return}
   if(f==='spread500'){
     if(v===0)for(let i=0;i<7;i++)blot500(ctx,rnd(i,15)*w,rnd(i,16)*h,m*.015,'#171824',a,i);
@@ -1099,12 +1112,8 @@ function drawEdition550(ctx,p,t,w,h,c,density){
 }
 
 // Draw a coverage mask directly on the transparent export canvas. No background,
-// texture or decorative stroke is painted. The page's optional fold is inside the white area.
+// texture or decorative stroke is painted. Fold and contact tones are confined to the sheet.
 const matteSheets=new Map();
-const matteFold=Float64Array.from({length:256},(_,i)=>{const u=i/255;
-  const shade=Math.exp(-(((u-.27)/.22)**2))*.34+Math.exp(-(((u-.72)/.17)**2))*.96;
-  return shade*Math.sin(Math.PI*u)**.65
-});
 function matteTime(t,style){
   const u=clamp((t-.035)/.855);
   if(style==='linear')return u;
@@ -1118,34 +1127,57 @@ function matteSurface(g,w,h){
     if(matteSheets.size>=6)matteSheets.delete(matteSheets.keys().next().value);matteSheets.set(key,s)}
   return s
 }
+// Cross-sections of a single sheet: the long sloping hinge, the lifted corner
+// outside it, and the short contact shadow cast on the white paper beneath.
+const curlPaperTones=Float64Array.from({length:256},(_,i)=>{
+  const q=i/255;return .23+.56*q+.25*Math.sin(Math.PI*q)-.22*Math.exp(-(((q-.18)/.10)**2))
+});
+const curlContact=Float64Array.from({length:256},(_,i)=>{const q=i/255;return (1-q)**2*Math.exp(-2.5*q)});
 function mattePage(g,w,h,u,style,dir,level){
   if(u<=0)return;
   if(u>=1){g.fillStyle='#ffffff';g.fillRect(0,0,w,h);return}
-  const {im,words}=matteSurface(g,w,h),bytes=im.data,sw=Math.sin(Math.PI*u),corner=style==='top'||style==='bottom',gentle=style==='gentle';
-  const shadePeak=level<=1?0:level>=3?38:23,face=w*(1-u),slope=corner?.84:0;
-  const reverse=dir<0;
+  const {im,words}=matteSurface(g,w,h),bytes=im.data;
+  const high=style==='top',corner=high||style==='bottom',gentle=style==='gentle',mirror=dir<0;
+  const lift=Math.sin(Math.PI*u),bend=w*lift,center=w*(1-u),slant=corner?.47:gentle?.27:.33;
+  const pivot=corner?.53:gentle?.55:.58;
+  const join=(corner?.29:gentle?.58:.525)+.038*(1-lift),tip=join+(corner?.16:gentle?.12:.085);
+  const reach=(corner?.242:gentle?.144:.163)*bend*(.90+.10*lift),shade=(level<=1?0:level>=3?67:41)*lift;
+  const cut=new Float64Array(5),creases=new Float64Array(5);
+  function section(v,i){
+    const a=high?1-v:v;
+    const hinge=center+bend*(slant*(pivot-a)+.014*Math.sin(Math.PI*2*a));
+    let depth=0;
+    if(a>join){
+      const v1=(a-join)/(tip-join),v2=(1-a)/(1-tip);
+      const head=v1<1?v1*(1.28-.28*v1):1+.72*(v1-1),tail=v2*(.79+.21*v2);
+      const round=Math.max(0,.09-Math.abs(head-tail));
+      depth=reach*Math.max(0,Math.min(head,tail)-round*round/.36);
+    }
+    creases[i]=hinge;cut[i]=hinge-depth;
+  }
+  const bounded=x=>Math.max(0,Math.min(w,x)),sub=[.125,.375,.625,.875,.5];
   for(let y=0;y<h;y++){
-    const v=(y+.5)/h,row=y*w;
-    // Work as if the sheet starts at the right edge; mirror the final samples for a reverse turn.
-    const r=style==='bottom'?1-v:v;
-    const edge=corner?w*(1-(1+slope)*u+slope*r+.115*sw*r*(1-r)*4):
-      face+w*sw*(gentle?(.07-.15*v*v):(.13-.32*v*v+.047*Math.sin(Math.PI*v)));
-    const derivative=corner?w/h*(slope+.46*sw*(1-2*r)):
-      w/h*sw*(gentle?-.30*v:(-.64*v+.047*Math.PI*Math.cos(Math.PI*v)));
-    const aa=Math.sqrt(1+derivative*derivative),width=Math.max(1,w*sw*(corner?.045+.105*(1-r):gentle?.035+.056*v:.042+.115*v*v));
-    // Keep the page a single white surface. Only a narrow front needs per-pixel work.
-    const start=Math.max(0,Math.min(w,Math.floor(edge-aa*.5-.5))), stop=Math.max(start,Math.min(w,Math.ceil(edge+Math.max(aa,width)+1)));
-    if(!reverse){words.fill(0,row,row+start);words.fill(0xffffffff,row+stop,row+w)}
+    for(let j=0;j<5;j++)section((y+sub[j])/h,j);
+    const outer=cut[4],hinge=creases[4],strip=hinge-outer,row=y*w;
+    const feather=Math.min(strip*.36,bend*.035),contact=(strip>0&&shade)?Math.min(1,strip/(w*.027)):0;
+    const lo=Math.min(cut[0],cut[1],cut[2],cut[3]),hi=Math.max(cut[0],cut[1],cut[2],cut[3]);
+    const start=bounded(Math.floor(lo)),aaEnd=bounded(Math.ceil(hi));
+    const stop=shade?Math.max(aaEnd,bounded(Math.ceil(hinge+feather))):aaEnd;
+    if(!mirror){words.fill(0,row,row+start);words.fill(0xffffffff,row+stop,row+w)}
     else{words.fill(0xffffffff,row,row+w-stop);words.fill(0,row+w-start,row+w)}
     for(let x=start;x<stop;x++){
-      const dist=x+.5-edge,i=row+(reverse?w-1-x:x);
-      if(dist<=-aa*.5){words[i]=0;continue}
-      if(dist>=Math.max(aa*.5,width)){words[i]=0xffffffff;continue}
-      const alpha=Math.round(255*clamp(dist/aa+.5)),z=clamp(dist/width);
-      if(alpha===0){words[i]=0;continue}
-      const tone=255-Math.round(shadePeak*sw*matteFold[Math.min(255,Math.round(z*255))]);
-      if(tone===255&&alpha===255){words[i]=0xffffffff;continue}
-      const j=i*4;bytes[j]=bytes[j+1]=bytes[j+2]=tone;bytes[j+3]=alpha
+      const i=row+(mirror?w-1-x:x),xc=x+.5;
+      const alpha=x>=aaEnd?255:Math.round(63.75*(clamp(x+1-cut[0])+clamp(x+1-cut[1])+clamp(x+1-cut[2])+clamp(x+1-cut[3])));
+      if(!alpha){words[i]=0;continue}
+      let tone=255;
+      if(shade&&strip>.001){
+        const underside=curlPaperTones[Math.round(255*clamp((xc-outer)/strip))],dist=xc-hinge;
+        const penumbra=feather>.001&&dist<feather?curlContact[Math.round(255*clamp(dist/feather))]*.67:0;
+        const mix=clamp(.5+dist);
+        tone-=Math.round(shade*contact*((1-mix)*underside+mix*penumbra));
+      }
+      if(alpha===255&&tone===255){words[i]=0xffffffff;continue}
+      const k=i*4;bytes[k]=bytes[k+1]=bytes[k+2]=tone;bytes[k+3]=alpha
     }
   }
   g.putImageData(im,0,0)
@@ -1161,8 +1193,53 @@ function drawMatte(g,p,t,w,h,density){
   if(span){g.fillRect(0,0,span,h);g.fillRect(w-span,0,span,h)}
 }
 
+// A painted leaf carries its rails with it. Clip the full-size leaf before
+// adding the lattice; the gap in the middle must stay completely transparent.
+function latticeCut(g,w,h,t,color){
+  const k=gate550(t,.025,.43,.55,.94),left=Math.floor(w/2);
+  if(k<=0)return;
+  for(const right of [false,true]){
+    const wide=right?w-left:left,shown=Math.round(wide*k);if(!shown)continue;
+    g.save();if(right){g.translate(w,0);g.scale(-1,1)}
+    g.translate(shown-wide,0);
+    g.beginPath();g.rect(0,0,wide,h);g.clip();
+    g.fillStyle=color;g.fillRect(0,0,wide,h);
+    const rail=Math.max(1,Math.round(h*.009)),rim=Math.max(2,Math.round(h*.018));
+    g.fillStyle='rgba(255,255,255,.42)';
+    for(let j=1;j<4;j++)g.fillRect(Math.round(j*wide/4-rail/2),0,rail,h);
+    for(let j=1;j<6;j++)g.fillRect(0,Math.round(j*h/6-rail/2),wide,rail);
+    g.fillStyle='rgba(0,0,0,.11)';g.fillRect(wide-rim,0,rim,h);
+    g.restore()
+  }
+}
+function theatreLift(g,w,h,u,color){
+  if(u>=1)return;
+  // One continuous fabric silhouette, with all the pleats on that surface.
+  const amp=h*.024,hem=(h+amp+1)*(1-u)-1;
+  g.save();g.beginPath();g.moveTo(0,-1);g.lineTo(w,-1);
+  for(let i=0;i<=96;i++){const x=1-i/96;g.lineTo(x*w,hem-amp*(.5+.5*Math.cos(8*TAU*x)))}
+  g.closePath();g.clip();g.fillStyle=color;g.fillRect(0,0,w,h);
+  const grad=g.createLinearGradient(0,0,w,0);
+  for(let j=0;j<=8*4;j++){const d=j%4;grad.addColorStop(j/32,d===0?'rgba(0,0,0,.13)':d===1?'rgba(0,0,0,.025)':d===2?'rgba(255,255,255,.13)':'rgba(255,255,255,.025)')}
+  g.fillStyle=grad;g.fillRect(0,0,w,h);g.restore()
+}
+function drawDirectedCut(g,p,t,w,h,color){
+  const u=matteTime(t,'smooth'),kind=p.cutMode;
+  if(kind==='lid'){eyelidMask(g,t,w,h,color,p.variant);return}
+  if(kind==='lattice'){latticeCut(g,w,h,t,color);return}
+  if(kind==='theatre'){theatreLift(g,w,h,u,color);return}
+  if(kind==='drapes'){drapedCurtain550(g,u,w,h,color);return}
+  if(kind==='tint'){if(u>0){g.fillStyle=rgba(color,u);g.fillRect(0,0,w,h)}return}
+  const opening=kind==='irisOpen',aperture=opening?u:1-u;
+  if(aperture>=1)return;
+  g.fillStyle=color;
+  if(aperture<=0){g.fillRect(0,0,w,h);return}
+  const r=(Math.hypot(w,h)/2+1)*aperture;
+  g.beginPath();g.rect(0,0,w,h);g.moveTo(w/2+r,h/2);g.arc(w/2,h/2,r,0,TAU,true);g.fill('evenodd')
+}
+
 function drawEffect(ctx,p,t,w,h,color,density=2){
-  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.matte){drawMatte(ctx,p,t,w,h,density);return}if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.matte){drawMatte(ctx,p,t,w,h,density);return}if(p.cutMode){drawDirectedCut(ctx,p,t,w,h,color);return}if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
   switch(p.id){
   case 'curtain':{drapedCurtain550(ctx,t,w,h,color);break}
   case 'wipe':{let x=lerp(-w,w,t),grad=ctx.createLinearGradient(x-w*.35,0,x+w*.35,0);grad.addColorStop(0,rgba(color,0));grad.addColorStop(.35,rgba(color,.95));grad.addColorStop(.65,rgba(color,.95));grad.addColorStop(1,rgba(color,0));ctx.fillStyle=grad;ctx.fillRect(x-w*.35,0,w*.7,h);break}
@@ -1193,12 +1270,12 @@ function drawEffect(ctx,p,t,w,h,color,density=2){
 const cards=$('cards');let filter='all',feature='',matching=[],visibleLimit=0;const visibleCards=new Set();
 const observer=new IntersectionObserver(entries=>{for(const entry of entries)entry.isIntersecting?visibleCards.add(entry.target):visibleCards.delete(entry.target)},{rootMargin:'120px'});
 const categoryLabels={transition:'場面転換 シーン切り替え',weather:'自然 天候',fantasy:'幻想 魔法',dramatic:'ドラマ 感情 演出',horror:'ホラー 恐怖 怪異',combat:'戦闘 バトル',cyber:'SF サイバー'};
-function card(p){const el=document.createElement('button');el.type='button';el.className='card';el.dataset.id=p.id;el.innerHTML=`<canvas width="240" height="135" aria-hidden="true"></canvas><span class="check" aria-label="複数選択">□</span><span class="card-text"><span class="card-title"></span><span class="card-sub"></span></span>`;el.querySelector('.card-title').textContent=p.name;el.querySelector('.card-sub').textContent=p.matte?matteEnd(p):p.category==='transition'||p.once?'一度だけ再生':'ループ再生';if(p.matte){el.dataset.matte='yes';const c=el.querySelector('canvas');drawEffect(c.getContext('2d'),p,.455,c.width,c.height,p.color,2)}el.addEventListener('click',e=>{if(e.target.closest('.check')){toggle(p.id);return}choose(p.id)});return el}
+function card(p){const el=document.createElement('button');el.type='button';el.className='card';el.dataset.id=p.id;el.innerHTML=`<canvas width="240" height="135" aria-hidden="true"></canvas><span class="check" aria-label="複数選択">□</span><span class="card-text"><span class="card-title"></span><span class="card-sub"></span></span>`;el.querySelector('.card-title').textContent=p.name;el.querySelector('.card-sub').textContent=p.matte?matteEnd(p):onePlay550(p)?'一度だけ再生':'ループ再生';if(p.matte){el.dataset.matte='yes';const c=el.querySelector('canvas');drawEffect(c.getContext('2d'),p,.455,c.width,c.height,p.color,2)}el.addEventListener('click',e=>{if(e.target.closest('.check')){toggle(p.id);return}choose(p.id)});return el}
 function appendCards(){let slice=matching.slice(visibleLimit,visibleLimit+60),newCards=slice.map(card);cards.append(...newCards);newCards.forEach(el=>observer.observe(el));visibleLimit+=slice.length;$('loadMore').hidden=visibleLimit>=matching.length;$('count').textContent=`${matching.length}種類中 ${visibleLimit}種類を表示 · 右上の□で複数選択`;updateCards()}
-const features550={'doors-books':p=>p.stageNew,new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
+const features550={'doors-books':p=>p.stageNew,'page-turn':p=>p.matte?.kind==='page',new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
 function fold550(str){return str.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)).replace(/瞬き|瞬く|またたき/g,'まばたき')}
 const search550=new Map(presets.map(p=>[p.id,fold550([p.name,p.desc,p.category,categoryLabels[p.category],p.tags||'',features550.blink(p)?'まばたき まぶた 瞼':''].join(' '))]));
-function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(group==='transition'||terms.some(v=>/扉|どあ|障子|片開き|両開き|本|めく|捲|ぺーじ|閉ま|閉じ|開く/.test(v)))hits.sort((a,b)=>Number(!!b.stageNew)-Number(!!a.stageNew));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
+function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(group==='transition'||theme==='page-turn'||terms.some(v=>/扉|どあ|障子|片開き|両開き|本|めく|捲|ぺーじ|閉ま|閉じ|開く/.test(v)))hits.sort((a,b)=>Number(!!b.stageNew)-Number(!!a.stageNew));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
 function renderCards(){matching=find550(filter,$('search').value,feature);observer.disconnect();visibleCards.clear();visibleLimit=0;cards.replaceChildren();if(!matching.length){let d=document.createElement('div');d.className='empty';d.textContent='該当する素材がありません。検索語を変えてください。';cards.append(d);$('loadMore').hidden=true;$('count').textContent='0種類を表示';return}appendCards()}
 $('loadMore').addEventListener('click',appendCards);
 function updateCards(){for(const el of cards.querySelectorAll('.card')){let id=el.dataset.id;el.classList.toggle('active',id===state.active);el.querySelector('.check').textContent=state.chosen.has(id)?'✓':'□';el.querySelector('.check').classList.toggle('on',state.chosen.has(id))}}
@@ -1212,8 +1289,8 @@ function matteUI(p){
   $('color').disabled=!!m;$('colorLabel').textContent=m?'演出の色（固定）':'演出の色';
   $('densityBlock').hidden=!!m&&!page;$('densityLabel').textContent=page?'折り返しの影':'粒の量・演出の強さ';
   $('density').value=page?pageShade:regularDensity;densityCaption(p);
-  $('previewNote').textContent=m?'1回だけ再生し、最後のコマで止まります。市松模様は透明部分の目印です。':'プレビューは繰り返し再生します。背景色は保存されません。';
-  $('materialHint').textContent=page?'紙の影を「なし」にすると、白い面の動きだけになります。':m?'黒い面だけの透過APNGです。':'素材ごとに色と強さを変えられます。背景は透過PNGです。';
+  $('previewNote').textContent=m?'1回だけ再生し、最後のコマで止まります。市松模様は透明部分の目印です。':onePlay550(p)?'1回だけ再生し、最後のコマで止まります。背景色は保存されません。':'プレビューは繰り返し再生します。背景色は保存されません。';
+  $('materialHint').textContent=page?'影を「薄い」にすると折り返した紙の裏面が見えます。「なし」では白い形だけが残ります。':m?'黒い面だけの透過APNGです。':'素材ごとに色と強さを変えられます。背景は透過PNGです。';
   if(!m)return;
   $('stageTiming').textContent=matteEnd(p);
   const button=$('stagePair');button.hidden=!m.pair;button.dataset.id=m.pair||'';
@@ -1238,20 +1315,20 @@ const playback550={playing:true,epoch:null,frame:0,cardTick:-1};
 function frameCount550(){return Math.round(12*Number($('duration').value))}
 function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value));const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
 function playing550(on){
-  playback550.playing=on;playback550.epoch=null;const end=byId[state.active].matte&&playback550.frame===frameCount550()-1;
+  playback550.playing=on;playback550.epoch=null;const end=onePlay550(byId[state.active])&&playback550.frame===frameCount550()-1;
   $('playPreview').textContent=on?'一時停止':end?'もう一度再生':'再生'
 }
 function resetPreview550(){playback550.frame=0;playing550(true);paintPreview550()}
 $('duration').addEventListener('change',resetPreview550);$('color').addEventListener('input',paintPreview550);
 $('density').addEventListener('input',()=>{const p=byId[state.active],d=Number($('density').value);if(p.matte?.kind==='page')pageShade=d;else if(!p.matte)regularDensity=d;densityCaption(p);paintPreview550()});
 $('backdrop').addEventListener('change',()=>{$('previewBox').dataset.backdrop=$('backdrop').value});
-$('playPreview').addEventListener('click',()=>{if(!playback550.playing&&byId[state.active].matte&&playback550.frame===frameCount550()-1)resetPreview550();else playing550(!playback550.playing)});
+$('playPreview').addEventListener('click',()=>{if(!playback550.playing&&onePlay550(byId[state.active])&&playback550.frame===frameCount550()-1)resetPreview550();else playing550(!playback550.playing)});
 $('restartPreview').addEventListener('click',resetPreview550);
 $('previewFrame').addEventListener('input',()=>{playback550.frame=Number($('previewFrame').value);playing550(false);paintPreview550()});
 function animate(ts){
   if(playback550.playing){
     if(playback550.epoch===null)playback550.epoch=ts-playback550.frame*1000/12;
-    const n=frameCount550(),elapsed=Math.max(0,Math.floor((ts-playback550.epoch)*12/1000+.00001)),once=!!byId[state.active].matte;
+    const n=frameCount550(),elapsed=Math.max(0,Math.floor((ts-playback550.epoch)*12/1000+.00001)),once=onePlay550(byId[state.active]);
     const frame=once?Math.min(n-1,elapsed):elapsed%n;
     if(frame!==playback550.frame){playback550.frame=frame;paintPreview550()}
     if(once&&elapsed>=n)playing550(false)
@@ -1278,7 +1355,7 @@ async function makeApng(p,opts,onProgress=()=>{}){
     if(size<=64)throw Error('設定した容量に収まりませんでした');
     size=Math.max(64,Math.min(size-16,Math.floor(size*Math.sqrt(budget/result.size)*.95/16)*16))}
 }
-async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=12,frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(p.category==='transition'||p.once?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
+async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=12,frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(onePlay550(p)?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
 function options(p){return{size:$('size').value==='auto'?'auto':Number($('size').value),duration:Number($('duration').value),density:p.matte?.kind==='page'?pageShade:p.matte?2:regularDensity,color:p.matte?p.color:p.id===state.active?$('color').value:p.color}}
 function save(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 async function sizeFor550(blob){const v=new DataView(await blob.slice(16,24).arrayBuffer());return [v.getUint32(0),v.getUint32(4)]}

@@ -229,11 +229,11 @@ const matteEntries=[
 ];
 function matteInfo(kind,style,dir,pair){
   const page=kind==='page',open=kind==='open',side=dir>0?'右':'左';
-  const motion=page?(style==='top'?side+'上の角':style==='bottom'?side+'下の角':side+'端')+'を持ち上げると、斜めの折り目に沿って紙の裏が三角に返り、最後に白い一枚が広がります。':
+  const motion=page?(style==='top'?side+'上の角':style==='bottom'?side+'下の角':side+'端')+'が手前に浮き、紙が弓なりにしなります。裏面が返ると、下の白いページが現れます。':
     open?'黒一色から、中央のすき間が両端に広がり、最後は全面が透明になります。':'透明な画面の左右から黒い面が中央に集まり、すき間が閉じたら黒一色で止まります。';
   const extra=style==='linear'?' 一定の速さで動きます。':style==='twoSteps'?' 途中で短く止まり、そのまま同じ方向に進みます。':'';
   return {matte:{kind,style,dir,pair},color:page?'#ffffff':'#000000',once:true,desc:motion+extra,
-    tags:'シーン切り替え シーン切替 シーントランジション 場面転換 背景透過 透明 無地 単色 ワイプ '+(page?'本 ほん 白 白い 白背景 白一色 ページ 頁 捲る 捲れる めくる ページめくり 紙 カール 折り返し 三角 折り目 紙の裏 '+side:open?'黒 黒背景 黒一色 ドア とびら 扉が開く 開ける あく ひらく 中央から左右 明転':'黒 黒背景 黒一色 ドア とびら 扉が閉まる 閉じる 閉める しまる しめる 左右 両端から中央 暗転')}
+    tags:'シーン切り替え シーン切替 シーントランジション 場面転換 背景透過 透明 無地 単色 ワイプ '+(page?'本 ほん 白 白い 白背景 白一色 ページ 頁 捲る 捲れる めくる ページめくり 紙 カール 折り返し しなる 折り目 紙の裏 反り '+side:open?'黒 黒背景 黒一色 ドア とびら 扉が開く 開ける あく ひらく 中央から左右 明転':'黒 黒背景 黒一色 ドア とびら 扉が閉まる 閉じる 閉める しまる しめる 左右 両端から中央 暗転')}
 }
 for(const [id,exportKey,name,kind,style,dir,pair] of matteEntries)
   presets.push({id,name,exportKey,category:'transition',stageNew:true,...matteInfo(kind,style,dir,pair)});
@@ -253,6 +253,7 @@ const directedCuts=[
   ['fx_eyelids_5','lid','閉じたまぶたが開ききると、背景だけが見えます。']
 ];
 for(const [id,cutMode,desc,color] of directedCuts){const p=presets.find(item=>item.id===id);Object.assign(p,{cutMode,desc});if(color)p.color=color}
+function effectFps(p){return p.matte?.kind==='page'?24:12}
 function onePlay550(p){return p.category==='transition'||!!p.once}
 const $=id=>document.getElementById(id), byId=Object.fromEntries(presets.map(p=>[p.id,p]));
 const state={active:'curtain',filter:'all',chosen:new Set(),visible:new Set(),busy:false};
@@ -1127,64 +1128,112 @@ function matteSurface(g,w,h){
     if(matteSheets.size>=6)matteSheets.delete(matteSheets.keys().next().value);matteSheets.set(key,s)}
   return s
 }
-// Cross-sections of a single sheet: the long sloping hinge, the lifted corner
-// outside it, and the short contact shadow cast on the white paper beneath.
-const curlPaperTones=Float64Array.from({length:256},(_,i)=>{
-  const q=i/255;return .23+.56*q+.25*Math.sin(Math.PI*q)-.22*Math.exp(-(((q-.18)/.10)**2))
-});
-const curlContact=Float64Array.from({length:256},(_,i)=>{const q=i/255;return (1-q)**2*Math.exp(-2.5*q)});
+// A single rectangular leaf. Paper coordinates are in page widths (so the
+// curvature is isotropic). The spine stays flat. A short cylindrical bend and
+// a longer, gentler arc turn the free end without stretching its material.
+const leafBuffers=new Map();
+const leafShadow=Float64Array.from({length:256},(_,i)=>{const x=i/255;return (1-x)*(1-x)*Math.exp(-2.4*x)});
+function leafRow(v,h,u,style){
+  const corner=style==='bottom'||style==='top',quiet=style==='gentle',s=Math.sin(Math.PI*u);
+  const skew=(corner?.78:quiet?.415:.585)*s**.80*(1-u)**1.17;
+  const bow=(corner?.034:quiet?.018:.029)*s*(1-u)**.50;
+  const base=1-u-.055*u*(1-u),hinge=base+skew*(1-v)-bow*4*v*(1-v);
+  const slope=(-skew-4*bow*(1-2*v))/h, nx=1/Math.hypot(1,slope),ny=-slope*nx;
+  const extent=Math.max(0,(1-hinge)*nx);
+  const radius=(corner?.098:quiet?.079:.093)*(s**.92)*(.49+.51*ease((u-.19)/.40))*(1.11-.33*v**1.3);
+  const theta=2.16+.97*ease(u)+(.15*v-.06)*s;
+  const curve=Math.min(extent,radius*theta),a=radius>0?curve/radius:0;
+  const tail=Math.max(0,extent-curve);
+  const tailAngle=(Math.PI+.19*s-a)*ease(clamp(tail/(quiet?.55:.47)));
+  return {v,h,u,s,hinge,nx,ny,extent,radius,curve,a,tail,tailAngle}
+}
+function leafPoint(r,l){
+  const {v,h,nx,ny,radius,curve,a,tail,tailAngle}=r;
+  if(r.extent<=0)return {x:1,y:v*h,z:0,ang:0};
+  const after=Math.max(0,l-curve),ang=after>0&&tail>0?a+tailAngle*after/tail:Math.min(a,l/Math.max(1e-12,radius));
+  let f=radius*Math.sin(Math.min(ang,a)),z=radius*(1-Math.cos(Math.min(ang,a)));
+  if(after>0){
+    if(Math.abs(tailAngle)<.00001){f+=after*Math.cos(a);z+=after*Math.sin(a)}
+    else{const rt=tail/tailAngle;f+=rt*(Math.sin(ang)-Math.sin(a));z+=rt*(Math.cos(a)-Math.cos(ang))}
+  }
+  const materialX=r.hinge+l/nx,diff=f-l,k=1/(1-.25*z);
+  return {x:.44+(materialX+nx*diff-.44)*k,y:.46*h+(v*h+ny*diff-.38*z-.46*h)*k,z,ang}
+}
+// Store alpha and premultiplied ink separately. Supersample the silhouette and
+// depth-test both sides of the turning page so a face cannot cut through the tip.
+function leafBuffer(w,h){
+  const key=w+'x'+h;let b=leafBuffers.get(key);if(b)return b;
+  if(leafBuffers.size>=2)leafBuffers.delete(leafBuffers.keys().next().value);
+  const W=w*2,H=h*2;b={W,H,coat:new Uint16Array(W*H),z:new Float32Array(W*H)};leafBuffers.set(key,b);return b
+}
+function leafTriangle(b,p,q,r){
+  if(q[1]<p[1]){const k=p;p=q;q=k}if(r[1]<q[1]){const k=q;q=r;r=k}if(q[1]<p[1]){const k=p;p=q;q=k}
+  const ax=p[0],ay=p[1],bx=q[0],by=q[1],cx=r[0],cy=r[1],lx=cx-ax,ly=cy-ay,sx=bx-ax,sy=by-ay;
+  const det=sx*ly-lx*sy;
+  if(Math.abs(det)<.000001||ly<.000001)return;
+  const j0=Math.max(0,Math.ceil(ay-.5)),j1=Math.min(b.H,Math.ceil(cy-.5));if(j1<=j0)return;
+  const iz=1/det, zx=((q[2]-p[2])*ly-(r[2]-p[2])*sy)*iz,zy=(sx*(r[2]-p[2])-lx*(q[2]-p[2]))*iz;
+  const axx=((q[3]-p[3])*ly-(r[3]-p[3])*sy)*iz,ayy=(sx*(r[3]-p[3])-lx*(q[3]-p[3]))*iz;
+  const dx=((q[4]-p[4])*ly-(r[4]-p[4])*sy)*iz,dy=(sx*(r[4]-p[4])-lx*(q[4]-p[4]))*iz;
+  const ab=sy?sx/sy:0,bc=cy!==by?(cx-bx)/(cy-by):0,ac=lx/ly,Z=b.z,C=b.coat,W=b.W;
+  const opaque=p[3]===255&&q[3]===255&&r[3]===255,clear=p[3]===0&&q[3]===0&&r[3]===0;
+  for(let y=j0;y<j1;y++){
+    const py=y+.5,off=py-ay,long=ax+off*ac,short=py<by?ax+off*ab:bx+(py-by)*bc;
+    const l=Math.max(0,Math.ceil(Math.min(long,short)-.5)),rr=Math.min(W,Math.ceil(Math.max(long,short)-.5));if(rr<=l)continue;
+    const start=l+.5-ax;let z0=p[2]+zx*start+zy*off,dk=p[4]+dx*start+dy*off,i=y*W+l,stop=i+rr-l;
+    if(opaque){for(;i<stop;i++,z0+=zx,dk+=dx)if(z0>=Z[i]){Z[i]=z0;C[i]=65280|((dk+.5)|0)}}
+    else if(clear){for(;i<stop;i++,z0+=zx)if(z0>=Z[i]){Z[i]=z0;C[i]=0}}
+    else{let a0=p[3]+axx*start+ayy*off;for(;i<stop;i++,z0+=zx,dk+=dx,a0+=axx)if(z0>=Z[i]){Z[i]=z0;C[i]=(((a0+.5)|0)<<8)|((dk+.5)|0)}}
+  }
+}
 function mattePage(g,w,h,u,style,dir,level){
-  if(u<=0)return;
-  if(u>=1){g.fillStyle='#ffffff';g.fillRect(0,0,w,h);return}
-  const {im,words}=matteSurface(g,w,h),bytes=im.data;
-  const high=style==='top',corner=high||style==='bottom',gentle=style==='gentle',mirror=dir<0;
-  const lift=Math.sin(Math.PI*u),bend=w*lift,center=w*(1-u),slant=corner?.47:gentle?.27:.33;
-  const pivot=corner?.53:gentle?.55:.58;
-  const join=(corner?.29:gentle?.58:.525)+.038*(1-lift),tip=join+(corner?.16:gentle?.12:.085);
-  const reach=(corner?.242:gentle?.144:.163)*bend*(.90+.10*lift),shade=(level<=1?0:level>=3?67:41)*lift;
-  const cut=new Float64Array(5),creases=new Float64Array(5);
-  function section(v,i){
-    const a=high?1-v:v;
-    const hinge=center+bend*(slant*(pivot-a)+.014*Math.sin(Math.PI*2*a));
-    let depth=0;
-    if(a>join){
-      const v1=(a-join)/(tip-join),v2=(1-a)/(1-tip);
-      const head=v1<1?v1*(1.28-.28*v1):1+.72*(v1-1),tail=v2*(.79+.21*v2);
-      const round=Math.max(0,.09-Math.abs(head-tail));
-      depth=reach*Math.max(0,Math.min(head,tail)-round*round/.36);
-    }
-    creases[i]=hinge;cut[i]=hinge-depth;
+  if(u<=0)return;if(u>=1){g.fillStyle='#ffffff';g.fillRect(0,0,w,h);return}
+  const buf=leafBuffer(w,h),{W,H,coat,z}=buf,ratio=h/w,lift=Math.sin(Math.PI*u);
+  const ink=(level<=1?0:level>=3?78:50)*Math.min(1,lift*2.8);
+  z.fill(-1);const M=36,arcN=20,tailN=12,grid=[];
+  // Lay down the newly exposed white page. Its contact shadow lies entirely
+  // on that surface; no shadow or background is painted into untouched space.
+  for(let j=0;j<H;j++){
+    const rr=leafRow((j+.5)/H,ratio,u,style),h0=rr.hinge*W,rad=rr.radius*W,span=clamp(rr.extent/(rr.radius*2.4+.0001));
+    const start=Math.max(0,Math.min(W,Math.ceil(h0-.5))),foot=h0+rad*.82,blur=rad*(1.05+.23*span)+.7;
+    const stop=Math.max(start,Math.min(W,Math.ceil(foot+blur))),row=j*W;
+    coat.fill(0,row,row+start);coat.fill(65280,row+start,row+W);
+    if(ink&&span>0)for(let i=start;i<stop;i++){const d=clamp((i+.5-foot)/blur);coat[row+i]=65280|Math.round(ink*.58*span*leafShadow[(d*255+.5)|0])}
   }
-  const bounded=x=>Math.max(0,Math.min(w,x)),sub=[.125,.375,.625,.875,.5];
+  for(let j=0;j<=M;j++){
+    const v=j/M,rr=leafRow(v,ratio,u,style),verts=[[Math.min(1,rr.hinge)*W-2,v*H,0,0,0]];
+    for(let i=0;i<=arcN+tailN;i++){
+      const l=i<=arcN?rr.curve*i/arcN:rr.curve+rr.tail*(i-arcN)/tailN,pt=leafPoint(rr,l),ang=pt.ang;
+      // Make the roll opaque before the projected tangent: two overlapping white faces
+      // must not leave a dotted transparent seam over the newly exposed page.
+      const alpha=255*ease((ang-.57)/.38);
+      const back=Math.max(0,-Math.cos(ang));
+      const freeLight=.14*Math.exp(-(((rr.extent-l)/(.024+.038*lift))**2));
+      const shade=ink*Math.max(0,.16+.76*(1-back)**.86+.15*Math.sin(ang)**2+.14*Math.min(1,pt.z/.16)-.12*back*v-freeLight);
+      verts.push([pt.x*W,pt.y*W,pt.z,alpha,shade*alpha/255]);
+    }
+    if(j){const prev=grid[j-1];for(let i=0;i<verts.length-1;i++){
+      leafTriangle(buf,prev[i],prev[i+1],verts[i+1]);leafTriangle(buf,prev[i],verts[i+1],verts[i])
+    }}grid.push(verts)
+  }
+  const s=matteSurface(g,w,h),words=s.words,flip=dir<0,high=style==='top';
   for(let y=0;y<h;y++){
-    for(let j=0;j<5;j++)section((y+sub[j])/h,j);
-    const outer=cut[4],hinge=creases[4],strip=hinge-outer,row=y*w;
-    const feather=Math.min(strip*.36,bend*.035),contact=(strip>0&&shade)?Math.min(1,strip/(w*.027)):0;
-    const lo=Math.min(cut[0],cut[1],cut[2],cut[3]),hi=Math.max(cut[0],cut[1],cut[2],cut[3]);
-    const start=bounded(Math.floor(lo)),aaEnd=bounded(Math.ceil(hi));
-    const stop=shade?Math.max(aaEnd,bounded(Math.ceil(hinge+feather))):aaEnd;
-    if(!mirror){words.fill(0,row,row+start);words.fill(0xffffffff,row+stop,row+w)}
-    else{words.fill(0xffffffff,row,row+w-stop);words.fill(0,row+w-start,row+w)}
-    for(let x=start;x<stop;x++){
-      const i=row+(mirror?w-1-x:x),xc=x+.5;
-      const alpha=x>=aaEnd?255:Math.round(63.75*(clamp(x+1-cut[0])+clamp(x+1-cut[1])+clamp(x+1-cut[2])+clamp(x+1-cut[3])));
-      if(!alpha){words[i]=0;continue}
-      let tone=255;
-      if(shade&&strip>.001){
-        const underside=curlPaperTones[Math.round(255*clamp((xc-outer)/strip))],dist=xc-hinge;
-        const penumbra=feather>.001&&dist<feather?curlContact[Math.round(255*clamp(dist/feather))]*.67:0;
-        const mix=clamp(.5+dist);
-        tone-=Math.round(shade*contact*((1-mix)*underside+mix*penumbra));
-      }
-      if(alpha===255&&tone===255){words[i]=0xffffffff;continue}
-      const k=i*4;bytes[k]=bytes[k+1]=bytes[k+2]=tone;bytes[k+3]=alpha
+    const j=2*y*W,outRow=(high?h-1-y:y)*w;let ix=outRow+(flip?w-1:0),step=flip?-1:1;
+    for(let x=0;x<w;x++,ix+=step){
+      const k=j+2*x,a=coat[k],b=coat[k+1],c=coat[k+W],d=coat[k+W+1];
+      if(a===b&&a===c&&a===d){if(!a){words[ix]=0;continue}if(a===65280){words[ix]=0xffffffff;continue}}
+      const sum=(a>>>8)+(b>>>8)+(c>>>8)+(d>>>8),alpha=(sum+2)>>2;
+      if(!alpha){words[ix]=0;continue}
+      const tone=255-Math.min(255,Math.round(255*((a&255)+(b&255)+(c&255)+(d&255))/sum));
+      words[ix]=(alpha<<24)|(tone*0x010101)
     }
   }
-  g.putImageData(im,0,0)
+  g.putImageData(s.im,0,0)
 }
 function drawMatte(g,p,t,w,h,density){
-  const m=p.matte,u=matteTime(t,m.style);
-  if(m.kind==='page'){mattePage(g,w,h,u,m.style,m.dir,density);return}
+  const m=p.matte;
+  if(m.kind==='page'){const s=clamp((t-.025)/.865);mattePage(g,w,h,.36*s+.64*ease(s),m.style,m.dir,density);return}
+  const u=matteTime(t,m.style);
   const covered=m.kind==='open'?1-u:u;
   if(covered<=0)return;
   g.fillStyle='#000000';
@@ -1312,7 +1361,7 @@ function toggleCount(){$('selection').textContent=`選択済み ${state.chosen.s
 
 const preview=$('preview'),pctx=preview.getContext('2d');
 const playback550={playing:true,epoch:null,frame:0,cardTick:-1};
-function frameCount550(){return Math.round(12*Number($('duration').value))}
+function frameCount550(){return Math.round(effectFps(byId[state.active])*Number($('duration').value))}
 function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value));const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
 function playing550(on){
   playback550.playing=on;playback550.epoch=null;const end=onePlay550(byId[state.active])&&playback550.frame===frameCount550()-1;
@@ -1327,8 +1376,8 @@ $('restartPreview').addEventListener('click',resetPreview550);
 $('previewFrame').addEventListener('input',()=>{playback550.frame=Number($('previewFrame').value);playing550(false);paintPreview550()});
 function animate(ts){
   if(playback550.playing){
-    if(playback550.epoch===null)playback550.epoch=ts-playback550.frame*1000/12;
-    const n=frameCount550(),elapsed=Math.max(0,Math.floor((ts-playback550.epoch)*12/1000+.00001)),once=onePlay550(byId[state.active]);
+    const fps=effectFps(byId[state.active]);if(playback550.epoch===null)playback550.epoch=ts-playback550.frame*1000/fps;
+    const n=frameCount550(),elapsed=Math.max(0,Math.floor((ts-playback550.epoch)*fps/1000+.00001)),once=onePlay550(byId[state.active]);
     const frame=once?Math.min(n-1,elapsed):elapsed%n;
     if(frame!==playback550.frame){playback550.frame=frame;paintPreview550()}
     if(once&&elapsed>=n)playing550(false)
@@ -1355,7 +1404,7 @@ async function makeApng(p,opts,onProgress=()=>{}){
     if(size<=64)throw Error('設定した容量に収まりませんでした');
     size=Math.max(64,Math.min(size-16,Math.floor(size*Math.sqrt(budget/result.size)*.95/16)*16))}
 }
-async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=12,frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(onePlay550(p)?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
+async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=effectFps(p),frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(onePlay550(p)?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
 function options(p){return{size:$('size').value==='auto'?'auto':Number($('size').value),duration:Number($('duration').value),density:p.matte?.kind==='page'?pageShade:p.matte?2:regularDensity,color:p.matte?p.color:p.id===state.active?$('color').value:p.color}}
 function save(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 async function sizeFor550(blob){const v=new DataView(await blob.slice(16,24).arrayBuffer());return [v.getUint32(0),v.getUint32(4)]}

@@ -10,9 +10,9 @@
 </style>
 </head>
 <body><main class="wrap">
-<header class="top"><div><div class="eyebrow">CCFOLIA · ANIMATED MATERIAL MAKER</div><h1>ココフォリア APNG工房</h1><p class="lead">シーンにひとさじの動きを。演出を選び、色を決めて、APNGをその場で生成できます。</p></div><div class="pill"><span id="totalCount">562</span>種類のオリジナル演出</div></header>
-<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#doors-books" data-feature="doors-books">扉・本の場面転換</a><a class="feature" href="#page-turn" data-feature="page-turn">紙をめくる</a><a class="feature" href="#new" data-feature="new">回想ほか50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
-<aside class="panel"><h2 id="selectedTitle">カーテンが開く</h2><p id="selectedDescription">幕が左右に開く、物語の始まりに。</p><div class="previewbox" id="previewBox" data-backdrop="grid"><canvas id="preview" width="640" height="360" aria-label="選んだ演出のプレビュー"></canvas></div><div class="stage-cue" id="stageCue" hidden><span id="stageTiming"></span><button type="button" id="stagePair" hidden></button></div><div class="previewtools"><label for="backdrop">背景</label><select id="backdrop"><option value="grid" selected>市松</option><option value="light">明るい背景</option><option value="dark">暗い背景</option></select><button type="button" id="playPreview">一時停止</button><button type="button" id="restartPreview">最初から</button></div><div class="scrub"><input type="range" id="previewFrame" min="0" max="29" value="0" step="1" aria-label="プレビューのコマ"><output id="frameLabel" for="previewFrame">1 / 30</output></div><p class="previewnote" id="previewNote">プレビューは繰り返し再生します。背景色は保存されません。</p><div class="controlrow"><div><label for="color" id="colorLabel">演出の色</label><input id="color" type="color" value="#d9a1bb"></div><div><label for="size">画像サイズ</label><select id="size"><option value="auto">1 MB以内 · 自動</option><option value="384">384 × 216 · 軽量</option><option value="576" selected>576 × 324 · 標準</option><option value="768">768 × 432 · 高画質</option></select></div></div><label for="duration">再生時間</label><select id="duration"><option value="1.5">1.5秒 · 速い</option><option value="2.5" selected>2.5秒 · 標準</option><option value="4">4秒 · ゆっくり</option></select><div id="densityBlock"><label for="density"><span id="densityLabel">粒の量・演出の強さ</span> <span id="densityValue">ふつう</span></label><input id="density" type="range" min="1" max="3" value="2" step="1"></div><div class="hint" id="materialHint">素材ごとに色と強さを変えられます。背景は透過PNGです。</div><button id="downloadOne" class="primary">この素材をAPNGで保存</button><div class="selection" id="selection">選択済み 0点</div><button id="downloadZip" class="secondary" disabled>選択した素材をZIPで保存</button><button id="clearSelection" class="secondary" style="margin-top:5px">選択を解除</button><div id="status" class="status" role="status" aria-live="polite">一覧のカードを押すとプレビューが変わります。右上の□で複数選択できます。</div></aside></div>
+<header class="top"><div><div class="eyebrow">CCFOLIA · ANIMATED MATERIAL MAKER</div><h1>ココフォリア APNG工房</h1><p class="lead">シーンにひとさじの動きを。演出を選び、色を決めて、APNGをその場で生成できます。</p></div><div class="pill"><span id="totalCount">569</span>種類のオリジナル演出</div></header>
+<div class="layout"><section class="library" aria-label="素材一覧"><div class="toolbar"><input id="search" class="search" type="search" placeholder="素材を探す（例：瞬き、思い出す、虹色）" aria-label="素材を検索"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="transition">場面転換</button><button class="filter" data-filter="weather">自然・天候</button><button class="filter" data-filter="fantasy">幻想・魔法</button><button class="filter" data-filter="dramatic">ドラマ</button><button class="filter" data-filter="horror">ホラー</button><button class="filter" data-filter="combat">戦闘</button><button class="filter" data-filter="cyber">SF</button></div><nav class="collections" aria-label="テーマ別の素材"><span>テーマで探す</span><a class="feature" href="#doors-books" data-feature="doors-books">扉・本の場面転換</a><a class="feature" href="#page-turn" data-feature="page-turn">紙：透明→白</a><a class="feature" href="#page-reveal" data-feature="page-reveal">紙：白→透明</a><a class="feature" href="#new" data-feature="new">回想ほか50種</a><a class="feature" href="#recall" data-feature="recall">回想</a><a class="feature" href="#watercolor" data-feature="watercolor">虹色水彩</a><a class="feature" href="#mist" data-feature="mist">霧</a><a class="feature" href="#smoke" data-feature="smoke">煙</a><a class="feature" href="#blink" data-feature="blink">まばたき</a></nav><p class="count" id="count"></p><div class="cards" id="cards"></div><button id="loadMore" class="more" hidden>続きを表示</button></section>
+<aside class="panel"><h2 id="selectedTitle">カーテンが開く</h2><p id="selectedDescription">幕が左右に開く、物語の始まりに。</p><div class="previewbox" id="previewBox" data-backdrop="grid"><canvas id="preview" width="640" height="360" aria-label="選んだ演出のプレビュー"></canvas></div><div class="stage-cue" id="stageCue" hidden><span id="stageTiming"></span><button type="button" id="pageInverse" hidden></button><button type="button" id="stagePair" hidden></button></div><div class="previewtools"><label for="backdrop">背景</label><select id="backdrop"><option value="grid" selected>市松</option><option value="light">明るい背景</option><option value="dark">暗い背景</option></select><button type="button" id="playPreview">一時停止</button><button type="button" id="restartPreview">最初から</button></div><div class="scrub"><input type="range" id="previewFrame" min="0" max="29" value="0" step="1" aria-label="プレビューのコマ"><output id="frameLabel" for="previewFrame">1 / 30</output></div><p class="previewnote" id="previewNote">プレビューは繰り返し再生します。背景色は保存されません。</p><div class="controlrow"><div><label for="color" id="colorLabel">演出の色</label><input id="color" type="color" value="#d9a1bb"></div><div><label for="size">画像サイズ</label><select id="size"><option value="auto">1 MB以内 · 自動</option><option value="384">384 × 216 · 軽量</option><option value="576" selected>576 × 324 · 標準</option><option value="768">768 × 432 · 高画質</option></select></div></div><label for="duration">再生時間</label><select id="duration"><option value="1.5">1.5秒 · 速い</option><option value="2.5" selected>2.5秒 · 標準</option><option value="4">4秒 · ゆっくり</option></select><div id="densityBlock"><label for="density"><span id="densityLabel">粒の量・演出の強さ</span> <span id="densityValue">ふつう</span></label><input id="density" type="range" min="1" max="3" value="2" step="1"></div><div class="hint" id="materialHint">素材ごとに色と強さを変えられます。背景は透過PNGです。</div><button id="downloadOne" class="primary">この素材をAPNGで保存</button><div class="selection" id="selection">選択済み 0点</div><button id="downloadZip" class="secondary" disabled>選択した素材をZIPで保存</button><button id="clearSelection" class="secondary" style="margin-top:5px">選択を解除</button><div id="status" class="status" role="status" aria-live="polite">一覧のカードを押すとプレビューが変わります。右上の□で複数選択できます。</div></aside></div>
 <section class="help"><article><strong>① 場面転換</strong>一度だけ再生する素材です。シーン変更時のカットインや前景の演出に。</article><article><strong>② 重ねる演出</strong>雨・雪・光などはループします。スクリーンパネルやマーカーパネルに重ねて使えます。</article><article><strong>③ 読み込み前に確認</strong>APNGはココフォリア対応形式です。各画像には容量制限があるため、重い場合は、画像サイズの「1 MB以内 · 自動」で時間を変えずに小さくできます。<a href="https://docs.ccfolia.com/" target="_blank" rel="noopener">公式ヘルプ</a></article></section><p class="foot">非公式の素材生成ツールです。画像は端末内で生成し、素材の内容は外部へ送信しません。ZIP一括保存はブラウザのメモリを使用します。</p>
 </main><script>
 const presets=[
@@ -239,6 +239,28 @@ for(const [id,exportKey,name,kind,style,dir,pair] of matteEntries)
   presets.push({id,name,exportKey,category:'transition',stageNew:true,...matteInfo(kind,style,dir,pair)});
 for(const [id,kind,style,dir] of [['fx_doors500_0','open','softEnd',1],['fx_doors500_2','close','softEnd',1],['fx_doors500_4','page','gentle',1]]){
   Object.assign(presets.find(p=>p.id===id),matteInfo(kind,style,dir,null))
+}
+
+// Each reveal keeps its source leaf, its shading, and the same individual frames.
+const reversePages=[
+  ['stage_tale_forward','page_reveal_to_right','右へ'],
+  ['stage_tale_back','page_reveal_to_left','左へ'],
+  ['stage_manor_change','page_reveal_to_bottom_right','右下へ'],
+  ['stage_shoji_change','page_reveal_to_bottom_left','左下へ'],
+  ['stage_archive_change','page_reveal_to_top_right','右上へ'],
+  ['stage_diary_riffle','page_reveal_to_top_left','左上へ'],
+  ['fx_doors500_4','page_reveal_gentle_to_right','ゆるやかに右へ']
+];
+const reverseOf=new Map(reversePages.map(([source,id])=>[source,id]));
+for(const [source,id,direction] of reversePages){
+  const forward=presets.find(p=>p.id===source),m=forward.matte;
+  m.inverse=id;
+  const from=m.dir>0?'左':'右',to=m.dir>0?'右':'左';
+  presets.push({id,exportKey:id,name:'白いページをめくる｜'+direction,category:'transition',stageNew:true,once:true,color:forward.color,
+    desc:'白一色から、紙が'+direction+'めくれ、下の背景が見えてきます。紙と影が抜けたら、全面が透明のまま止まります。',
+    tags:forward.tags+' 白から透明 白→透明 白ー透明 背景を見せる 明転 戻す 逆再生 '+from+'から背景 '+to+'に戻る',
+    matte:{...m,reveal:true,inverse:source,pair:reverseOf.get(m.pair)||null}});
+  forward.tags+=' 透明から白 透明→白 透明ー白'
 }
 
 const directedCuts=[
@@ -1287,8 +1309,15 @@ function drawDirectedCut(g,p,t,w,h,color){
   g.beginPath();g.rect(0,0,w,h);g.moveTo(w/2+r,h/2);g.arc(w/2,h/2,r,0,TAU,true);g.fill('evenodd')
 }
 
-function drawEffect(ctx,p,t,w,h,color,density=2){
-  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.matte){drawMatte(ctx,p,t,w,h,density);return}if(p.cutMode){drawDirectedCut(ctx,p,t,w,h,color);return}if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
+function matteSampleTime(m,t,frameCount){
+  if(!m.reveal)return t;
+  // APNG and scrubber use i/count. Reverse the index, not 1-t: frame zero
+  // of the forward export must be the actual last frame of its companion.
+  if(frameCount>0){const i=Math.max(0,Math.min(frameCount-1,Math.round(t*frameCount)));return (frameCount-1-i)/frameCount}
+  return 1-clamp(t)
+}
+function drawEffect(ctx,p,t,w,h,color,density=2,frameCount=0){
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.clearRect(0,0,w,h);ctx.beginPath();if(p.matte){drawMatte(ctx,p,matteSampleTime(p.matte,t,frameCount),w,h,density);return}if(p.cutMode){drawDirectedCut(ctx,p,t,w,h,color);return}if(p.series){drawEdition550(ctx,p,t,w,h,color,density);return}const cx=w/2,cy=h/2,m=Math.min(w,h),n=Math.round(16*density),peak=Math.sin(Math.PI*clamp(t));
   switch(p.id){
   case 'curtain':{drapedCurtain550(ctx,t,w,h,color);break}
   case 'wipe':{let x=lerp(-w,w,t),grad=ctx.createLinearGradient(x-w*.35,0,x+w*.35,0);grad.addColorStop(0,rgba(color,0));grad.addColorStop(.35,rgba(color,.95));grad.addColorStop(.65,rgba(color,.95));grad.addColorStop(1,rgba(color,0));ctx.fillStyle=grad;ctx.fillRect(x-w*.35,0,w*.7,h);break}
@@ -1321,16 +1350,16 @@ const observer=new IntersectionObserver(entries=>{for(const entry of entries)ent
 const categoryLabels={transition:'場面転換 シーン切り替え',weather:'自然 天候',fantasy:'幻想 魔法',dramatic:'ドラマ 感情 演出',horror:'ホラー 恐怖 怪異',combat:'戦闘 バトル',cyber:'SF サイバー'};
 function card(p){const el=document.createElement('button');el.type='button';el.className='card';el.dataset.id=p.id;el.innerHTML=`<canvas width="240" height="135" aria-hidden="true"></canvas><span class="check" aria-label="複数選択">□</span><span class="card-text"><span class="card-title"></span><span class="card-sub"></span></span>`;el.querySelector('.card-title').textContent=p.name;el.querySelector('.card-sub').textContent=p.matte?matteEnd(p):onePlay550(p)?'一度だけ再生':'ループ再生';if(p.matte){el.dataset.matte='yes';const c=el.querySelector('canvas');drawEffect(c.getContext('2d'),p,.455,c.width,c.height,p.color,2)}el.addEventListener('click',e=>{if(e.target.closest('.check')){toggle(p.id);return}choose(p.id)});return el}
 function appendCards(){let slice=matching.slice(visibleLimit,visibleLimit+60),newCards=slice.map(card);cards.append(...newCards);newCards.forEach(el=>observer.observe(el));visibleLimit+=slice.length;$('loadMore').hidden=visibleLimit>=matching.length;$('count').textContent=`${matching.length}種類中 ${visibleLimit}種類を表示 · 右上の□で複数選択`;updateCards()}
-const features550={'doors-books':p=>p.stageNew,'page-turn':p=>p.matte?.kind==='page',new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
+const features550={'doors-books':p=>p.stageNew,'page-turn':p=>p.matte?.kind==='page'&&!p.matte.reveal,'page-reveal':p=>!!p.matte?.reveal,new:p=>!!p.series,recall:p=>p.series==='recall',watercolor:p=>p.series==='aquarelle',mist:p=>p.series==='mist',smoke:p=>p.series==='smoke',blink:p=>['eyelids','eyes500'].includes(p.newFamily)||p.id==='blinking_eye'};
 function fold550(str){return str.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)).replace(/瞬き|瞬く|またたき/g,'まばたき')}
 const search550=new Map(presets.map(p=>[p.id,fold550([p.name,p.desc,p.category,categoryLabels[p.category],p.tags||'',features550.blink(p)?'まばたき まぶた 瞼':''].join(' '))]));
-function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(group==='transition'||theme==='page-turn'||terms.some(v=>/扉|どあ|障子|片開き|両開き|本|めく|捲|ぺーじ|閉ま|閉じ|開く/.test(v)))hits.sort((a,b)=>Number(!!b.stageNew)-Number(!!a.stageNew));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
+function find550(group,query,theme){const terms=fold550(query).trim().split(/\s+/).filter(Boolean);const hits=presets.filter(p=>(group==='all'||p.category===group)&&(!theme||features550[theme]?.(p))&&terms.every(term=>search550.get(p.id).includes(term)));if(group==='transition'||theme==='page-turn'||theme==='page-reveal'||terms.some(v=>/扉|どあ|障子|片開き|両開き|本|めく|捲|ぺーじ|閉ま|閉じ|開く/.test(v)))hits.sort((a,b)=>Number(!!b.stageNew)-Number(!!a.stageNew));if(theme==='blink'||terms.includes('まばたき')){const rank=p=>p.newFamily==='eyelids'?0:p.newFamily==='eyes500'?1:2;hits.sort((a,b)=>rank(a)-rank(b))}return hits}
 function renderCards(){matching=find550(filter,$('search').value,feature);observer.disconnect();visibleCards.clear();visibleLimit=0;cards.replaceChildren();if(!matching.length){let d=document.createElement('div');d.className='empty';d.textContent='該当する素材がありません。検索語を変えてください。';cards.append(d);$('loadMore').hidden=true;$('count').textContent='0種類を表示';return}appendCards()}
 $('loadMore').addEventListener('click',appendCards);
 function updateCards(){for(const el of cards.querySelectorAll('.card')){let id=el.dataset.id;el.classList.toggle('active',id===state.active);el.querySelector('.check').textContent=state.chosen.has(id)?'✓':'□';el.querySelector('.check').classList.toggle('on',state.chosen.has(id))}}
 function toggle(id){state.chosen.has(id)?state.chosen.delete(id):state.chosen.add(id);$('selection').textContent=`選択済み ${state.chosen.size}点`;$('downloadZip').disabled=!state.chosen.size||state.busy;updateCards()}
 let regularDensity=Number($('density').value),pageShade=2;
-function matteEnd(p){return p.matte.kind==='close'?'透明 → 黒で停止':p.matte.kind==='open'?'黒 → 透明で停止':'透明 → 白で停止'}
+function matteEnd(p){return p.matte.kind==='close'?'透明 → 黒で停止':p.matte.kind==='open'?'黒 → 透明で停止':p.matte.reveal?'白 → 透明で停止':'透明 → 白で停止'}
 function densityCaption(p){const d=Number($('density').value);$('densityValue').textContent=(p.matte?.kind==='page'?['','なし','薄い','やや濃い']:['','控えめ','ふつう','多め'])[d]}
 function matteUI(p){
   const m=p.matte,page=m?.kind==='page';
@@ -1340,18 +1369,27 @@ function matteUI(p){
   $('density').value=page?pageShade:regularDensity;densityCaption(p);
   $('previewNote').textContent=m?'1回だけ再生し、最後のコマで止まります。市松模様は透明部分の目印です。':onePlay550(p)?'1回だけ再生し、最後のコマで止まります。背景色は保存されません。':'プレビューは繰り返し再生します。背景色は保存されません。';
   $('materialHint').textContent=page?'影を「薄い」にすると折り返した紙の裏面が見えます。「なし」では白い形だけが残ります。':m?'黒い面だけの透過APNGです。':'素材ごとに色と強さを変えられます。背景は透過PNGです。';
+  const inverse=$('pageInverse');inverse.hidden=!m?.inverse;inverse.dataset.id=m?.inverse||'';
+  if(m?.inverse)inverse.textContent=m.reveal?'対の「透明→白」を見る':'対の「白→透明」を見る';
   if(!m)return;
   $('stageTiming').textContent=matteEnd(p);
   const button=$('stagePair');button.hidden=!m.pair;button.dataset.id=m.pair||'';
-  if(m.pair)button.textContent=page?'逆向きのページを見る':m.kind==='close'?'対になる「開く」を見る':'対になる「閉じる」を見る'
+  if(m.pair)button.textContent=page?'左右を反転した素材を見る':m.kind==='close'?'対になる「開く」を見る':'対になる「閉じる」を見る'
 }
-$('stagePair').addEventListener('click',()=>{const id=$('stagePair').dataset.id;if(!id)return;if(!matching.some(item=>item.id===id)){if(location.hash!=='#doors-books')history.pushState(null,'','#doors-books');applyFeature550('doors-books')}choose(id)});
+function chooseLinkedCut(id){
+  const p=byId[id];if(!p)return;
+  if(matching.some(item=>item.id===id)){choose(id);return}
+  const target=p.matte?.kind==='page'?(p.matte.reveal?'page-reveal':'page-turn'):'doors-books';
+  if(location.hash!=='#'+target)history.pushState(null,'','#'+target);
+  applyFeature550(target,id)
+}
+for(const button of ['stagePair','pageInverse'])$(button).addEventListener('click',()=>chooseLinkedCut($(button).dataset.id));
 function choose(id){state.active=id;const p=byId[id];$('selectedTitle').textContent=p.name;$('selectedDescription').textContent=p.desc;$('color').value=p.color;matteUI(p);resetPreview550();updateCards()}
 function progress(message){$('status').textContent=message}
 function markFilters550(){document.querySelectorAll('.filter').forEach(b=>{const on=b.dataset.filter===filter;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});document.querySelectorAll('.feature').forEach(a=>{if(a.dataset.feature===feature)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})}
 function renderSelection550(){renderCards();if(matching.length&&!matching.some(p=>p.id===state.active))choose(matching[0].id)}
 function clearFeature550(){if(feature){feature='';if(location.hash)history.replaceState(null,'',location.pathname+location.search)}markFilters550()}
-function applyFeature550(key){feature=Object.hasOwn(features550,key)?key:'';filter='all';$('search').value='';markFilters550();renderCards();if(matching.length)choose(matching[0].id)}
+function applyFeature550(key,preferred=''){feature=Object.hasOwn(features550,key)?key:'';filter='all';$('search').value='';markFilters550();renderCards();if(matching.length)choose(matching.some(p=>p.id===preferred)?preferred:matching[0].id)}
 document.querySelectorAll('.filter').forEach(b=>{b.textContent+=` (${b.dataset.filter==='all'?presets.length:presets.filter(p=>p.category===b.dataset.filter).length})`;b.addEventListener('click',()=>{filter=b.dataset.filter;clearFeature550();renderSelection550()})});
 document.querySelectorAll('.feature').forEach(a=>a.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button>0)return;e.preventDefault();if(location.hash!==a.hash)history.pushState(null,'',a.hash);applyFeature550(a.dataset.feature)}));
 window.addEventListener('hashchange',()=>applyFeature550(location.hash.slice(1)));
@@ -1362,7 +1400,7 @@ function toggleCount(){$('selection').textContent=`選択済み ${state.chosen.s
 const preview=$('preview'),pctx=preview.getContext('2d');
 const playback550={playing:true,epoch:null,frame:0,cardTick:-1};
 function frameCount550(){return Math.round(effectFps(byId[state.active])*Number($('duration').value))}
-function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value));const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
+function paintPreview550(){const n=frameCount550(),i=playback550.frame,p=byId[state.active];drawEffect(pctx,p,i/n,preview.width,preview.height,$('color').value,Number($('density').value),n);const descr=`${i+1} / ${n}`;$('previewFrame').max=n-1;$('previewFrame').value=i;$('previewFrame').setAttribute('aria-valuetext',descr+' コマ');$('frameLabel').value=descr}
 function playing550(on){
   playback550.playing=on;playback550.epoch=null;const end=onePlay550(byId[state.active])&&playback550.frame===frameCount550()-1;
   $('playPreview').textContent=on?'一時停止':end?'もう一度再生':'再生'
@@ -1404,7 +1442,7 @@ async function makeApng(p,opts,onProgress=()=>{}){
     if(size<=64)throw Error('設定した容量に収まりませんでした');
     size=Math.max(64,Math.min(size-16,Math.floor(size*Math.sqrt(budget/result.size)*.95/16)*16))}
 }
-async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=effectFps(p),frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(onePlay550(p)?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
+async function encodeApng550(p,opts,onProgress){const width=opts.size,height=Math.round(width*9/16),fps=effectFps(p),frames=Math.round(opts.duration*fps),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:false});let parts=[new Uint8Array([137,80,78,71,13,10,26,10])],seq=0,header=null;const packets=[];for(let i=0;i<frames;i++){drawEffect(ctx,p,i/frames,width,height,opts.color,opts.density,frames);let png=await toPng(canvas);if(!header)header=png.header;packets.push(png.data);if(i%4===0)onProgress(i+1,frames);await new Promise(resolve=>setTimeout(resolve,0))}parts.push(chunk('IHDR',header),chunk('acTL',concat([u32(frames),u32(onePlay550(p)?1:0)])));for(let i=0;i<frames;i++){let control=concat([u32(seq++),u32(width),u32(height),u32(0),u32(0),new Uint8Array([0,1,0,fps,0,0])]);parts.push(chunk('fcTL',control));parts.push(i===0?chunk('IDAT',packets[i]):chunk('fdAT',concat([u32(seq++),packets[i]])))}parts.push(chunk('IEND',new Uint8Array()));return new Blob(parts,{type:'image/png'})}
 function options(p){return{size:$('size').value==='auto'?'auto':Number($('size').value),duration:Number($('duration').value),density:p.matte?.kind==='page'?pageShade:p.matte?2:regularDensity,color:p.matte?p.color:p.id===state.active?$('color').value:p.color}}
 function save(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 async function sizeFor550(blob){const v=new DataView(await blob.slice(16,24).arrayBuffer());return [v.getUint32(0),v.getUint32(4)]}

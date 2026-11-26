@@ -133,11 +133,28 @@ function skin(s,slot){
  const shift=[s.hips[0]/6.2,-low+(s.dynamic&&s.legs[0][2][1]>.5?.065:0),s.hips[2]/6.2];for(let i=0;i<out.length;i+=3){out[i]+=shift[0];out[i+1]+=shift[1];out[i+2]+=shift[2]}
  const m=meshes[slot]||{pbuf:buf(),nbuf:buf()};m.pos=out;m.nor=makeNormals(out,indices);m.joints=trans.map(p=>add(p,shift));bindAttr(attr.pos,m.pbuf,m.pos);bindAttr(attr.normal,m.nbuf,m.nor);meshes[slot]=m;
 }
-function prepare(){if(!asset)return;people.forEach(skin);let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];for(let k=0;k<people.length;k++){let p=meshes[k].pos;for(let i=0;i<p.length;i+=3)for(let j=0;j<3;j++){min[j]=Math.min(min[j],p[i+j]);max[j]=Math.max(max[j],p[i+j])}}viewCenter=mid(min,max);viewHalf=Math.max(.57,(max[1]-min[1])*.60,Math.hypot(max[0]-min[0],max[2]-min[2])*.52)}
+function refinePair(){
+ if(mode!==2||!pairs[index][3])return;
+ const p=pairs[index],high=p[0]==='ハイタッチ',dance=p[0]==='ダンスの一場面',encourage=p[0]==='励ます・手を差し伸べる';
+ const which=p[3].slice(0,2).map(x=>x==='l'?0:1),names=which.map(x=>x===0?'R':'L'),get=(n)=>asset.bones.findIndex(b=>b[0]===n);
+ const shoulders=names.map((n,i)=>meshes[i].joints[get('upperarm01.'+n)]),sep=unit(sub(people[1].hips,people[0].hips)),forward=unit(add(people[0].front,people[1].front)),midpoint=mid(shoulders[0],shoulders[1]);
+ let contact=add(midpoint,add([0,high?.105:dance?-.075:encourage?-.11:-.23,0],mul(forward,high?.07:.055)));
+ for(let i=0;i<2;i++){
+ const person=people[i],k=which[i],n=names[i],shoulder=shoulders[i],a=person.arms[k],u=asset.bones[get('upperarm01.'+n)][2],e=asset.bones[get('lowerarm01.'+n)][2],w=asset.bones[get('wrist.'+n)][2],l1=norm(sub(e,u)),l2=norm(sub(w,e));
+ const inward=mul(sep,i===0?1:-1),hd=high?unit(add([0,1,0],mul(inward,.09))):dance?unit(add(inward,[0,.12,0])):unit(add(mul(inward,.72),[0,-.7,0]));
+ const wristTarget=sub(contact,mul(hd,high?.065:.055)),dv=sub(wristTarget,shoulder),dist=Math.min(l1+l2-.008,Math.max(.045,norm(dv))),dir=unit(dv);
+ const along=(l1*l1-l2*l2+dist*dist)/(2*dist),bend=Math.sqrt(Math.max(0,l1*l1-along*along));
+ let bias=add([0,-1,0],mul(forward,.22));if(high)bias=add([0,-.65,0],mul(inward,-.8));let pole=sub(bias,mul(dir,dot(dir,bias)));if(norm(pole)<.01)pole=cross(dir,forward);
+ const elbow=add(add(shoulder,mul(dir,along)),mul(unit(pole),bend)),wrist=add(shoulder,mul(dir,dist));
+ a[1]=add(a[0],mul(unit(sub(elbow,shoulder)),1.05));a[2]=add(a[1],mul(unit(sub(wrist,elbow)),.96));person.handDirs[k]=hd;
+ }
+ people.forEach(skin);
+}
+function prepare(){if(!asset)return;people.forEach(skin);refinePair();let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];for(let k=0;k<people.length;k++){let p=meshes[k].pos;for(let i=0;i<p.length;i+=3)for(let j=0;j<3;j++){min[j]=Math.min(min[j],p[i+j]);max[j]=Math.max(max[j],p[i+j])}}viewCenter=mid(min,max);viewHalf=Math.max(.57,(max[1]-min[1])*.60,Math.hypot(max[0]-min[0],max[2]-min[2])*.52)}
 function lines(data,tint){if(!data.length)return;const arr=new Float32Array(data);bindAttr(attr.pos,lineBuf,arr);bindAttr(attr.normal,lineNormal,new Float32Array(arr.length));gl.uniform3fv(u.tint,tint);gl.uniform1f(u.unlit,1);gl.drawArrays(gl.LINES,0,arr.length/3)}
 function render(){if(!asset||!people.length||!W||!H)return;gl.viewport(0,0,cv.width,cv.height);gl.clearColor(.98,.975,.965,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
  const yaw=+$('yaw').value*R,pitch=+$('pitch').value*R,front=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],side=[Math.cos(yaw),0,-Math.sin(yaw)],up=cross(front,side);
- if(flip)side.splice(0,3,...mul(side,-1));const aspect=W/H,zoom=+$('zoom').value/100;const half=viewHalf/Math.min(1,aspect)/zoom;
+ if(flip)side.splice(0,3,...mul(side,-1));const aspect=W/H,zoom=+$('zoom').value/100;let spanX=0,spanY=0;for(let k=0;k<people.length;k++){const p=meshes[k].pos;for(let i=0;i<p.length;i+=3){const x=p[i]-viewCenter[0],y=p[i+1]-viewCenter[1],z=p[i+2]-viewCenter[2];spanX=Math.max(spanX,Math.abs(x*side[0]+y*side[1]+z*side[2]));spanY=Math.max(spanY,Math.abs(x*up[0]+y*up[1]+z*up[2]));}}const half=Math.max(spanY,spanX/aspect)*1.15/zoom;
  gl.uniform3fv(u.center,viewCenter);gl.uniform3fv(u.side,side);gl.uniform3fv(u.up,up);gl.uniform3fv(u.front,front);gl.uniform2f(u.halfSize,half*aspect,half);$('yv').textContent=$('yaw').value+'°';$('pv').textContent=$('pitch').value+'°';
  if($('floor').checked){let l=[];for(let i=-6;i<=6;i++){let x=i*.15;l.push(x,-.005,-.9,x,-.005,.9,-.9,-.005,x,.9,-.005,x)}lines(l,[.83,.82,.80])}
  gl.uniform1f(u.unlit,0);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);for(let i=0;i<people.length;i++){const m=meshes[i];bindAttr(attr.pos,m.pbuf);bindAttr(attr.normal,m.nbuf);gl.uniform3fv(u.tint,i===0?[.91,.91,.89]:[.72,.82,.89]);gl.drawElements(gl.TRIANGLES,asset.indices.length,gl.UNSIGNED_SHORT,0)}

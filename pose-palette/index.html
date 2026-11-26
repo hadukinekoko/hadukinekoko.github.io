@@ -2,7 +2,7 @@
 *{box-sizing:border-box}body{margin:0;background:#f7f5f2;color:#302e35;font:15px -apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif}main{max-width:850px;margin:auto;padding:18px}h1{font-size:24px;margin:0 0 3px}p{margin:0 0 14px;color:#78717b;font-size:13px}button,select{font:inherit;border:1px solid #d9d2d5;border-radius:10px;background:white;color:#38313e;padding:10px 14px;cursor:pointer}button.active{background:#ece3ee;border-color:#a88ab1;color:#61476b;font-weight:bold}button.primary{background:#695376;color:#fff;border-color:#695376;font-weight:bold;flex:1}button:active{transform:scale(.98)}.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.stage{position:relative;border:1px solid #e0dade;border-radius:14px;overflow:hidden;background:#fff}canvas{width:100%;height:clamp(360px,65vh,580px);display:block;touch-action:none}#name{position:absolute;left:12px;top:12px;background:#ffffffde;border-radius:7px;padding:6px 10px;font-size:13px;pointer-events:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.controls label{font-size:12px;color:#69626c;display:block}.controls input{width:100%;accent-color:#695376}.hint{font-size:12px;color:#77717c;margin-top:9px}button:focus-visible,input:focus-visible{outline:2px solid #856294;outline-offset:2px}@media(max-width:420px){main{padding:10px}button{padding:10px 11px}h1{font-size:21px}}
 
 select{max-width:100%;flex:1;min-width:0}.picker{display:flex;gap:8px;align-items:center;margin:0 0 10px}.picker label{font-size:13px;white-space:nowrap}.stage canvas{height:clamp(320px,60vh,580px)}@media(max-width:420px){.stage canvas{height:clamp(300px,54vh,450px)}}
-@media(max-width:600px){main{padding:12px max(12px,env(safe-area-inset-right)) 18px max(12px,env(safe-area-inset-left))}.stage canvas{height:360px;height:clamp(300px,52svh,480px)}button,select{min-height:44px}select{font-size:16px}.bar{gap:6px}.controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.controls input[type=range]{min-height:28px}}#notice{padding:10px;color:#765268;font-size:13px;overflow-wrap:anywhere}#notice[hidden]{display:none}</style></head><body><main><h1>Pose Palette</h1><p>立ち絵・キャラクター制作のためのランダムポーズ</p><div class="bar"><button id="one" class="active" aria-pressed="true">1人</button><button id="two" aria-pressed="false">2人</button><button id="random" class="primary">↻ ポーズを生成</button></div><div class="picker"><label for="poseSelect">ポーズ選択</label><select id="poseSelect"></select></div><div class="stage"><canvas id="cv" aria-label="デッサン人形の3Dポーズ"></canvas><span id="name" aria-live="polite"></span><p id="notice" role="status">素体を読み込み中…</p></div><noscript>JavaScriptを有効にしてSafariで開いてください。</noscript><div class="controls"><label>横回転 <span id="yv"></span><input id="yaw" type="range" min="-180" max="180" value="15"></label><label>上下の視点 <span id="pv"></span><input id="pitch" type="range" min="-35" max="50" value="8"></label><label>拡大・縮小<input id="zoom" type="range" min="60" max="150" value="100"></label><label>表示オプション<br><input type="checkbox" id="floor" checked style="width:auto"> 床グリッド</label></div><div class="bar"><button id="mirror" aria-pressed="false">左右反転</button><button id="reset">視点リセット</button><button id="save">PNG保存</button></div><p class="hint">Ver.2.1 · 人形をドラッグして視点を回転。2人は色で区別できます。ポーズはあらかじめ構成した全身ポーズからランダムに選ばれます。</p></main><script>
+@media(max-width:600px){main{padding:12px max(12px,env(safe-area-inset-right)) 18px max(12px,env(safe-area-inset-left))}.stage canvas{height:360px;height:clamp(300px,52svh,480px)}button,select{min-height:44px}select{font-size:16px}.bar{gap:6px}.controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.controls input[type=range]{min-height:28px}}#notice{padding:10px;color:#765268;font-size:13px;overflow-wrap:anywhere}#notice[hidden]{display:none}</style></head><body><main><h1>Pose Palette</h1><p>立ち絵・キャラクター制作のためのランダムポーズ</p><div class="bar"><button id="one" class="active" aria-pressed="true">1人</button><button id="two" aria-pressed="false">2人</button><button id="random" class="primary">↻ ポーズを生成</button></div><div class="picker"><label for="poseSelect">ポーズ選択</label><select id="poseSelect"></select></div><div class="stage"><canvas id="cv" aria-label="デッサン人形の3Dポーズ"></canvas><span id="name" aria-live="polite"></span><p id="notice" role="status">素体を読み込み中…</p></div><noscript>JavaScriptを有効にしてSafariで開いてください。</noscript><div class="controls"><label>横回転 <span id="yv"></span><input id="yaw" type="range" min="-180" max="180" value="15"></label><label>上下の視点 <span id="pv"></span><input id="pitch" type="range" min="-35" max="50" value="8"></label><label>拡大・縮小<input id="zoom" type="range" min="60" max="150" value="100"></label><label>表示オプション<br><input type="checkbox" id="floor" checked style="width:auto"> 床グリッド</label></div><div class="bar"><button id="mirror" aria-pressed="false">左右反転</button><button id="reset">視点リセット</button><button id="save">PNG保存</button></div><p class="hint">Ver.3.0 · 人形をドラッグして視点を回転。胸郭・骨盤と関節の継ぎ目を分けた素体です。2人は色で区別できます。ポーズはあらかじめ構成した全身ポーズからランダムに選ばれます。</p></main><script>
 window.addEventListener('error',function(e){var n=document.getElementById('notice');if(n){n.hidden=false;n.textContent='表示エラー：'+(e.message||'Safariで開き直してください。')}});
 (()=>{'use strict';
 const $=id=>document.getElementById(id), cv=$('cv'), ctx=cv.getContext('2d'), R=Math.PI/180;
@@ -31,35 +31,59 @@ const S=[
 ['片足に重心',pose([[-.17,-1,.1],[.07,-1,.1]],[[.6,-.78,.08],[-.85,-.35,.1]],[[-.05,-1,0],[0,-1,0]],[[.45,-.85,.18],[-.28,-1,.12]],[-.24,0])],
 ['腰を落とす',pose([[-.35,-.45,.8],[.2,.55,.8]],[[.35,-.45,.8],[-.2,.55,.8]],[[-.35,-.6,.72],[.12,-.65,-.75]],[[.35,-.6,.72],[-.12,-.65,-.75]],[0,.38])]
 ];
+// Photo-informed gesture revisions: weight shifts, flexion and grounded stances.
+S[0][1]=pose([[-.12,-1,.06],[.06,-1,.1]],[[.12,-1,.03],[-.05,-1,.12]],[[0,-1,.02],[0,-1,-.02]],[[.08,-1,.05],[-.03,-1,-.05]]);
+S[1][1]=pose([[-.08,-1,.08],[.06,-1,.08]],[[.85,-.5,.05],[-.88,-.35,.23]],[[.18,-.96,.2],[-.08,-1,-.15]],[[0,-1,0],[0,-1,0]],[.10,-.03],[-.13,0]);
+S[2][1]=pose([[-.12,-1,.03],[.04,-1,.1]],[[.72,-.38,.25],[.14,1,.06]],[[0,-1,0],[0,-1,0]],[[.18,-.98,.05],[-.08,-1,-.04]],[-.05,0]);
+S[3][1]=pose([[-.23,-.92,.24],[.93,.18,.30]],[[.28,-.85,.22],[-.43,.82,.38]],undefined,undefined,[-.04,.02],[-.1,.13]);
+S[4][1]=pose([[-.06,-.93,-.32],[.04,-.99,.10]],[[.06,-.9,.43],[-.04,-.78,.63]],[[0,-.92,.39],[0,-.98,-.07]],[[.04,-.91,-.41],[0,-.88,-.48]],[0,.10]);
+S[5][1]=pose([[-.05,-.50,.86],[.08,.88,.45]],[[.10,-.65,-.75],[.04,.62,.78]],[[.04,-.35,.94],[0,-.96,-.28]],[[.06,-.84,-.54],[0,.18,-.98]],[0,.40]);
+S[8][1]=pose([[-.55,.83,.12],[.13,.98,.03]],[[.55,.83,.12],[-.13,.98,.03]],[[-.09,-1,0],[0,-1,0]],[[.09,-1,0],[0,-1,0]]);
+S[9][1]=pose([[-.36,-.78,.49],[.25,.60,.76]],[[.36,-.78,.49],[-.25,.60,.76]],[[-.27,-.90,.33],[.08,-.98,-.18]],[[.30,-.95,.12],[-.08,-.98,-.18]],[0,.19]);
+S[10][1]=pose([[-.25,-.80,.55],[.08,-.65,.75]],[[.12,-1,.05],[.02,-1,.15]],[[-.05,-.17,.98],[0,-1,0]],[[.12,-.98,.07],[0,-.05,-1]],[0,.14]);
+S[11][1]=pose([[-.11,-1,.08],[.05,-1,.08]],[[.11,-1,.08],[-.05,-1,.08]],undefined,undefined,[0,.58],[0,.20]);
+S[12][1]=pose([[-.13,-1,-.06],[.04,-1,.13]],[[.26,-.92,.1],[-.12,-.53,.84]],[[-.04,-1,.05],[0,-1,-.03]],[[.18,-.97,-.06],[-.07,-1,.03]],[.06,.04],[-.22,-.06]);
+S[14][1]=pose([[-.27,-.91,.26],[.91,.18,.36]],[[.29,-.91,.26],[-.91,.23,.36]],undefined,undefined,[.04,0]);
+S[15][1]=pose([[-.25,-.87,.25],[.39,.79,.47]],[[.10,-1,.04],[-.04,-1,.10]],undefined,undefined,[-.03,.02]);
+S[16][1]=pose([[-.09,-1,.08],[.04,-1,.10]],[[.79,-.55,.12],[-.89,-.36,.22]],[[0,-1,0],[0,-1,0]],[[.36,-.91,.24],[-.15,-.96,-.22]],[-.09,0],[.12,0]);
+S[17][1]=pose([[-.32,-.57,.75],[.15,.45,.88]],[[.32,-.57,.75],[-.15,.45,.88]],[[-.32,-.51,.80],[.08,-.80,-.59]],[[.32,-.51,.80],[-.08,-.80,-.59]],[0,.42]);
 // Pair composition: pose index, position x/z, yaw, optional hand targets in world space.
 const conversation=pose([[-.18,-1,0],[.07,-1,.1]],[[.25,-.85,.48],[-.12,.35,.93]],undefined,undefined,[.03,0]);
 const pairs=[
 ['並んで立つ', [0,-.94,0,0],[1,.94,0,0]],
-['会話する二人',[18,-1.45,0,48],[15,1.45,0,-48]],
+['会話する二人',[18,-1.30,0,52],[0,1.30,0,-52]],
 ['手をつなぐ',[0,-.87,0,5],[0,.87,0,-5],['r','l',[0,3.65,.15]]],
-['ハイタッチ',[0,-1.04,0,10],[0,1.04,0,-10],['r','l',[0,6.12,.16]]],
-['背中合わせ',[14,-.45,-.12,-90],[1,.45,.12,90]],
+['ハイタッチ',[0,-.99,0,35],[0,.99,0,-35],['r','l',[0,5.83,.38]]],
+['背中合わせ',[14,-.47,0,-90],[1,.47,0,90]],
 ['向かい合う',[9,-1.40,0,75],[9,1.40,0,-75]],
 ['一緒に歩く',[4,-.95,0,10],[4,.95,-.35,10]],
-['励ます・手を差し伸べる',[0,-1.25,0,55],[10,1.15,0,-40],['r','l',[.08,3.55,.35]]],
-['ダンスの一場面',[7,-.93,0,25],[6,.93,.15,-25],['r','l',[0,5.55,.48]]],
+['励ます・手を差し伸べる',[0,-1.02,0,48],[10,.98,0,-45],['r','l',[0,3.45,.38]]],
+['ダンスの一場面',[7,-.98,0,30],[6,.98,.15,-30],['r','l',[0,5.25,.45]]],
 ['二人でポーズ',[2,-1.0,0,-8],[15,1.0,0,10]],
 ['並んで警戒',[9,-1.03,0,-25],[9,1.03,.15,25]],
 ['片方が振り返る',[4,-1.03,0,-15],[12,1.03,-.2,25]]
 ];
 let mode=1,index=-1,flip=false, people=[], W=0,H=0,scale=1,origin=[0,0],right,up,cam, faces=[], light=unit([-.5,.9,.6]);
-const colors=[[207,179,143],[160,185,201]];
+const colors=[[218,199,174],[175,196,210]];
 function skeleton(p, pos, angle){
- const h=[0,0,0], spine=unit([p.lean[0],1,p.lean[1]]), chest=mul(spine,1.67), side=[1,0,0];
- const sh=[add(chest,[-.65,0,0]),add(chest,[.65,0,0])], hip=[[-.38,0,0],[.38,0,0]];
+ const weight=p===S[1][1]?1:p===S[16][1]?-1:0;
+ const h=[0,0,0], spine=unit([p.lean[0],1,p.lean[1]]), chest=mul(spine,1.67), side=unit([1,-weight*.13,0]), hipSide=unit([1,weight*.15,0]);
+ const sh=[add(chest,mul(side,-.69)),add(chest,mul(side,.69))], hip=[mul(hipSide,-.38),mul(hipSide,.38)];
  const chain=(start,ds,a,b)=>{const j=add(start,mul(unit(ds[0]),a));return [start,j,add(j,mul(unit(ds[1]),b))]};
  const arms=[chain(sh[0],p.la,1.05,.96),chain(sh[1],p.ra,1.05,.96)], legs=[chain(hip[0],p.ll,1.65,1.58),chain(hip[1],p.rl,1.65,1.58)];
- const headDir=unit(add(spine,[p.head[0],0,p.head[1]]));const neck=add(chest,mul(spine,.30)),head=add(neck,mul(headDir,.53));
- let dy=.24-Math.min(legs[0][2][1],legs[1][2][1]);if(p===S[10][1])dy=Math.max(.24-legs[0][2][1],.19-legs[1][1][1]);if(p===S[13][1])dy+=.48;
+ const headDir=unit(add(spine,[p.head[0],0,p.head[1]]));const neck=add(chest,mul(spine,.29)),head=add(neck,mul(headDir,.47));
+ let dy=.22-Math.min(legs[0][2][1],legs[1][2][1]);if(p===S[10][1])dy=Math.max(.22-legs[0][2][1],.18-legs[1][1][1]);if(p===S[13][1])dy+=.48;
  const trans=a=>add(rot(add(a,[0,dy,0]),angle),pos);
- return {hips:trans(h),chest:trans(chest),neck:trans(neck),head:trans(head),headDir:rot(headDir,angle),side:rot(side,angle),front:rot([0,0,1],angle),arms:arms.map(a=>a.map(trans)),legs:legs.map(a=>a.map(trans))};
+ const s={hips:trans(h),chest:trans(chest),neck:trans(neck),head:trans(head),headDir:rot(headDir,angle),side:rot(side,angle),hipSide:rot(hipSide,angle),front:rot([0,0,1],angle),arms:arms.map(a=>a.map(trans)),legs:legs.map(a=>a.map(trans)),kneeling:p===S[10][1],dynamic:p===S[5][1]||p===S[13][1]};
+ // Refine wrist contact rather than letting hands pass through the torso.
+ if(p===S[1][1]||p===S[16][1])ik(s,1,trans([.52,.53,.18]),rot([1,-.35,0],angle));
+ if(p===S[3][1]){ik(s,1,trans([.10,1.78,.45]),rot([.7,-1,.1],angle));ik(s,0,trans([.32,.93,.33]),rot([-1,-.7,0],angle))}
+ if(p===S[14][1]){ik(s,0,trans([.40,1.16,.46]),rot([-1,-1,0],angle));ik(s,1,trans([-.40,1.31,.52]),rot([1,-1,0],angle))}
+ if(p===S[15][1])ik(s,0,trans([-.06,1.30,.46]),rot([-1,-1,0],angle));
+ if(s.kneeling)ik(s,0,add(s.legs[0][1],rot([-.08,.28,.04],angle)),rot([-1,-.4,0],angle));
+ return s;
 }
-function ik(s,side,target){const a=s.arms[side], root=a[0], v=sub(target,root), dist=Math.min(1.05+.96-.025,Math.max(.13,norm(v))), d=unit(v), end=add(root,mul(d,dist));const along=(1.05**2-.96**2+dist**2)/(2*dist), bend=Math.sqrt(Math.max(0,1.05**2-along**2));let b=sub([0,-1,0],mul(d,dot([0,-1,0],d)));if(norm(b)<.1)b=sub(s.front,mul(d,dot(s.front,d)));a[1]=add(add(root,mul(d,along)),mul(unit(b),bend));a[2]=end;}
+function ik(s,side,target,bias=[0,-1,0]){const a=s.arms[side], root=a[0], v=sub(target,root), dist=Math.min(1.05+.96-.025,Math.max(.13,norm(v))), d=unit(v), end=add(root,mul(d,dist));const along=(1.05**2-.96**2+dist**2)/(2*dist), bend=Math.sqrt(Math.max(0,1.05**2-along**2));let b=sub(bias,mul(d,dot(bias,d)));if(norm(b)<.1)b=sub(s.front,mul(d,dot(s.front,d)));a[1]=add(add(root,mul(d,along)),mul(unit(b),bend));a[2]=end;}
 function build(){people=[];if(mode===1){people.push(skeleton(S[index][1],[0,0,0],0));$('name').textContent=S[index][0]}else{const q=pairs[index];for(const a of q.slice(1,3))people.push(skeleton(a[0]===18?conversation:S[a[0]][1],[a[1],0,a[2]],a[3]*R));if(q[3]){const [a,b,t]=q[3];const separation=unit(sub(people[1].hips,people[0].hips));ik(people[0],a==='l'?0:1,add(t,mul(separation,-.15)));ik(people[1],b==='l'?0:1,add(t,mul(separation,.15)))}$('name').textContent=q[0]}draw()}
 function updatePicker(){const list=mode===1?S:pairs;const sel=$('poseSelect');sel.options.length=0;list.forEach((item,i)=>sel.add(new Option(item[0],String(i))));}
 function choose(){let n=mode===1?S.length:pairs.length;let k=Math.floor(Math.random()*(n-(index>=0?1:0)));if(index>=0&&k>=index)k++;index=k;$('poseSelect').value=String(index);build()}
@@ -69,12 +93,54 @@ function ell(c,ax,ay,az,rx,ry,rz,col){
  for(let i=0;i<n;i++)for(let j=0;j<m;j++){const q=[verts[i][j],verts[i][(j+1)%m],verts[i+1][(j+1)%m],verts[i+1][j]], normal=unit(q.reduce((a,b)=>add(a,b[1]),[0,0,0]));if(dot(normal,cam)<=-.03)continue;const d=q.reduce((a,b)=>a+dot(b[0],cam),0)/4;const shade=.62+.36*Math.max(0,dot(normal,light))+.08*Math.max(0,dot(normal,cam));const color=col.map(x=>Math.min(255,Math.round(x*shade+8)));faces.push({q:q.map(v=>project(v[0])),d,color:`rgb(${color.join(',')})`})}
 }
 function axes(dir,side){let y=unit(dir),x=sub(side,mul(y,dot(side,y)));if(norm(x)<.1)x=cross(y,[0,0,1]);if(norm(x)<.1)x=cross(y,[1,0,0]);x=unit(x);return [x,y,unit(cross(x,y))]}
-function ball(p,r,col){ell(p,[1,0,0],[0,1,0],[0,0,1],r,r,r,col)}
-function bone(a,b,r,side,col,flatten=1){const ax=axes(sub(b,a),side);ell(mid(a,b),...ax,r,norm(sub(b,a))*.54,r*flatten,col)}
-function model(s,col){const ax=axes(sub(s.chest,s.hips),s.side),joint=col.map(x=>x*.88);const spine=ax[1];
- ell(add(s.hips,mul(spine,.07)),...ax,.55,.38,.35,col);ell(add(s.hips,mul(spine,.65)),...ax,.40,.67,.30,col);ell(add(s.hips,mul(spine,1.20)),...ax,.65,.62,.38,col);
- bone(s.chest,s.neck,.18,s.side,col);const ha=axes(s.headDir,s.side);ell(s.head,...ha,.37,.50,.36,col);ell(add(s.head,add(mul(ha[2],.33),mul(ha[1],-.06))),...ha,.09,.10,.09,col);
- for(let i=0;i<2;i++){const a=s.arms[i],l=s.legs[i];ball(a[0],.23,joint);bone(a[0],a[1],.20,s.side,col,.95);ball(a[1],.145,joint);bone(a[1],a[2],.15,s.side,col,.92);ball(a[2],.105,joint);const hand=unit(sub(a[2],a[1]));ell(add(a[2],mul(hand,.20)),...axes(hand,s.side),.12,.25,.085,col);ball(l[0],.26,joint);bone(l[0],l[1],.28,s.side,col,.95);ball(l[1],.19,joint);bone(l[1],l[2],.20,s.side,col,.9);ball(l[2],.12,joint);const shin=unit(sub(l[2],l[1]));const toe=shin[1]>-.35?unit(add(shin,[0,-.65,0])):s.front;const fside=unit(cross([0,1,0],toe));const fup=unit(cross(toe,fside));const foot=add(l[2],add(mul(toe,.17),[0,-.10,0]));ell(foot,fside,fup,toe,.15,.13,.31,col)}
+// Lathed, tapered mannequin parts. Ring profiles define anatomical masses instead of stacked spheres.
+// Each row: axial position (0..1), half-width, half-depth, optional forward offset.
+function form(a,b,side,profile,col){
+ const ax=axes(sub(b,a),side), x=ax[0],y=ax[1],z=ax[2],n=mobile?12:20,delta=sub(b,a),rings=[];
+ for(const r of profile){const center=add(add(a,mul(delta,r[0])),mul(z,r[3]||0));const ring=[];for(let j=0;j<n;j++){const t=2*Math.PI*j/n;ring.push(add(center,add(mul(x,r[1]*Math.cos(t)),mul(z,r[2]*Math.sin(t)))))}rings.push(ring)}
+ function facet(q,normv){if(dot(normv,cam)<-.035)return;const shade=.66+.31*Math.max(0,dot(normv,light))+.07*Math.max(0,dot(normv,cam));const color=col.map(v=>Math.max(0,Math.min(255,Math.round(v*shade+5))));faces.push({q:q.map(project),d:q.reduce((sum,p)=>sum+dot(p,cam),0)/q.length,color:'rgb('+color.join(',')+')'})}
+ for(let i=0;i<rings.length-1;i++)for(let j=0;j<n;j++){let k=(j+1)%n;const q=[rings[i][j],rings[i+1][j],rings[i+1][k],rings[i][k]];const normal=unit(cross(sub(q[1],q[0]),sub(q[3],q[0])));facet(q,normal)}
+ facet(rings[0],mul(y,-1));facet(rings[rings.length-1],y);
+}
+const lerp=(a,b,t)=>add(a,mul(sub(b,a),t));
+function segment(a,b,side,profile,col,gap=.07){form(lerp(a,b,gap),lerp(a,b,1-gap),side,profile,col)}
+function hinge(p,axis,r,w,col){const x=unit(axis);const a=add(p,mul(x,-w)),b=add(p,mul(x,w));const lateral=Math.abs(dot(x,[0,1,0]))>.9?[0,0,1]:[0,1,0];form(a,b,lateral,[[0,r*.87,r*.87],[.12,r,r],[.88,r,r],[1,r*.87,r*.87]],col)}
+function model(s,col){
+ const joint=col.map(v=>v*.70), neckCol=col.map(v=>v*.91), spine=unit(sub(s.chest,s.hips)), pelvisSide=s.hipSide;
+ const pt=(p,h)=>add(p,mul(spine,h));
+ // Pelvis block, flexible waist and ribcage, separated by visible dark seam.
+ form(pt(s.hips,-.22),pt(s.hips,.48),pelvisSide,[[0,.32,.21,.02],[.10,.46,.28],[.38,.55,.34],[.72,.51,.31],[1,.36,.25]],col);
+ form(pt(s.hips,.46),pt(s.hips,.77),s.side,[[0,.33,.23],[.18,.36,.25],[.80,.36,.24],[1,.35,.24]],joint);
+ form(pt(s.hips,.74),pt(s.hips,1.82),s.side,[[0,.35,.26],[.16,.43,.30],[.45,.53,.36,.02],[.72,.62,.33,.01],[.88,.62,.27],[1,.37,.22]],col);
+ form(s.chest,s.neck,s.side,[[0,.19,.17],[1,.16,.15]],neckCol);
+ // Head with chin, jaw, cheek, cranium; short neck connector, no separate nose ball.
+ const h0=add(s.head,mul(s.headDir,-.43)),h1=add(s.head,mul(s.headDir,.43));
+ form(h0,h1,s.side,[[0,.12,.13,.08],[.12,.23,.25,.07],[.32,.31,.31,.025],[.58,.35,.35],[.78,.31,.32,-.02],[.94,.18,.19,-.02],[1,.035,.04,-.02]],col);
+ for(let i=0;i<2;i++){
+  const a=s.arms[i],l=s.legs[i],upper=unit(sub(a[1],a[0])),lower=unit(sub(a[2],a[1])),thigh=unit(sub(l[1],l[0])),shin=unit(sub(l[2],l[1]));
+  function bendAxis(u,v,fallback){const n=cross(u,v);return norm(n)>.15?unit(n):fallback}
+  const ea=bendAxis(upper,lower,s.side),ka=bendAxis(thigh,shin,s.side);
+  hinge(a[0],s.front,.19,.15,joint);
+  segment(a[0],a[1],s.side,[[0,.18,.19],[.15,.23,.22],[.37,.21,.20],[.75,.15,.16],[1,.13,.13]],col,.11);
+  hinge(a[1],ea,.14,.13,joint);
+  segment(a[1],a[2],s.side,[[0,.14,.14],[.20,.18,.15],[.44,.16,.14],[.80,.10,.09],[1,.09,.08]],col,.09);
+  hinge(a[2],ea,.08,.09,joint);
+  const hd=lower, handEnd=add(a[2],mul(hd,.40)), handStart=add(a[2],mul(hd,.07));
+  form(handStart,handEnd,s.side,[[0,.09,.07],[.20,.125,.075],[.62,.13,.065],[.90,.10,.05],[1,.065,.035]],col);
+  const handAxes=axes(hd,s.side),thumbBase=add(lerp(handStart,handEnd,.24),mul(handAxes[0],i===0?.10:-.10));
+  form(thumbBase,add(thumbBase,add(mul(hd,.13),mul(handAxes[0],i===0?.075:-.075))),handAxes[2],[[0,.055,.05],[.75,.045,.04],[1,.025,.025]],col);
+  hinge(l[0],s.front,.23,.19,joint);
+  segment(l[0],l[1],s.side,[[0,.25,.27],[.16,.31,.31],[.40,.29,.29],[.75,.22,.23],[1,.17,.18]],col,.075);
+  hinge(l[1],ka,.17,.17,joint);
+  segment(l[1],l[2],s.side,[[0,.17,.17],[.19,.23,.23,-.04],[.40,.22,.22,-.055],[.68,.15,.15,-.03],[1,.105,.11]],col,.075);
+  hinge(l[2],s.side,.105,.10,joint);
+  // Foot points forward on standing poses; on kneeling/dynamic gestures it follows the ankle.
+  let toe=s.front;if((s.kneeling&&i===1)||s.dynamic&&shin[1]>-.65)toe=unit(add(mul(shin,.75),mul(s.front,.50)));
+  let footUp=unit(cross(toe,s.side));if(footUp[1]<0)footUp=mul(footUp,-1);
+  const heel=add(l[2],add(mul(toe,-.15),mul(footUp,-.115))),tip=add(heel,mul(toe,.69));
+  // form local x=foot width; local z points down for a forward-facing foot.
+  form(heel,tip,s.side,[[0,.10,.085,-.015],[.13,.14,.105,-.02],[.32,.13,.13,-.035],[.56,.17,.075,0],[.82,.17,.055,.01],[1,.105,.035,.01]],col);
+ }
 }
 let frame=0;function draw(){if(!frame)frame=requestAnimationFrame(()=>{frame=0;render()})}function render(){if(!people.length||!W||!H)return;const yaw=(+$('yaw').value)*(flip?-1:1)*R,pitch=+$('pitch').value*R;cam=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];right=[Math.cos(yaw),0,-Math.sin(yaw)];up=cross(cam,right);if(flip)right=mul(right,-1);light=unit(add(add(mul(right,-.5),mul(up,.9)),mul(cam,.7)));$('yv').textContent=$('yaw').value+'°';$('pv').textContent=$('pitch').value+'°';
  const points=[];people.forEach(s=>{points.push(s.hips,s.chest,add(s.head,[0,.52,0]));s.arms.forEach(a=>points.push(...a,add(a[2],mul(unit(sub(a[2],a[1])),.45))));s.legs.forEach(l=>points.push(...l,add(l[2],add(mul(s.front,.4),[0,-.25,0]))));});const xx=points.map(p=>dot(p,right)), yy=points.map(p=>dot(p,up));let xmin=Math.min(...xx)-.55,xmax=Math.max(...xx)+.55,ymin=Math.min(...yy)-.25,ymax=Math.max(...yy)+.35;scale=Math.min((W-28)/(xmax-xmin),(H-40)/(ymax-ymin))*(+$('zoom').value/100);origin=[W/2-(xmin+xmax)/2*scale,H/2+(ymin+ymax)/2*scale];ctx.clearRect(0,0,W,H);ctx.fillStyle='#faf9f7';ctx.fillRect(0,0,W,H);

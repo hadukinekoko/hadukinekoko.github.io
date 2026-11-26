@@ -7,8 +7,10 @@ select{max-width:100%;flex:1;min-width:0}.picker{display:flex;gap:8px;align-item
 const $=id=>document.getElementById(id),cv=$('cv'),R=Math.PI/180,mobile=matchMedia('(max-width:768px),(pointer:coarse)').matches;
 function fail(e){$('notice').hidden=false;$('notice').textContent='表示できません：'+(e&&e.message||e)+'。Safariで再読み込みしてください。';$('random').disabled=true}
 window.addEventListener('error',e=>fail(e.error||e.message));
-const gl=cv.getContext('webgl',{antialias:true,alpha:false,preserveDrawingBuffer:true});
-if(!gl){fail('WebGL非対応');return}
+let actualGL=null;try{actualGL=cv.getContext('webgl',{antialias:true,alpha:false,preserveDrawingBuffer:true})}catch(_){}
+const ctx2=actualGL?null:cv.getContext('2d');
+if(!actualGL&&!ctx2){fail('描画機能非対応');return}
+const gl=actualGL||new Proxy({},{get:(o,k)=>k==='getShaderParameter'||k==='getProgramParameter'?()=>true:k==='getAttribLocation'||k==='getUniformLocation'?()=>0:k==='createBuffer'||k==='createProgram'||k==='createShader'?()=>({}):typeof k==='string'&&k===k.toUpperCase()?1:()=>{}});
 const add=(a,b)=>a.map((x,i)=>x+b[i]), sub=(a,b)=>a.map((x,i)=>x-b[i]), mul=(a,n)=>a.map(x=>x*n), dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0), cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]], norm=a=>Math.hypot(...a), unit=a=>mul(a,1/(norm(a)||1)), mid=(a,b)=>mul(add(a,b),.5), rot=(p,a)=>[p[0]*Math.cos(a)+p[2]*Math.sin(a),p[1],-p[0]*Math.sin(a)+p[2]*Math.cos(a)];
 // Each limb is a pair of direction vectors, with constant anatomical segment lengths.
 const D=[0,-1,0], F=[0,-.95,.24], U=[0,1,0];
@@ -152,9 +154,26 @@ function refinePair(){
 }
 function prepare(){if(!asset)return;people.forEach(skin);refinePair();let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];for(let k=0;k<people.length;k++){let p=meshes[k].pos;for(let i=0;i<p.length;i+=3)for(let j=0;j<3;j++){min[j]=Math.min(min[j],p[i+j]);max[j]=Math.max(max[j],p[i+j])}}viewCenter=mid(min,max);viewHalf=Math.max(.57,(max[1]-min[1])*.60,Math.hypot(max[0]-min[0],max[2]-min[2])*.52)}
 function lines(data,tint){if(!data.length)return;const arr=new Float32Array(data);bindAttr(attr.pos,lineBuf,arr);bindAttr(attr.normal,lineNormal,new Float32Array(arr.length));gl.uniform3fv(u.tint,tint);gl.uniform1f(u.unlit,1);gl.drawArrays(gl.LINES,0,arr.length/3)}
+function renderCPU(side,up,front,half,aspect){
+ const w=cv.width,h=cv.height;if(!w||!h)return;const im=ctx2.createImageData(w,h),pix=im.data,zbuf=new Float32Array(w*h).fill(-Infinity),sx=w/(2*half*aspect),sy=h/(2*half);
+ for(let i=0;i<pix.length;i+=4){pix[i]=250;pix[i+1]=249;pix[i+2]=246;pix[i+3]=255}
+ for(let k=0;k<people.length;k++){
+ const m=meshes[k],p=m.pos,n=m.nor,proj=new Float32Array(asset.count*4),tint=k===0?[232,232,227]:[184,209,227],l1=unit([-.5,.8,.8]),l2=unit([.7,.1,-.5]);
+ for(let i=0,j=0;i<p.length;i+=3,j+=4){const x=p[i]-viewCenter[0],y=p[i+1]-viewCenter[1],z=p[i+2]-viewCenter[2];proj[j]=w*.5+(x*side[0]+y*side[1]+z*side[2])*sx;proj[j+1]=h*.5-(x*up[0]+y*up[1]+z*up[2])*sy;proj[j+2]=x*front[0]+y*front[1]+z*front[2];const nx=n[i],ny=n[i+1],nz=n[i+2],nn=[nx*side[0]+ny*side[1]+nz*side[2],nx*up[0]+ny*up[1]+nz*up[2],nx*front[0]+ny*front[1]+nz*front[2]];proj[j+3]=.60+.29*Math.max(0,dot(nn,l1))+.11*Math.max(0,dot(nn,l2))}
+ const ind=asset.indices;for(let i=0;i<ind.length;i+=3){const a=ind[i]*4,b=ind[i+1]*4,c=ind[i+2]*4,ax=proj[a],ay=proj[a+1],bx=proj[b],by=proj[b+1],cx=proj[c],cy=proj[c+1],den=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);if(Math.abs(den)<.0001)continue;
+ const xmin=Math.max(0,Math.floor(Math.min(ax,bx,cx))),xmax=Math.min(w-1,Math.ceil(Math.max(ax,bx,cx))),ymin=Math.max(0,Math.floor(Math.min(ay,by,cy))),ymax=Math.min(h-1,Math.ceil(Math.max(ay,by,cy)));
+ for(let y=ymin;y<=ymax;y++)for(let x=xmin;x<=xmax;x++){const u=((by-cy)*(x-cx)+(cx-bx)*(y-cy))/den,v=((cy-ay)*(x-cx)+(ax-cx)*(y-cy))/den,t=1-u-v;if(u<0||v<0||t<0)continue;const depth=u*proj[a+2]+v*proj[b+2]+t*proj[c+2],id=y*w+x;if(depth<=zbuf[id])continue;zbuf[id]=depth;const l=u*proj[a+3]+v*proj[b+3]+t*proj[c+3];pix[id*4]=tint[0]*l;pix[id*4+1]=tint[1]*l;pix[id*4+2]=tint[2]*l;}
+ }
+ }
+ ctx2.putImageData(im,0,0);
+ const screen=p=>{const d=sub(p,viewCenter);return [w*.5+dot(d,side)*sx,h*.5-dot(d,up)*sy]};
+ if($('floor').checked){ctx2.strokeStyle='#d7d3cf';ctx2.lineWidth=.6;const line=(a,b)=>{const A=screen(a),B=screen(b),steps=Math.max(1,Math.ceil(Math.hypot(B[0]-A[0],B[1]-A[1])));ctx2.beginPath();let open=false;for(let i=0;i<=steps;i++){const t=i/steps,x=A[0]+(B[0]-A[0])*t,y=A[1]+(B[1]-A[1])*t,ix=Math.round(x),iy=Math.round(y),d=dot(sub(add(a,mul(sub(b,a),t)),viewCenter),front);if(ix>=0&&ix<w&&iy>=0&&iy<h&&d>=zbuf[iy*w+ix]){if(!open){ctx2.moveTo(x,y);open=true}else ctx2.lineTo(x,y)}else open=false}ctx2.stroke()};for(let i=-6;i<=6;i++){const x=i*.15;line([x,-.005,-.9],[x,-.005,.9]);line([-.9,-.005,x],[.9,-.005,x])}}
+ if($('guides').checked){ctx2.strokeStyle='#527187';ctx2.lineWidth=1;for(let k=0;k<people.length;k++){const j=meshes[k].joints;ctx2.beginPath();asset.bones.forEach((b,i)=>{if(b[1]>=0){ctx2.moveTo(...screen(j[b[1]]));ctx2.lineTo(...screen(j[i]))}});ctx2.stroke();for(const p of j){const [x,y]=screen(p);ctx2.beginPath();ctx2.arc(x,y,2.4,0,Math.PI*2);ctx2.stroke()}}}
+ $('notice').hidden=true;
+}
 function render(){if(!asset||!people.length||!W||!H)return;gl.viewport(0,0,cv.width,cv.height);gl.clearColor(.98,.975,.965,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
  const yaw=+$('yaw').value*R,pitch=+$('pitch').value*R,front=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],side=[Math.cos(yaw),0,-Math.sin(yaw)],up=cross(front,side);
- if(flip)side.splice(0,3,...mul(side,-1));const aspect=W/H,zoom=+$('zoom').value/100;let spanX=0,spanY=0;for(let k=0;k<people.length;k++){const p=meshes[k].pos;for(let i=0;i<p.length;i+=3){const x=p[i]-viewCenter[0],y=p[i+1]-viewCenter[1],z=p[i+2]-viewCenter[2];spanX=Math.max(spanX,Math.abs(x*side[0]+y*side[1]+z*side[2]));spanY=Math.max(spanY,Math.abs(x*up[0]+y*up[1]+z*up[2]));}}const half=Math.max(spanY,spanX/aspect)*1.15/zoom;
+ if(flip)side.splice(0,3,...mul(side,-1));const aspect=W/H,zoom=+$('zoom').value/100;let spanX=0,spanY=0;for(let k=0;k<people.length;k++){const p=meshes[k].pos;for(let i=0;i<p.length;i+=3){const x=p[i]-viewCenter[0],y=p[i+1]-viewCenter[1],z=p[i+2]-viewCenter[2];spanX=Math.max(spanX,Math.abs(x*side[0]+y*side[1]+z*side[2]));spanY=Math.max(spanY,Math.abs(x*up[0]+y*up[1]+z*up[2]));}}const half=Math.max(spanY,spanX/aspect)*1.15/zoom;if(ctx2){$('yv').textContent=$('yaw').value+'°';$('pv').textContent=$('pitch').value+'°';renderCPU(side,up,front,half,aspect);return}
  gl.uniform3fv(u.center,viewCenter);gl.uniform3fv(u.side,side);gl.uniform3fv(u.up,up);gl.uniform3fv(u.front,front);gl.uniform2f(u.halfSize,half*aspect,half);$('yv').textContent=$('yaw').value+'°';$('pv').textContent=$('pitch').value+'°';
  if($('floor').checked){let l=[];for(let i=-6;i<=6;i++){let x=i*.15;l.push(x,-.005,-.9,x,-.005,.9,-.9,-.005,x,.9,-.005,x)}lines(l,[.83,.82,.80])}
  gl.uniform1f(u.unlit,0);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);for(let i=0;i<people.length;i++){const m=meshes[i];bindAttr(attr.pos,m.pbuf);bindAttr(attr.normal,m.nbuf);gl.uniform3fv(u.tint,i===0?[.91,.91,.89]:[.72,.82,.89]);gl.drawElements(gl.TRIANGLES,asset.indices.length,gl.UNSIGNED_SHORT,0)}
@@ -162,7 +181,7 @@ function render(){if(!asset||!people.length||!W||!H)return;gl.viewport(0,0,cv.wi
  $('notice').hidden=true;
 }
 function draw(){if(!frame)frame=requestAnimationFrame(()=>{frame=0;render()})}
-function resize(){const b=cv.getBoundingClientRect(),d=Math.min(mobile?1.5:2,devicePixelRatio||1);W=Math.round(b.width);H=Math.round(b.height);if(!W||!H)return;cv.width=Math.round(W*d);cv.height=Math.round(H*d);draw()}
+function resize(){const b=cv.getBoundingClientRect(),d=Math.min(ctx2?1:mobile?1.5:2,devicePixelRatio||1);W=Math.round(b.width);H=Math.round(b.height);if(!W||!H)return;cv.width=Math.round(W*d);cv.height=Math.round(H*d);draw()}
 function setMode(m){if(!ready||m===mode)return;mode=m;for(const [id,v] of [['one',1],['two',2]]){$(id).classList.toggle('active',m===v);$(id).setAttribute('aria-pressed',m===v)}choose()}
 $('one').onclick=()=>setMode(1);$('two').onclick=()=>setMode(2);$('random').onclick=()=>{if(ready)choose()};$('mirror').onclick=()=>{flip=!flip;$('mirror').setAttribute('aria-pressed',String(flip));$('mirror').classList.toggle('active',flip);draw()};$('reset').onclick=()=>{$('yaw').value=15;$('pitch').value=8;$('zoom').value=100;flip=false;$('mirror').setAttribute('aria-pressed','false');$('mirror').classList.remove('active');draw()};for(const id of ['yaw','pitch','zoom','floor','guides'])$(id).oninput=draw;
 let drag=null;cv.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY,+$('yaw').value,+$('pitch').value];try{cv.setPointerCapture(e.pointerId)}catch(_){}});cv.addEventListener('pointermove',e=>{if(!drag)return;$('yaw').value=((drag[2]+(e.clientX-drag[0])*.7+540)%360)-180;$('pitch').value=Math.max(-35,Math.min(50,drag[3]+(e.clientY-drag[1])*.45));draw()});for(const ev of ['pointerup','pointercancel','lostpointercapture'])cv.addEventListener(ev,()=>drag=null);

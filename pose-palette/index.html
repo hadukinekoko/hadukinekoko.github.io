@@ -1,0 +1,87 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Pose Palette — 立ち絵ポーズメーカー</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f7f5f2;color:#302e35;font:15px -apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif}main{max-width:850px;margin:auto;padding:18px}h1{font-size:24px;margin:0 0 3px}p{margin:0 0 14px;color:#78717b;font-size:13px}button,select{font:inherit;border:1px solid #d9d2d5;border-radius:10px;background:white;color:#38313e;padding:10px 14px;cursor:pointer}button.active{background:#ece3ee;border-color:#a88ab1;color:#61476b;font-weight:bold}button.primary{background:#695376;color:#fff;border-color:#695376;font-weight:bold;flex:1}button:active{transform:scale(.98)}.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.stage{position:relative;border:1px solid #e0dade;border-radius:14px;overflow:hidden;background:#fff}canvas{width:100%;height:clamp(360px,65vh,580px);display:block;touch-action:none}#name{position:absolute;left:12px;top:12px;background:#ffffffde;border-radius:7px;padding:6px 10px;font-size:13px;pointer-events:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.controls label{font-size:12px;color:#69626c;display:block}.controls input{width:100%;accent-color:#695376}.hint{font-size:12px;color:#77717c;margin-top:9px}button:focus-visible,input:focus-visible{outline:2px solid #856294;outline-offset:2px}@media(max-width:420px){main{padding:10px}button{padding:10px 11px}h1{font-size:21px}}
+
+select{max-width:100%;flex:1;min-width:0}.picker{display:flex;gap:8px;align-items:center;margin:0 0 10px}.picker label{font-size:13px;white-space:nowrap}.stage canvas{height:clamp(320px,60vh,580px)}@media(max-width:420px){.stage canvas{height:clamp(300px,54vh,450px)}}
+</style></head><body><main><h1>Pose Palette</h1><p>立ち絵・キャラクター制作のためのランダムポーズ</p><div class="bar"><button id="one" class="active" aria-pressed="true">1人</button><button id="two" aria-pressed="false">2人</button><button id="random" class="primary">↻ ポーズを生成</button></div><div class="picker"><label for="poseSelect">ポーズ選択</label><select id="poseSelect"></select></div><div class="stage"><canvas id="cv" aria-label="デッサン人形の3Dポーズ"></canvas><span id="name" aria-live="polite"></span></div><div class="controls"><label>横回転 <span id="yv"></span><input id="yaw" type="range" min="-180" max="180" value="15"></label><label>上下の視点 <span id="pv"></span><input id="pitch" type="range" min="-35" max="50" value="8"></label><label>拡大・縮小<input id="zoom" type="range" min="60" max="150" value="100"></label><label>表示オプション<br><input type="checkbox" id="floor" checked style="width:auto"> 床グリッド</label></div><div class="bar"><button id="mirror" aria-pressed="false">左右反転</button><button id="reset">視点リセット</button><button id="save">PNG保存</button></div><p class="hint">人形をドラッグして視点を回転。2人は色で区別できます。ポーズはあらかじめ構成した全身ポーズからランダムに選ばれます。</p></main><script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), cv=$('cv'), ctx=cv.getContext('2d'), R=Math.PI/180;
+const add=(a,b)=>a.map((x,i)=>x+b[i]), sub=(a,b)=>a.map((x,i)=>x-b[i]), mul=(a,n)=>a.map(x=>x*n), dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0), cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]], norm=a=>Math.hypot(...a), unit=a=>mul(a,1/(norm(a)||1)), mid=(a,b)=>mul(add(a,b),.5), rot=(p,a)=>[p[0]*Math.cos(a)+p[2]*Math.sin(a),p[1],-p[0]*Math.sin(a)+p[2]*Math.cos(a)];
+// Each limb is a pair of direction vectors, with constant anatomical segment lengths.
+const D=[0,-1,0], F=[0,-.95,.24], U=[0,1,0];
+const pose=(la,ra,ll=[D,F],rl=[D,F],lean=[0,0],head=[0,0])=>({la,ra,ll,rl,lean,head});
+const S=[
+['自然な立ち姿',pose([[-.17,-1,.08],[.10,-1,.12]],[[.17,-1,0],[-.08,-1,.15]])],
+['片手を腰に',pose([[-.8,-.6,0],[.9,-.42,.15]],[[.15,-1,0],[.03,-1,.12]],[[-.22,-1,0],[.08,-1,.15]],[[.22,-1,.03],[-.08,-1,.08]],[-.17,0])],
+['手を振る',pose([[-.14,-1,.06],[.1,-1,.16]],[[.82,.16,.1],[.12,1,.1]],undefined,undefined,[.08,0])],
+['考え込む',pose([[-.42,-.72,.30],[.88,.13,.24]],[[.25,-.82,.34],[-.35,.9,.36]],undefined,undefined,[-.1,.08],[-.16,.12])],
+['歩き出す',pose([[-.1,-.9,-.42],[.02,-1,-.1]],[[.1,-.8,.5],[0,-.65,.73]],[[.02,-.8,.64],[0,-.99,.03]],[[.13,-.9,-.37],[0,-.82,-.56]],[.02,.14])],
+['走る',pose([[-.13,-.3,.95],[.1,.83,.5]],[[.15,-.55,-.8],[.1,.55,.6]],[[.02,-.44,.9],[0,-.9,-.5]],[[.1,-.65,-.76],[0,.32,-.95]],[.02,.37])],
+['腕を広げる',pose([[-.98,.05,.18],[-.95,.12,.2]],[[.98,.05,.18],[.95,.12,.2]],[[-.27,-1,0],[0,-1,.08]],[[.27,-1,0],[0,-1,.08]])],
+['指し示す',pose([[-.15,-1,0],[.05,-1,.1]],[[.98,.13,.18],[.99,.08,.1]],undefined,undefined,[.13,0],[.18,0])],
+['両手を上げる',pose([[-.48,.88,0],[.1,1,.1]],[[.48,.88,0],[-.1,1,.1]],[[-.14,-1,0],[0,-1,0]],[[.14,-1,0],[0,-1,0]])],
+['警戒する',pose([[-.38,-.65,.65],[.15,.72,.7]],[[.42,-.65,.65],[-.12,.72,.7]],[[-.3,-.83,.35],[.05,-.93,-.33]],[[.34,-.9,.25],[-.02,-.95,-.3]],[0,.25])],
+['膝をつく',pose([[-.3,-.8,.5],[.1,-.8,.6]],[[.22,-1,0],[-.1,-1,.2]],[[-.10,-.23,.97],[.02,-1,-.10]],[[.2,-.98,-.1],[0,-.06,-1]],[0,.12])],
+['お辞儀',pose([[-.14,-1,.1],[.08,-1,.2]],[[.14,-1,.1],[-.08,-1,.2]],undefined,undefined,[0,.87],[0,.34])],
+['振り返る',pose([[-.18,-1,-.1],[.06,-1,.1]],[[.30,-.9,.12],[-.15,-.4,.9]],[[-.12,-1,.2],[0,-1,.02]],[[.25,-1,-.1],[0,-1,0]],[.13,.06],[-.27,-.12])],
+['跳躍',pose([[-.8,.6,.05],[-.3,.8,.1]],[[.8,.6,.05],[.3,.8,.1]],[[-.3,-.6,.74],[0,-.6,-.8]],[[.3,-.9,-.25],[0,.1,-1]],[0,.1])],
+['腕組み',pose([[-.36,-.88,.2],[.96,.13,.23]],[[.36,-.88,.2],[-.96,.25,.34]],undefined,undefined,[.08,0])],
+['片手を胸に',pose([[-.25,-.91,.15],[.35,.78,.4]],[[.12,-1,0],[-.03,-1,.1]],undefined,undefined,[-.06,.05])],
+['片足に重心',pose([[-.17,-1,.1],[.07,-1,.1]],[[.6,-.78,.08],[-.85,-.35,.1]],[[-.05,-1,0],[0,-1,0]],[[.45,-.85,.18],[-.28,-1,.12]],[-.24,0])],
+['腰を落とす',pose([[-.35,-.45,.8],[.2,.55,.8]],[[.35,-.45,.8],[-.2,.55,.8]],[[-.35,-.6,.72],[.12,-.65,-.75]],[[.35,-.6,.72],[-.12,-.65,-.75]],[0,.38])]
+];
+// Pair composition: pose index, position x/z, yaw, optional hand targets in world space.
+const conversation=pose([[-.18,-1,0],[.07,-1,.1]],[[.25,-.85,.48],[-.12,.35,.93]],undefined,undefined,[.03,0]);
+const pairs=[
+['並んで立つ', [0,-.94,0,0],[1,.94,0,0]],
+['会話する二人',[18,-1.45,0,48],[15,1.45,0,-48]],
+['手をつなぐ',[0,-.87,0,5],[0,.87,0,-5],['r','l',[0,3.65,.15]]],
+['ハイタッチ',[0,-1.04,0,10],[0,1.04,0,-10],['r','l',[0,6.12,.16]]],
+['背中合わせ',[14,-.45,-.12,-90],[1,.45,.12,90]],
+['向かい合う',[9,-1.40,0,75],[9,1.40,0,-75]],
+['一緒に歩く',[4,-.95,0,10],[4,.95,-.35,10]],
+['励ます・手を差し伸べる',[0,-1.25,0,55],[10,1.15,0,-40],['r','l',[.08,3.55,.35]]],
+['ダンスの一場面',[7,-.93,0,25],[6,.93,.15,-25],['r','l',[0,5.55,.48]]],
+['二人でポーズ',[2,-1.0,0,-8],[15,1.0,0,10]],
+['並んで警戒',[9,-1.03,0,-25],[9,1.03,.15,25]],
+['片方が振り返る',[4,-1.03,0,-15],[12,1.03,-.2,25]]
+];
+let mode=1,index=-1,flip=false, people=[], W=0,H=0,scale=1,origin=[0,0],right,up,cam, faces=[], light=unit([-.5,.9,.6]);
+const colors=[[207,179,143],[160,185,201]];
+function skeleton(p, pos, angle){
+ const h=[0,0,0], spine=unit([p.lean[0],1,p.lean[1]]), chest=mul(spine,1.67), side=[1,0,0];
+ const sh=[add(chest,[-.65,0,0]),add(chest,[.65,0,0])], hip=[[-.38,0,0],[.38,0,0]];
+ const chain=(start,ds,a,b)=>{const j=add(start,mul(unit(ds[0]),a));return [start,j,add(j,mul(unit(ds[1]),b))]};
+ const arms=[chain(sh[0],p.la,1.05,.96),chain(sh[1],p.ra,1.05,.96)], legs=[chain(hip[0],p.ll,1.65,1.58),chain(hip[1],p.rl,1.65,1.58)];
+ const headDir=unit(add(spine,[p.head[0],0,p.head[1]]));const neck=add(chest,mul(spine,.30)),head=add(neck,mul(headDir,.53));
+ let dy=.24-Math.min(legs[0][2][1],legs[1][2][1]);if(p===S[10][1])dy=Math.max(.24-legs[0][2][1],.19-legs[1][1][1]);if(p===S[13][1])dy+=.48;
+ const trans=a=>add(rot(add(a,[0,dy,0]),angle),pos);
+ return {hips:trans(h),chest:trans(chest),neck:trans(neck),head:trans(head),headDir:rot(headDir,angle),side:rot(side,angle),front:rot([0,0,1],angle),arms:arms.map(a=>a.map(trans)),legs:legs.map(a=>a.map(trans))};
+}
+function ik(s,side,target){const a=s.arms[side], root=a[0], v=sub(target,root), dist=Math.min(1.05+.96-.025,Math.max(.13,norm(v))), d=unit(v), end=add(root,mul(d,dist));const along=(1.05**2-.96**2+dist**2)/(2*dist), bend=Math.sqrt(Math.max(0,1.05**2-along**2));let b=sub([0,-1,0],mul(d,dot([0,-1,0],d)));if(norm(b)<.1)b=sub(s.front,mul(d,dot(s.front,d)));a[1]=add(add(root,mul(d,along)),mul(unit(b),bend));a[2]=end;}
+function build(){people=[];if(mode===1){people.push(skeleton(S[index][1],[0,0,0],0));$('name').textContent=S[index][0]}else{const q=pairs[index];for(const a of q.slice(1,3))people.push(skeleton(a[0]===18?conversation:S[a[0]][1],[a[1],0,a[2]],a[3]*R));if(q[3]){const [a,b,t]=q[3];const separation=unit(sub(people[1].hips,people[0].hips));ik(people[0],a==='l'?0:1,add(t,mul(separation,-.15)));ik(people[1],b==='l'?0:1,add(t,mul(separation,.15)))}$('name').textContent=q[0]}draw()}
+function updatePicker(){const list=mode===1?S:pairs;$('poseSelect').replaceChildren(...list.map((item,i)=>new Option(item[0],i)));}
+function choose(){let n=mode===1?S.length:pairs.length;let k=Math.floor(Math.random()*(n-(index>=0?1:0)));if(index>=0&&k>=index)k++;index=k;$('poseSelect').value=String(index);build()}
+function project(p){return [origin[0]+dot(p,right)*scale,origin[1]-dot(p,up)*scale]}
+function ell(c,ax,ay,az,rx,ry,rz,col){
+ const n=14,m=22, verts=[];for(let i=0;i<=n;i++){const t=-Math.PI/2+i*Math.PI/n;const ring=[];for(let j=0;j<m;j++){const f=j*2*Math.PI/m;const v=[Math.cos(t)*Math.cos(f),Math.sin(t),Math.cos(t)*Math.sin(f)];const p=add(c,add(mul(ax,v[0]*rx),add(mul(ay,v[1]*ry),mul(az,v[2]*rz))));const normal=unit(add(mul(ax,v[0]/rx),add(mul(ay,v[1]/ry),mul(az,v[2]/rz))));ring.push([p,normal])}verts.push(ring)}
+ for(let i=0;i<n;i++)for(let j=0;j<m;j++){const q=[verts[i][j],verts[i][(j+1)%m],verts[i+1][(j+1)%m],verts[i+1][j]], normal=unit(q.reduce((a,b)=>add(a,b[1]),[0,0,0]));if(dot(normal,cam)<=-.03)continue;const d=q.reduce((a,b)=>a+dot(b[0],cam),0)/4;const shade=.62+.36*Math.max(0,dot(normal,light))+.08*Math.max(0,dot(normal,cam));const color=col.map(x=>Math.min(255,Math.round(x*shade+8)));faces.push({q:q.map(v=>project(v[0])),d,color:`rgb(${color.join(',')})`})}
+}
+function axes(dir,side){let y=unit(dir),x=sub(side,mul(y,dot(side,y)));if(norm(x)<.1)x=cross(y,[0,0,1]);if(norm(x)<.1)x=cross(y,[1,0,0]);x=unit(x);return [x,y,unit(cross(x,y))]}
+function ball(p,r,col){ell(p,[1,0,0],[0,1,0],[0,0,1],r,r,r,col)}
+function bone(a,b,r,side,col,flatten=1){const ax=axes(sub(b,a),side);ell(mid(a,b),...ax,r,norm(sub(b,a))*.54,r*flatten,col)}
+function model(s,col){const ax=axes(sub(s.chest,s.hips),s.side),joint=col.map(x=>x*.88);const spine=ax[1];
+ ell(add(s.hips,mul(spine,.07)),...ax,.55,.38,.35,col);ell(add(s.hips,mul(spine,.65)),...ax,.40,.67,.30,col);ell(add(s.hips,mul(spine,1.20)),...ax,.65,.62,.38,col);
+ bone(s.chest,s.neck,.18,s.side,col);const ha=axes(s.headDir,s.side);ell(s.head,...ha,.37,.50,.36,col);ell(add(s.head,add(mul(ha[2],.33),mul(ha[1],-.06))),...ha,.09,.10,.09,col);
+ for(let i=0;i<2;i++){const a=s.arms[i],l=s.legs[i];ball(a[0],.23,joint);bone(a[0],a[1],.20,s.side,col,.95);ball(a[1],.145,joint);bone(a[1],a[2],.15,s.side,col,.92);ball(a[2],.105,joint);const hand=unit(sub(a[2],a[1]));ell(add(a[2],mul(hand,.20)),...axes(hand,s.side),.12,.25,.085,col);ball(l[0],.26,joint);bone(l[0],l[1],.28,s.side,col,.95);ball(l[1],.19,joint);bone(l[1],l[2],.20,s.side,col,.9);ball(l[2],.12,joint);const shin=unit(sub(l[2],l[1]));const toe=shin[1]>-.35?unit(add(shin,[0,-.65,0])):s.front;const fside=unit(cross([0,1,0],toe));const fup=unit(cross(toe,fside));const foot=add(l[2],add(mul(toe,.17),[0,-.10,0]));ell(foot,fside,fup,toe,.15,.13,.31,col)}
+}
+function draw(){if(!people.length||!W||!H)return;const yaw=(+$('yaw').value)*(flip?-1:1)*R,pitch=+$('pitch').value*R;cam=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];right=[Math.cos(yaw),0,-Math.sin(yaw)];up=cross(cam,right);if(flip)right=mul(right,-1);light=unit(add(add(mul(right,-.5),mul(up,.9)),mul(cam,.7)));$('yv').textContent=$('yaw').value+'°';$('pv').textContent=$('pitch').value+'°';
+ const points=people.flatMap(s=>[s.hips,s.chest,add(s.head,[0,.52,0]),...s.arms.flat(),...s.arms.map(a=>add(a[2],mul(unit(sub(a[2],a[1])),.45))),...s.legs.flat(),...s.legs.map(l=>add(l[2],add(mul(s.front,.4),[0,-.25,0])))]);const xx=points.map(p=>dot(p,right)), yy=points.map(p=>dot(p,up));let xmin=Math.min(...xx)-.55,xmax=Math.max(...xx)+.55,ymin=Math.min(...yy)-.25,ymax=Math.max(...yy)+.35;scale=Math.min((W-28)/(xmax-xmin),(H-40)/(ymax-ymin))*(+$('zoom').value/100);origin=[W/2-(xmin+xmax)/2*scale,H/2+(ymin+ymax)/2*scale];ctx.clearRect(0,0,W,H);ctx.fillStyle='#faf9f7';ctx.fillRect(0,0,W,H);
+ if($('floor').checked){ctx.strokeStyle='#e6e0df';ctx.lineWidth=.7;for(let i=-5;i<=5;i++){for(const [a,b] of [[[i,0,-5],[i,0,5]],[[-5,0,i],[5,0,i]]]){const p=project(a),q=project(b);ctx.beginPath();ctx.moveTo(...p);ctx.lineTo(...q);ctx.stroke()}}}
+ faces=[];people.forEach((s,i)=>model(s,colors[i]));faces.sort((a,b)=>a.d-b.d);for(const f of faces){ctx.beginPath();ctx.moveTo(...f.q[0]);for(const v of f.q.slice(1))ctx.lineTo(...v);ctx.closePath();ctx.fillStyle=f.color;ctx.strokeStyle=f.color;ctx.lineWidth=.55;ctx.fill();ctx.stroke()}
+}
+function resize(){const b=cv.getBoundingClientRect(),d=Math.min(3,devicePixelRatio||1);W=b.width;H=b.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);draw()}
+function setMode(m){if(mode===m)return;mode=m;index=-1;updatePicker();for(const [id,v] of [['one',1],['two',2]]){$(id).classList.toggle('active',m===v);$(id).setAttribute('aria-pressed',m===v)}choose()}
+$('poseSelect').onchange=()=>{index=Number($('poseSelect').value);build()};$('one').onclick=()=>setMode(1);$('two').onclick=()=>setMode(2);$('random').onclick=choose;$('mirror').onclick=()=>{flip=!flip;$('mirror').setAttribute('aria-pressed',String(flip));$('mirror').classList.toggle('active',flip);draw()};$('reset').onclick=()=>{$('yaw').value=15;$('pitch').value=8;$('zoom').value=100;flip=false;$('mirror').setAttribute('aria-pressed','false');$('mirror').classList.remove('active');draw()};for(const id of ['yaw','pitch','zoom','floor'])$(id).oninput=draw;
+let drag=null;cv.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY,+$('yaw').value,+$('pitch').value];cv.setPointerCapture(e.pointerId)});cv.addEventListener('pointermove',e=>{if(!drag)return;$('yaw').value=((drag[2]+(e.clientX-drag[0])*.7+540)%360)-180;$('pitch').value=Math.max(-35,Math.min(50,drag[3]+(e.clientY-drag[1])*.45));draw()});for(const ev of ['pointerup','pointercancel','lostpointercapture'])cv.addEventListener(ev,()=>drag=null);
+$('save').onclick=()=>{const a=document.createElement('a');a.download='pose-'+(mode===1?'solo':'duo')+'-'+(index+1)+'.png';a.href=cv.toDataURL('image/png');a.click()};if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(cv);else window.addEventListener('resize',resize);updatePicker();choose();resize();
+})();</script></body></html>
